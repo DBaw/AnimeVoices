@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="Background" Color="#0E273C"/>
+    
+    <SolidColorBrush x:Key="PrimaryColor" Color="#1B507A"/>
+    <SolidColorBrush x:Key="OnPrimaryColor" Color="#F0F0F0"/>
+
+    <SolidColorBrush x:Key="SecondaryColor" Color="#E5E796"/>
+    <SolidColorBrush x:Key="OnSecondaryColor" Color="#1F1F1F"/>
+
+    <SolidColorBrush x:Key="HeaderColor" Color="#276FA8"/>
+    <SolidColorBrush x:Key="OnHeaderColor" Color="#F0F0F0"/>
+
+    <SolidColorBrush x:Key="ItemColor" Color="#E5E796"/>
+    <SolidColorBrush x:Key="OnItemColor" Color="#1F1F1F"/>
+
+    <SolidColorBrush x:Key="OnHoverItemColor" Color="#EDEEB7"/>
+    <SolidColorBrush x:Key="OnClickItemColor" Color="#629CCA"/>
+
+    <SolidColorBrush x:Key="OnHoverButtonColor" Color="LightYellow"/>
+    <SolidColorBrush x:Key="OnClickButtonColor" Color="LightYellow"/>
+</ResourceDictionary>

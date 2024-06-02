@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Define the ControlTemplate for the TextBox -->
+    <ControlTemplate x:Key="TB_Template" TargetType="TextBox">
+        <Border Background="{DynamicResource SecondaryColor}" 
+                BorderBrush="Transparent" 
+                BorderThickness="0"
+                Padding="4" 
+                CornerRadius="4"
+                Height="{TemplateBinding Height}"
+                Width="{TemplateBinding Width}">
+            <Grid>
+                <TextBox x:Name="InnerTextBox"
+                         Text="{Binding Text, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"
+                         HorizontalContentAlignment="Center"
+                         VerticalContentAlignment="Center"
+                         Foreground="{DynamicResource OnSecondaryColor}"
+                         Background="{TemplateBinding Background}"
+                         BorderThickness="0"
+                         FontSize="18"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <!-- Define a Style with a key for the TextBox -->
+    <Style x:Key="TB_Style" TargetType="TextBox">
+        <Setter Property="Template" Value="{StaticResource TB_Template}" />
+        <Setter Property="Foreground" Value="{DynamicResource OnSecondaryColor}" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryColor}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsFocused, ElementName=InnerTextBox}" Value="false">
+                <Setter Property="Text" Value="S"/>
+                <Setter Property="Background" Value="White"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsFocused, ElementName=InnerTextBox}" Value="true">
+                <Setter Property="Text" Value=""/>
+                <Setter Property="Background" Value="Red"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

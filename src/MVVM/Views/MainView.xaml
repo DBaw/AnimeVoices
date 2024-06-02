@@ -1,0 +1,146 @@
+﻿<Window x:Class="AnimeVoices.MVVM.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnimeVoices.MVVM.Views"
+        mc:Ignorable="d"        
+        x:Name="MainViewxd" 
+        Title="AnimeVoices" 
+        Height="400" 
+        Width="900" 
+        ResizeMode="NoResize"
+        WindowStyle="None" 
+        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+        Background="Transparent">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Resources/TextBox.xaml" />
+                <ResourceDictionary Source="../../Resources/ListView.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+
+    <Border Background="{DynamicResource Background}">
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Grid Grid.Column="1">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0"
+                          Margin="10">
+                        <Button x:Name="ChangeTheme_btn"
+                                Background="{DynamicResource PrimaryColor}" 
+                                Foreground="{DynamicResource OnPrimaryColor}" 
+                                Content="Swich Theme"
+                                Click="ChangeTheme_btn_Click"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1"
+                          Margin="0 30 0 0">
+                        <TextBox x:Name="Search_tb"
+                                 Style="{StaticResource TB_Style}"
+                                 Text="Search"/>
+                    </Grid>
+
+
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1"/>
+                </Grid.ColumnDefinitions>
+                
+                <ListView x:Name="Animes_lv"
+                          Grid.Column="1"
+                          Style="{StaticResource CustomListViewStyle}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
+                    <ListView.View>
+                        <GridView>
+                            <!-- Define your columns here -->
+                            <GridViewColumn Width="200"/>
+                        </GridView>
+                    </ListView.View>
+                    <!-- Add your ListViewItems here -->
+                    <ListViewItem Content="Anime 1" />
+                    <ListViewItem Content="Anime 2" />
+                    <ListViewItem Content="Anime 3" />
+                </ListView>
+
+                <ListView x:Name="Characters_lv"
+                          Grid.Column="3"
+                          Style="{StaticResource CustomListViewStyle}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
+                    <ListView.View>
+                        <GridView>
+                            <!-- Define your columns here -->
+                            <GridViewColumn Width="200"/>
+                        </GridView>
+                    </ListView.View>
+                    <!-- Add your ListViewItems here -->
+                    <ListViewItem Content="Character 1" />
+                    <ListViewItem Content="Character 2" />
+                    <ListViewItem Content="Character 3" />
+                    <ListViewItem Content="Character 4" />
+                    <ListViewItem Content="Character 5" />
+                </ListView>
+
+                <ListView x:Name="SameActorCharacters_lv"
+                          Grid.Column="5"
+                          Style="{StaticResource CustomListViewStyle}"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
+                    <ListView.View>
+                        <GridView>
+                            <!-- Define your columns here -->
+                            <GridViewColumn Width="200"/>
+                        </GridView>
+                    </ListView.View>
+                    <!-- Add your ListViewItems here -->
+                    <ListViewItem Content="Same Actor Char 1" />
+                    <ListViewItem Content="Same Actor Char 2" />
+                </ListView>
+
+            </Grid>
+
+        </Grid>
+
+
+    </Border>
+</Window>
