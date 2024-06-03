@@ -20,4 +20,10 @@
 
     <SolidColorBrush x:Key="OnHoverButtonColor" Color="LightYellow"/>
     <SolidColorBrush x:Key="OnClickButtonColor" Color="LightYellow"/>
+
+    <SolidColorBrush x:Key="ExitButtonColor" Color="DarkRed"/>
+    <SolidColorBrush x:Key="OnExitButtonColor" Color="LightYellow"/>
+
+    <SolidColorBrush x:Key="MinimizeButtonColor" Color="Yellow"/>
+    <SolidColorBrush x:Key="OnMinimizeButtonColor" Color="Black"/>
 </ResourceDictionary>
