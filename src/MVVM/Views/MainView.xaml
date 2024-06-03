@@ -20,6 +20,7 @@
                 <ResourceDictionary Source="../../Resources/TextBox.xaml" />
                 <ResourceDictionary Source="../../Resources/ListView.xaml" />
                 <ResourceDictionary Source="../../Resources/Switch.xaml" />
+                <ResourceDictionary Source="../../Resources/Button.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -100,7 +101,9 @@
 
                     <Grid Grid.Row="0"
                           Margin="10">
-
+                        <Button x:Name="GetMoreAnime_btn"
+                                Content="Get More Anime"
+                                Style="{StaticResource CustomButtonStyle}"/>
                     </Grid>
 
                     <Grid Grid.Row="1"
@@ -134,7 +137,7 @@
                     <ListView.View>
                         <GridView>
                             <!-- Define your columns here -->
-                            <GridViewColumn Width="200"/>
+                            <GridViewColumn Width="200" Header="Anime"/>
                         </GridView>
                     </ListView.View>
                     <!-- Add your ListViewItems here -->
@@ -151,7 +154,7 @@
                     <ListView.View>
                         <GridView>
                             <!-- Define your columns here -->
-                            <GridViewColumn Width="200"/>
+                            <GridViewColumn Width="200" Header="Characters"/>
                         </GridView>
                     </ListView.View>
                     <!-- Add your ListViewItems here -->
@@ -170,7 +173,7 @@
                     <ListView.View>
                         <GridView>
                             <!-- Define your columns here -->
-                            <GridViewColumn Width="200"/>
+                            <GridViewColumn Width="200" Header="Same Actor Character"/>
                         </GridView>
                     </ListView.View>
                     <!-- Add your ListViewItems here -->

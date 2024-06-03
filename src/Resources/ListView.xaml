@@ -17,7 +17,7 @@
                             </Grid.RowDefinitions>
                             <!-- Header TextBlock -->
                             <TextBlock Grid.Row="0" 
-                                       Text="Header" 
+                                       Text="{Binding Path=View.Columns[0].Header, RelativeSource={RelativeSource TemplatedParent}}"
                                        Background="{DynamicResource HeaderColor}" 
                                        Foreground="{DynamicResource OnHeaderColor}" 
                                        FontWeight="Bold" 
