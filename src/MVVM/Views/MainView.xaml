@@ -4,188 +4,37 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AnimeVoices.MVVM.Views"
-        mc:Ignorable="d"        
-        x:Name="MainViewxd" 
-        Title="AnimeVoices" 
+        xmlns:viewModel="clr-namespace:AnimeVoices.MVVM.ViewModels"
+        mc:Ignorable="d"
+        Title="AnimeVoices"
         Height="400" 
         Width="900" 
         ResizeMode="NoResize"
         WindowStyle="None" 
         ScrollViewer.VerticalScrollBarVisibility="Hidden"
+        AllowsTransparency="True"
         Background="Transparent">
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../../Resources/TextBox.xaml" />
-                <ResourceDictionary Source="../../Resources/ListView.xaml" />
-                <ResourceDictionary Source="../../Resources/Switch.xaml" />
-                <ResourceDictionary Source="../../Resources/Button.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
-
-    <Border Background="{DynamicResource Background}">
+    <Border Background="{DynamicResource Background}"
+            CornerRadius="20">
         <Grid>
-
             <Grid.RowDefinitions>
-                <RowDefinition Height="25"/>
-                <RowDefinition Height="120"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="200"/>
                 </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="1"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Right" 
-                            VerticalAlignment="Stretch"
-                            Margin="8,0,0,0"
-                            Background="Transparent">
-                    <StackPanel.Resources>
-                        <Style TargetType="{x:Type Button}">
-                            <Setter Property="Margin" Value="5,0,0,0"/>
-                        </Style>
-                    </StackPanel.Resources>
-                    
-                    <CheckBox x:Name="ChangeTheme_chbx"
-                                  Style="{StaticResource SwitchCheckBoxStyle}"
-                                  Background="{DynamicResource PrimaryColor}" 
-                                  Foreground="{DynamicResource OnPrimaryColor}" 
-                                  Content="Theme"
-                                  Margin="0,0,15,0"
-                                  Click="ChangeTheme_btn_Click"/>
-                    <Button x:Name="Minimize_btn"
-                            Content="_"
-                            Width="25"
-                            Background="{DynamicResource MinimizeButtonColor}"
-                            Foreground="{DynamicResource OnMinimizeButtonColor}"
-                            HorizontalContentAlignment="Center"
-                            VerticalAlignment="Center" Click="Minimize_btn_Click"
-                            />
-                    <Button x:Name="Exit_btn"
-                            Content="X"
-                            Width="25"
-                            Background="{DynamicResource ExitButtonColor}"
-                            Foreground="{DynamicResource OnExitButtonColor}"
-                            HorizontalContentAlignment="Center"
-                            VerticalAlignment="Center" Click="Exit_btn_Click"/>
-                </StackPanel>
+                
                 
             </Grid>
 
-            <Grid Grid.Row="1">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="1"/>
-                </Grid.ColumnDefinitions>
-
-
-                <Grid Grid.Column="1">
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0"
-                          Margin="10">
-                        <Button x:Name="GetMoreAnime_btn"
-                                Content="Get More Anime"
-                                Style="{StaticResource CustomButtonStyle}"/>
-                    </Grid>
-
-                    <Grid Grid.Row="1"
-                          Margin="0 30 0 0">
-                        <TextBox x:Name="Search_tb"
-                                 Style="{StaticResource TB_Style}"
-                                 Text="Search"/>
-                    </Grid>
-
-
-
-                </Grid>
-            </Grid>
-
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="5"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="1"/>
-                </Grid.ColumnDefinitions>
-
-                <ListView x:Name="Animes_lv"
-                          Grid.Column="1"
-                          Style="{StaticResource CustomListViewStyle}"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <!-- Define your columns here -->
-                            <GridViewColumn Width="200" Header="Anime"/>
-                        </GridView>
-                    </ListView.View>
-                    <!-- Add your ListViewItems here -->
-                    <ListViewItem Content="Anime 1" />
-                    <ListViewItem Content="Anime 2" />
-                    <ListViewItem Content="Anime 3" />
-                </ListView>
-
-                <ListView x:Name="Characters_lv"
-                          Grid.Column="3"
-                          Style="{StaticResource CustomListViewStyle}"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <!-- Define your columns here -->
-                            <GridViewColumn Width="200" Header="Characters"/>
-                        </GridView>
-                    </ListView.View>
-                    <!-- Add your ListViewItems here -->
-                    <ListViewItem Content="Character 1" />
-                    <ListViewItem Content="Character 2" />
-                    <ListViewItem Content="Character 3" />
-                    <ListViewItem Content="Character 4" />
-                    <ListViewItem Content="Character 5" />
-                </ListView>
-
-                <ListView x:Name="SameActorCharacters_lv"
-                          Grid.Column="5"
-                          Style="{StaticResource CustomListViewStyle}"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                    <ListView.View>
-                        <GridView>
-                            <!-- Define your columns here -->
-                            <GridViewColumn Width="200" Header="Same Actor Character"/>
-                        </GridView>
-                    </ListView.View>
-                    <!-- Add your ListViewItems here -->
-                    <ListViewItem Content="Same Actor Char 1" />
-                    <ListViewItem Content="Same Actor Char 2" />
-                </ListView>
-
-            </Grid>
-            <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="1009,23,0,0" Grid.Row="2" VerticalAlignment="Top"/>
+            <ContentControl Grid.Row="1"
+                            Content="{Binding CurrentView}"/>
 
         </Grid>
-
-
     </Border>
 </Window>
