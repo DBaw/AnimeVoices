@@ -17,17 +17,15 @@
                     VerticalAlignment="Top"
                     Margin="40,80,0,0">
 
-            <Label Content="AnimceVoices"
-                   Foreground="{DynamicResource OnBackground}"
+            <Label Content="AnimeVoices"
+                   Foreground="{DynamicResource AppTitle}"
                    FontSize="32"
                    FontWeight="Bold"/>
-            <Label Content="Find your favourite character voice"
+            <Label Content="Find voice of your favorite character"
                    Foreground="{DynamicResource OnBackground}"
                    FontSize="28"
                    FontWeight="SemiBold"/>
             <Button Content="Start"
-                    FontSize="18"
-                    FontWeight="SemiBold"
                     Width="300"
                     Height="50"
                     Margin="0,35,0,0"
