@@ -23,30 +23,46 @@
             <ScrollViewer Grid.Row="1"
                           VerticalScrollBarVisibility="Auto" 
                           HorizontalScrollBarVisibility="Hidden">
-                    <StackPanel Name="myStackPanel">
-                        <ItemsControl ItemsSource="{Binding Animes}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <RadioButton Content="{Binding Path=Title}"
-                                                 Style="{StaticResource AnimeListItemStyle}"
-                                                 GroupName="AnimesList" 
-                                                 Command="{Binding SelectAnimeCommand}"/>
+                <StackPanel Name="myStackPanel">
+                    <ItemsControl ItemsSource="{Binding Animes}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Content="{Binding Path=Title}"
+                                             Style="{StaticResource AnimeListItemStyle}"
+                                             GroupName="AnimesList" 
+                                             Command="{Binding DataContext.SelectAnimeCommand, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                             CommandParameter="{Binding}"/>
                                 </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
-        
-        <StackPanel Grid.Column="1"
-                    Orientation="Vertical"
-                    VerticalAlignment="Center">
-            <Label Content="Voices View"
-                   FontSize="24"
-                   Foreground="White"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-            <Button Content="Back To Home"
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <ScrollViewer Grid.Row="0"
+                          VerticalScrollBarVisibility="Auto" 
+                          HorizontalScrollBarVisibility="Hidden">
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding Characters}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Content="{Binding Path=Name}"
+                                 Style="{StaticResource AnimeListItemStyle}"
+                                 GroupName="AnimesList"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
+            
+            <Button Grid.Row="1" 
+                    Content="Back To Home"
                     Width="200"
                     Height="50"
                     Command="{Binding GoToHomeCommand}"/>
@@ -54,7 +70,9 @@
                    Width="300"
                    Height="50"
                    Foreground="White"/>
+            
+        </Grid>
 
-        </StackPanel>
+
     </Grid>
 </UserControl>

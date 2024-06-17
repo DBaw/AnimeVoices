@@ -1,13 +1,15 @@
 ﻿using AnimeVoices.Core;
 using AnimeVoices.Services;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace AnimeVoices.MVVM.ViewModels
 {
     public class VoicesViewModel : BaseViewModel
     {
         public RelayCommand GoToHomeCommand { get; set; }
-        public RelayCommand SelectAnimeCommand { get; set; }
+        public RelayCommandParam<Anime> SelectAnimeCommand { get; set; }
         public string Debug {  get; set; }
 
 
@@ -25,6 +27,20 @@ namespace AnimeVoices.MVVM.ViewModels
             }
         }
 
+        private ObservableCollection<Character> _characters;
+        public ObservableCollection<Character> Characters
+        {
+            get { return _characters; }
+            set
+            {
+                if (_characters != value)
+                {
+                    _characters = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public VoicesViewModel(INavigationService navigationService)
         {
             NavigationService = navigationService;
@@ -34,29 +50,28 @@ namespace AnimeVoices.MVVM.ViewModels
                 GoToHomeView();
             });
 
-            SelectAnimeCommand = new RelayCommand(o => {
-                SelectAnime();
-            });
+            SelectAnimeCommand = new RelayCommandParam<Anime>(SelectCharacters);
 
             Animes = new ObservableCollection<Anime>
             {
-                new Anime("Naruto"),
-                new Anime("Bleach"),
-                new Anime("Dragon Ball"),
-                new Anime("Kimetsu No Yaiba"),
-                new Anime("Noragami"),
-                new Anime("One Piece"),
-                new Anime("Boku No Hero Academia"),
-                new Anime("Kaiju No 8"),
-                new Anime("Solo Leveling"),
-                new Anime("Death Note"),
-                new Anime("Dragon Ball Z"),
-                new Anime("Boruto"),
-                new Anime("Hellsing"),
-                new Anime("One-Punch Man"),
-                new Anime("Tokyo Ghul"),
-                new Anime("Mashle"),
+                new Anime(0, "Naruto", new List<Character>(){new Character("Naruto"),new Character("Sasuke")} ),
+                new Anime(1, "Bleach", new List<Character>(){new Character("Ichigo"),new Character("Rukia"),new Character("Ishida")} ),
+                new Anime(2, "Dragon Ball", new List<Character>(){new Character("Goku"),new Character("Vegeta")} ),
+                new Anime(3, "Kimetsu No Yaiba", new List<Character>(){new Character("Tanjiro"),new Character("Nezuko")} ),
+                new Anime(4, "Noragami", new List<Character>(){new Character("Yato"),new Character("Yukine"), new Character("Hiyori") } ),
+                new Anime(5, "One Piece", new List<Character>(){new Character("Luffy")} ),
+                new Anime(6, "Boku No Hero Academia", new List<Character>(){new Character("Naruto"),new Character("Sasuke")} ),
+                new Anime(7, "Kaiju No 8", new List<Character>(){new Character("Kafka"),new Character("Mina"), new Character("Reno") } ),
+                new Anime(8, "Solo Leveling", new List<Character>(){new Character("Sung")} ),
+                new Anime(9, "Death Note", new List<Character>(){new Character("Yagami Light"),new Character("L")} ),
+                new Anime(10, "Dragon Ball Z", new List<Character>(){new Character("Goku"),new Character("Vegeta")} ),
+                new Anime(11, "Boruto", new List<Character>(){ new Character("Boruto"), new Character("Naruto"),new Character("Sasuke")} ),
+                new Anime(12, "Hellsing", new List < Character >() { new Character("Allucard"), new Character("Integra") }),
+                new Anime(13, "One-Punch Man", new List < Character >() { new Character("Saitama"), new Character("Genos") }),
+                new Anime(14, "Tokyo Ghul", new List < Character >() { new Character("Kaneki"), new Character("Touka"), new Character("Amon") }),
+                new Anime(15, "Mashle", new List < Character >() { new Character("Mashle"), new Character("Lemon") }),
             };
+            Characters = new ObservableCollection<Character>();
             Debug = "deug";
         }
 
@@ -65,9 +80,18 @@ namespace AnimeVoices.MVVM.ViewModels
             NavigationService.NavigateTo<HomeViewModel>();
         }
 
-        private void SelectAnime()
+        private void SelectCharacters(Anime selectedAnime)
         {
-
+            Characters.Clear();
+            foreach(Anime anime in Animes)
+            {
+                if(selectedAnime.Title == anime.Title)
+                {
+                    Characters = new ObservableCollection<Character>(anime.Characters);
+                    break;
+                }
+            }
+            Debug = Characters.ToArray().Length.ToString();
         }
     }
 }

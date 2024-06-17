@@ -60,6 +60,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\BaseViewModel.cs" />
+    <Compile Include="Core\RelayCommandParam.cs" />
     <Compile Include="MVVM\Models\Actor.cs" />
     <Compile Include="MVVM\Models\Anime.cs" />
     <Compile Include="MVVM\Models\Character.cs" />
