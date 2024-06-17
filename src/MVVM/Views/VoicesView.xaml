@@ -27,7 +27,7 @@
                         <ItemsControl ItemsSource="{Binding Animes}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <RadioButton Content="{Binding}"
+                                    <RadioButton Content="{Binding Path=Title}"
                                                  Style="{StaticResource AnimeListItemStyle}"
                                                  GroupName="AnimesList" 
                                                  Command="{Binding SelectAnimeCommand}"/>

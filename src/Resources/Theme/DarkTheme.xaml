@@ -11,13 +11,13 @@
 
     <SolidColorBrush x:Key="AnimeItemBackground" Color="#272537"/>
     <SolidColorBrush x:Key="OnAnimeItem" Color="#E3F4F5"/>
-    <SolidColorBrush x:Key="ClickAnimeItem" Color="#22202f"/>
-    <SolidColorBrush x:Key="HoverOnAnimeItem" Color="Red"/>
+    <SolidColorBrush x:Key="ClickAnimeItem" Color="#415761"/>
+    <SolidColorBrush x:Key="HoverOnAnimeItem" Color="#547B7F"/>
 
-    <Color x:Key="DefaultButtonBackgroundOne">#68AEAD</Color>
-    <Color x:Key="DefaultButtonBackgroundTwo">#6EB4B0</Color>
-    <Color x:Key="HoverOnDefaultButtonOne">#6EB4B0</Color>
-    <Color x:Key="HoverOnDefaultButtonTwo">#73B7B1</Color>
+    <Color x:Key="DefaultButtonBackgroundOne">#49666E</Color>
+    <Color x:Key="DefaultButtonBackgroundTwo">#49666E</Color>
+    <Color x:Key="HoverOnDefaultButtonOne">#51767A</Color>
+    <Color x:Key="HoverOnDefaultButtonTwo">#547B7F</Color>
     <SolidColorBrush x:Key="OnDefaultButton" Color="#F3ECFF"/>
 
     <SolidColorBrush x:Key="ExitButtonColor" Color="DarkRed"/>

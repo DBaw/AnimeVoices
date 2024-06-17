@@ -11,8 +11,8 @@ namespace AnimeVoices.MVVM.ViewModels
         public string Debug {  get; set; }
 
 
-        private ObservableCollection<string> _aniems;
-        public ObservableCollection<string> Animes
+        private ObservableCollection<Anime> _aniems;
+        public ObservableCollection<Anime> Animes
         {
             get { return _aniems; }
             set
@@ -38,24 +38,24 @@ namespace AnimeVoices.MVVM.ViewModels
                 SelectAnime();
             });
 
-            Animes = new ObservableCollection<string>
+            Animes = new ObservableCollection<Anime>
             {
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
-                "Item 1",
-                "Item 2",
-                "Item 3",
-                "Item 4",
+                new Anime("Naruto"),
+                new Anime("Bleach"),
+                new Anime("Dragon Ball"),
+                new Anime("Kimetsu No Yaiba"),
+                new Anime("Noragami"),
+                new Anime("One Piece"),
+                new Anime("Boku No Hero Academia"),
+                new Anime("Kaiju No 8"),
+                new Anime("Solo Leveling"),
+                new Anime("Death Note"),
+                new Anime("Dragon Ball Z"),
+                new Anime("Boruto"),
+                new Anime("Hellsing"),
+                new Anime("One-Punch Man"),
+                new Anime("Tokyo Ghul"),
+                new Anime("Mashle"),
             };
             Debug = "deug";
         }

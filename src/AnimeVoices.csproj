@@ -60,6 +60,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\BaseViewModel.cs" />
+    <Compile Include="MVVM\Models\Actor.cs" />
+    <Compile Include="MVVM\Models\Anime.cs" />
+    <Compile Include="MVVM\Models\Character.cs" />
     <Compile Include="MVVM\ViewModels\VoicesViewModel.cs" />
     <Compile Include="MVVM\Views\VoicesView.xaml.cs">
       <DependentUpon>VoicesView.xaml</DependentUpon>
@@ -144,8 +147,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MVVM\Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
