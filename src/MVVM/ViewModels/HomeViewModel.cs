@@ -1,5 +1,6 @@
 ﻿using AnimeVoices.Core;
 using AnimeVoices.Services;
+using System.Collections.ObjectModel;
 
 namespace AnimeVoices.MVVM.ViewModels
 {

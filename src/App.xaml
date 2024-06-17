@@ -13,6 +13,8 @@
                 <ResourceDictionary Source="Resources/MenuButtonStyle.xaml"/>
                 <ResourceDictionary Source="Resources/SearchTextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/DefaultButtonStyle.xaml"/>
+                <ResourceDictionary Source="Resources/AnimeListItemStyle.xaml"/>
+                <ResourceDictionary Source="Resources/AnimeListStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
 

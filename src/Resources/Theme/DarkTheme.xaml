@@ -9,8 +9,10 @@
     <SolidColorBrush x:Key="OnSearchTextBoxEnabled" Color="#CFCFCF"/>
     <SolidColorBrush x:Key="OnSearchTextBoxDisabled" Color="DarkGray"/>
 
-    <SolidColorBrush x:Key="ClickMenuButton" Color="#22202f"/>
-    <SolidColorBrush x:Key="HoverOnMenuItem" Color="#302740"/>
+    <SolidColorBrush x:Key="AnimeItemBackground" Color="#272537"/>
+    <SolidColorBrush x:Key="OnAnimeItem" Color="#E3F4F5"/>
+    <SolidColorBrush x:Key="ClickAnimeItem" Color="#22202f"/>
+    <SolidColorBrush x:Key="HoverOnAnimeItem" Color="Red"/>
 
     <Color x:Key="DefaultButtonBackgroundOne">#68AEAD</Color>
     <Color x:Key="DefaultButtonBackgroundTwo">#6EB4B0</Color>
