@@ -2,14 +2,16 @@
 using AnimeVoices.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace AnimeVoices.MVVM.ViewModels
 {
     public class VoicesViewModel : BaseViewModel
     {
+        private readonly IAnimeRepository _animeRepository;
+
         public RelayCommand GoToHomeCommand { get; set; }
         public RelayCommandParam<Anime> SelectAnimeCommand { get; set; }
+        public RelayCommandParam<Character> SelectCharacterCommand { get; set; }
         public string Debug {  get; set; }
 
 
@@ -41,9 +43,22 @@ namespace AnimeVoices.MVVM.ViewModels
             }
         }
 
-        public VoicesViewModel(INavigationService navigationService)
+        private ObservableCollection<Character> _sameCharacters;
+        public ObservableCollection<Character> SameCharacters
+        {
+            get { return _sameCharacters; }
+            set 
+            {
+                _sameCharacters = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public VoicesViewModel(INavigationService navigationService, IAnimeRepository animeRepository)
         {
             NavigationService = navigationService;
+            _animeRepository = animeRepository;
 
             GoToHomeCommand = new RelayCommand(o =>
             {
@@ -60,7 +75,7 @@ namespace AnimeVoices.MVVM.ViewModels
                 new Anime(3, "Kimetsu No Yaiba", new List<Character>(){new Character("Tanjiro"),new Character("Nezuko")} ),
                 new Anime(4, "Noragami", new List<Character>(){new Character("Yato"),new Character("Yukine"), new Character("Hiyori") } ),
                 new Anime(5, "One Piece", new List<Character>(){new Character("Luffy")} ),
-                new Anime(6, "Boku No Hero Academia", new List<Character>(){new Character("Naruto"),new Character("Sasuke")} ),
+                new Anime(6, "Boku No Hero Academia", new List<Character>(){new Character("Midorya"),new Character("Bakugo"), new Character("All For One"), new Character("Uraraka") } ),
                 new Anime(7, "Kaiju No 8", new List<Character>(){new Character("Kafka"),new Character("Mina"), new Character("Reno") } ),
                 new Anime(8, "Solo Leveling", new List<Character>(){new Character("Sung")} ),
                 new Anime(9, "Death Note", new List<Character>(){new Character("Yagami Light"),new Character("L")} ),
@@ -72,7 +87,7 @@ namespace AnimeVoices.MVVM.ViewModels
                 new Anime(15, "Mashle", new List < Character >() { new Character("Mashle"), new Character("Lemon") }),
             };
             Characters = new ObservableCollection<Character>();
-            Debug = "deug";
+            Debug = "debug";
         }
 
         private void GoToHomeView()
@@ -91,7 +106,6 @@ namespace AnimeVoices.MVVM.ViewModels
                     break;
                 }
             }
-            Debug = Characters.ToArray().Length.ToString();
         }
     }
 }

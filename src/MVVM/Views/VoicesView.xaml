@@ -66,10 +66,13 @@
                     Width="200"
                     Height="50"
                     Command="{Binding GoToHomeCommand}"/>
-            <Label Content="{Binding Debug}"
+            <Label Grid.Row="1"
+                   Content="{Binding Debug}"
                    Width="300"
                    Height="50"
-                   Foreground="White"/>
+                   Foreground="White"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"/>
             
         </Grid>
 
