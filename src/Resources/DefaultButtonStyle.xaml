@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Button Style -->
+    <Style TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border x:Name="Border"
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="0" 
+                                CornerRadius="5">
+                            
+                                <Border.Background>
+                                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.2,0.15" RadiusX="0.85" RadiusY="0.85">
+                                        <GradientStop Color="{DynamicResource DefaultButtonBackgroundOne}" Offset="0.0" />
+                                        <GradientStop Color="{DynamicResource DefaultButtonBackgroundOne}" Offset="0.8" />
+                                        <GradientStop Color="{DynamicResource DefaultButtonBackgroundTwo}" Offset="1.0" />
+                                    </RadialGradientBrush>
+                                </Border.Background>
+                            
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background">
+                                <Setter.Value>
+                                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.2,0.15" RadiusX="0.85" RadiusY="0.85">
+                                        <GradientStop Color="{DynamicResource HoverOnDefaultButtonOne}" Offset="0.0" />
+                                        <GradientStop Color="{DynamicResource HoverOnDefaultButtonOne}" Offset="0.8" />
+                                        <GradientStop Color="{DynamicResource HoverOnDefaultButtonTwo}" Offset="1.0" />
+                                    </RadialGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="Transparent" />
+                        </Trigger>
+                        
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="Foreground" Value="{DynamicResource OnDefaultButton}" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+</ResourceDictionary>

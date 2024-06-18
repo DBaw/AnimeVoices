@@ -1,0 +1,40 @@
+﻿<Window x:Class="AnimeVoices.MVVM.Views.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnimeVoices.MVVM.Views"
+        xmlns:viewModel="clr-namespace:AnimeVoices.MVVM.ViewModels"
+        mc:Ignorable="d"
+        Title="AnimeVoices"
+        Height="400" 
+        Width="900" 
+        ResizeMode="NoResize"
+        WindowStyle="None" 
+        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <Border Background="{DynamicResource Background}"
+            CornerRadius="20,20,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                
+                
+            </Grid>
+
+            <ContentControl Grid.Row="1"
+                            Content="{Binding CurrentView}"/>
+
+        </Grid>
+    </Border>
+</Window>
