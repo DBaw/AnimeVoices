@@ -3,11 +3,20 @@
         xmlns:vm="using:AnimeVoices.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" 
+		d:DesignWidth="1000" 
+		d:DesignHeight="600"
         x:Class="AnimeVoices.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
+		Background="Transparent"
         Icon="/Assets/avalonia-logo.ico"
-        Title="AnimeVoices">
+        Title="AnimeVoices"
+		WindowStartupLocation="CenterScreen"
+		BorderThickness="0"
+		BorderBrush="Transparent"
+		CanResize="False"
+		ExtendClientAreaChromeHints="NoChrome"
+		ExtendClientAreaToDecorationsHint="True">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -15,6 +24,50 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+	<Border Background="#0E1419"
+			CornerRadius="10"
+			Padding="10">
+		<Grid ColumnDefinitions="250,*">
+			<Grid Grid.Column="0">
+				<Grid RowDefinitions="*,120">
+					<!-- Main Menu -->
+					<Grid Grid.Row="0">
+						<Border Background="#2D323D"
+								CornerRadius="10"
+								Margin="10">
+							<TransitioningContentControl Content="{Binding MainMenuViewModel}"/>
+						</Border>
+					</Grid>
+					<!-- Profil Panel -->
+					<Grid Grid.Row="1">
+						<Border Background="#2D323D"
+								CornerRadius="10"
+								Margin="10">
+							<TransitioningContentControl Content="{Binding UserPanelViewModel}"/>
+						</Border>
+					</Grid>
+				</Grid>
+			</Grid>
+			<Grid Grid.Column="1">
+				<Grid RowDefinitions="80,*">
+					<!-- Top Bar -->
+					<Grid Grid.Row="0">
+						<Border Background="#2D323D"
+								CornerRadius="10"
+								Margin="10">
+							<TransitioningContentControl Content="{Binding TopBarViewModel}"/>
+						</Border>
+					</Grid>
+					<!-- Content -->
+					<Grid Grid.Row="1">
+						<Border Background="#2D323D"
+								CornerRadius="10"
+								Margin="10">
+							<TransitioningContentControl Content="{Binding CurrentContentViewModel}"/>
+						</Border>
+					</Grid>
+				</Grid>
+			</Grid>
+		</Grid>
+	</Border>
 </Window>

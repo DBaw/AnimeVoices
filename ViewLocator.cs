@@ -1,6 +1,7 @@
 using AnimeVoices.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 
 namespace AnimeVoices
@@ -26,7 +27,7 @@ namespace AnimeVoices
 
         public bool Match(object? data)
         {
-            return data is ViewModelBase;
+            return data is ObservableObject;
         }
     }
 }

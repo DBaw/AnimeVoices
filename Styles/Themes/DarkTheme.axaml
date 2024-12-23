@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Color x:Key="MaterialDesign.Background">#FFFFFF</Color>
+	<Color x:Key="MaterialDesign.PrimaryColor">#3F51B5</Color>
+	<Color x:Key="MaterialDesign.SecondaryColor">#FF5722</Color>
+	<Color x:Key="MaterialDesign.SurfaceColor">#FF5722</Color>
+	<Color x:Key="MaterialDesign.OnPrimaryColor">#3F51B5</Color>
+	<Color x:Key="MaterialDesign.OnSecondaryColor">#FF5722</Color>
+	<Color x:Key="MaterialDesign.OnSurfaceColor">#FF5722</Color>
+</ResourceDictionary>
