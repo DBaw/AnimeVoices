@@ -78,7 +78,8 @@
 			</Grid>
 			<!-- Exit Button -->
 			<Grid Grid.Column="4">
-				<Button Foreground="White"
+				<Button Command="{Binding ExitAppCommand}"
+						Foreground="White"
 						Background="Transparent"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
