@@ -2,16 +2,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:material="using:Material.Icons.Avalonia"
              mc:Ignorable="d" 
-			 d:DesignWidth="730" 
+			 d:DesignWidth="720" 
 			 d:DesignHeight="60"
              x:Class="AnimeVoices.Views.TopBarView"
 			 Background="Transparent">
-	<Border Background="Transparent">
-		<TextBlock Text="TopBar"
-				   HorizontalAlignment="Center"
-				   VerticalAlignment="Center"
-				   Foreground="White"
-				   FontSize="24"/>
-	</Border>
+	<Grid >
+		<Grid ColumnDefinitions="250,*,60,60,60">
+			<!-- App Title -->
+			<Grid Grid.Column="0">
+				<TextBlock Text="Seiyuu Journey"
+						   FontSize="24"
+						   FontWeight="DemiBold"
+						   Foreground="White"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"/>
+			</Grid>
+			<!-- Search Bar -->
+			<Grid Grid.Column="1">
+
+			</Grid>
+			<!-- Settings Button -->
+			<Grid Grid.Column="2">
+				<Button Foreground="White"
+						Background="Transparent"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						MaxWidth="40"
+						Margin="10"
+						CornerRadius="10">
+					<material:MaterialIcon Kind="Cog"></material:MaterialIcon>
+				</Button>
+			</Grid>
+			<!-- Min/Max Button -->
+			<Grid Grid.Column="3">
+				<Button Foreground="White"
+						Background="Transparent"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						MaxWidth="40"
+						Margin="10"
+						CornerRadius="10">
+					<material:MaterialIcon Kind="WindowMinimize"></material:MaterialIcon>
+				</Button>
+			</Grid>
+			<!-- Exit Button -->
+			<Grid Grid.Column="4">
+				<Button Foreground="White"
+						Background="Transparent"
+						HorizontalAlignment="Stretch"
+						VerticalAlignment="Stretch"
+						HorizontalContentAlignment="Center"
+						VerticalContentAlignment="Center"
+						MaxWidth="40"
+						Margin="10"
+						CornerRadius="10">
+					<material:MaterialIcon Kind="WindowClose"></material:MaterialIcon>
+				</Button>
+			</Grid>
+		</Grid>
+	</Grid>
 </UserControl>
