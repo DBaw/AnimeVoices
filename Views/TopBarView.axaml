@@ -50,7 +50,8 @@
 			</Grid>
 			<!-- Settings Button -->
 			<Grid Grid.Column="2">
-				<Button Foreground="White"
+				<Button Command="{Binding GoToSettingsCommand}"
+						Foreground="White"
 						Background="Transparent"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
@@ -62,9 +63,10 @@
 						<material:MaterialIcon Kind="Cog"></material:MaterialIcon>
 				</Button>
 			</Grid>
-			<!-- Min/Max Button -->
+			<!-- Hide Button -->
 			<Grid Grid.Column="3">
-				<Button Foreground="White"
+				<Button Command="{Binding HideAppCommand}"
+						Foreground="White"
 						Background="Transparent"
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"

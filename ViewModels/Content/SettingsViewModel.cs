@@ -2,7 +2,7 @@
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class OverviewViewModel : ObservableObject
+    public partial class SettingsViewModel : ObservableObject
     {
     }
 }
