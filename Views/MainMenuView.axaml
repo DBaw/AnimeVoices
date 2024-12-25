@@ -7,7 +7,6 @@
 			 d:DesignHeight="460"
              x:Class="AnimeVoices.Views.MainMenuView"
 			 Background="Transparent">
-	
 	<ListBox HorizontalAlignment="Stretch"
 			 VerticalAlignment="Stretch"
 			 BorderBrush="Transparent"
@@ -17,7 +16,7 @@
 			 SelectionMode="Single"
 			 SelectedIndex="{Binding SelectedItemIndex}">
 		<ListBox.Items>
-			<ListBoxItem Content="Overview" IsSelected="True"/>
+			<ListBoxItem Content="Overview"/>
 			<ListBoxItem Content="Anime Info" />
 			<ListBoxItem Content="Favourites" />
 			<ListBoxItem Content="Watchlist" />
@@ -64,5 +63,4 @@
 			</Style>
 		</ListBox.Styles>
 	</ListBox>
-	
 </UserControl>

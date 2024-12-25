@@ -1,6 +1,7 @@
 ﻿using AnimeVoices.Utilities;
 using AnimeVoices.Utilities.Events;
 using AnimeVoices.ViewModels.Content;
+using AnimeVoices.Views.Content;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -37,6 +38,18 @@ namespace AnimeVoices.ViewModels
 
             switch(contentType)
             {
+                case (ContentTypes.OVERVIEW):
+                    CurrentContentViewModel = new OverviewViewModel();
+                    break;
+                case (ContentTypes.ANIMELIST):
+                    CurrentContentViewModel = new AnimeInfoViewModel();
+                    break;
+                case (ContentTypes.FAVOURITES):
+                    CurrentContentViewModel = new FavouritesViewModel();
+                    break;
+                case (ContentTypes.WATCHLIST):
+                    CurrentContentViewModel = new WatchlistViewModel();
+                    break;
                 case (ContentTypes.SETTINGS):
                     CurrentContentViewModel = new SettingsViewModel();
                     break;
