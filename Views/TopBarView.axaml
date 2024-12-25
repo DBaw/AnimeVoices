@@ -37,6 +37,7 @@
 				<TextBox Grid.Column="1"
 						 Watermark="Search"
 						 Background="Transparent"
+						 Foreground="White"
 						 BorderBrush="White"
 						 CaretBrush="White"
 						 FontSize="18"
