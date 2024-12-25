@@ -9,16 +9,8 @@ namespace AnimeVoices.ViewModels
     {
         private IMessenger _messenger;
 
+        [ObservableProperty]
         private int _selectedItemIndex;
-        public int SelectedItemIndex
-        {
-            get => _selectedItemIndex;
-            set
-            {
-                SetProperty(ref _selectedItemIndex, value);
-                OnSelectedItemIndexChanged();
-            }
-        }
 
         public MainMenuViewModel(IMessenger messenger)
         {
@@ -26,9 +18,8 @@ namespace AnimeVoices.ViewModels
             SelectedItemIndex = 0;
         }
         
-        private void OnSelectedItemIndexChanged()
+        partial void OnSelectedItemIndexChanged(int value)
         {
-
             ContentTypes type = ContentTypes.OVERVIEW;
             switch (SelectedItemIndex)
             {
