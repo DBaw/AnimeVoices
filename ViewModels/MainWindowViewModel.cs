@@ -17,13 +17,18 @@ namespace AnimeVoices.ViewModels
         [ObservableProperty]
         private ObservableObject _currentContentViewModel;
 
+        [ObservableProperty]
+        private ObservableObject _previousContentViewModel;
+
         public MainWindowViewModel()
         {
             MainMenuViewModel = new MainMenuViewModel(Messenger);
+
             UserPanelViewModel = new UserPanelViewModel();
             TopBarViewModel = new TopBarViewModel(Messenger);
             CurrentContentViewModel = new OverviewViewModel();
 
+            PreviousContentViewModel = CurrentContentViewModel;
             IsActive = true;
         }
 
@@ -35,6 +40,7 @@ namespace AnimeVoices.ViewModels
         public void Receive(SwitchContentView message)
         {
             ContentTypes contentType = message.ContentType;
+            PreviousContentViewModel = CurrentContentViewModel;
 
             switch(contentType)
             {
