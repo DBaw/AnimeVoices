@@ -8,7 +8,7 @@ using CommunityToolkit.Mvvm.Messaging;
 namespace AnimeVoices.ViewModels
 {
 
-    public partial class MainWindowViewModel : ObservableRecipient, IRecipient<SwitchContent>
+    public partial class MainWindowViewModel : ObservableRecipient, IRecipient<SwitchContentView>
     {
         public ObservableObject MainMenuViewModel { get; set; }
         public ObservableObject UserPanelViewModel { get; set; }
@@ -32,7 +32,7 @@ namespace AnimeVoices.ViewModels
             Messenger.RegisterAll(this);
         }
 
-        public void Receive(SwitchContent message)
+        public void Receive(SwitchContentView message)
         {
             ContentTypes contentType = message.ContentType;
 

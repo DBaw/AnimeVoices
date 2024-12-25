@@ -36,7 +36,7 @@ namespace AnimeVoices.ViewModels
                     type = ContentTypes.WATCHLIST;
                     break;
             }
-            _messenger.Send(new SwitchContent(type));
+            _messenger.Send(new SwitchContentView(type));
         }
     }
 }

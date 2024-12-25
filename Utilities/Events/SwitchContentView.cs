@@ -2,12 +2,12 @@
 
 namespace AnimeVoices.Utilities.Events
 {
-    public partial class SwitchContent : ObservableObject
+    public partial class SwitchContentView : ObservableObject
     {
         [ObservableProperty]
         private ContentTypes _contentType;
 
-        public SwitchContent(ContentTypes contentTypes){
+        public SwitchContentView(ContentTypes contentTypes){
             ContentType = contentTypes;
         }
     }

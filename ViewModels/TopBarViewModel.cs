@@ -32,7 +32,7 @@ namespace AnimeVoices.ViewModels
         [RelayCommand]
         private async Task GoToSettings()
         {
-            _messenger.Send(new SwitchContent(ContentTypes.SETTINGS));
+            _messenger.Send(new SwitchContentView(ContentTypes.SETTINGS));
         }
     }
 }
