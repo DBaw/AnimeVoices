@@ -3,11 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:material="using:Material.Icons.Avalonia"
+             xmlns:converters="clr-namespace:AnimeVoices.Utilities.Converters"
              mc:Ignorable="d"
 			 d:DesignWidth="710"
 			 d:DesignHeight="460"
 			 Background="Transparent"
              x:Class="AnimeVoices.Views.Content.AnimeInfoView">
+	<UserControl.Resources>
+		<converters:BooleanToWatchlistIconConverter x:Key="BooleanToWatchlistIconConverter" />
+		<converters:BooleanToFavouriteIconConverter x:Key="BooleanToFavouriteIconConverter" />
+	</UserControl.Resources>
 	<Grid HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
 		  ColumnDefinitions="*,40">
@@ -63,20 +68,31 @@
 												   Foreground="White"
 												   FontSize="18"
 												   FontWeight="Regular" />
+										
+										<!-- Watchlist -->
+										<Button Grid.Column="3"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Background="Transparent"
+												BorderBrush="Transparent"
+												BorderThickness="0"
+												Padding="0">
+											<material:MaterialIcon Kind="{Binding IsOnWatchlist, Converter={StaticResource BooleanToWatchlistIconConverter}}"
+																   Foreground="White"/>
+										</Button>
+										
+										<!-- Favourite -->
+										<Button Grid.Column="4"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Background="Transparent"
+												BorderBrush="Transparent"
+												BorderThickness="0"
+												Padding="0">
+											<material:MaterialIcon Kind="{Binding IsFavorite, Converter={StaticResource BooleanToFavouriteIconConverter}}"
+																   Foreground="White"/>
+										</Button>
 
-										<!-- Watchlist Button -->
-										<CheckBox Grid.Column="3"
-												  HorizontalAlignment="Center"
-												  VerticalAlignment="Center">
-											<material:MaterialIcon Kind="MoviePlayOutline" />
-										</CheckBox>
-
-										<!-- Favourite Button -->
-										<CheckBox Grid.Column="4"
-												  HorizontalAlignment="Center"
-												  VerticalAlignment="Center">
-											<material:MaterialIcon Kind="HeartOutline" />
-										</CheckBox>
 									</Grid>
 								</ControlTemplate>
 							</Setter>

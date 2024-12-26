@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AnimeVoices.DTO
 {
@@ -11,9 +10,9 @@ namespace AnimeVoices.DTO
         public string Name { get; set; }
         [Required]
         public string Password { get; set; }
-        public string FavouriteAnimes { get; set; }
-        public string FavouritesSeiyuus { get; set; }
-        public string Watchlist {  get; set; }
+        public string? FavouriteAnimes { get; set; }
+        public string? FavouritesSeiyuus { get; set; }
+        public string? Watchlist {  get; set; }
 
         public UserDto()
         {
