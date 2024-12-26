@@ -2,16 +2,88 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:material="using:Material.Icons.Avalonia"
              mc:Ignorable="d"
-			 d:DesignWidth="710" 
+			 d:DesignWidth="710"
 			 d:DesignHeight="460"
 			 Background="Transparent"
              x:Class="AnimeVoices.Views.Content.AnimeInfoView">
-	<Border Background="Transparent">
-		<TextBlock Text="AnimeInfoView"
-				   HorizontalAlignment="Center"
-				   VerticalAlignment="Center"
-				   Foreground="White"
-				   FontSize="24"/>
-	</Border>
+	<Grid HorizontalAlignment="Stretch"
+		  VerticalAlignment="Stretch"
+		  ColumnDefinitions="*,40">
+
+		<Grid Grid.Column="0">
+			<StackPanel Orientation="Vertical">
+				<TextBlock Text="Anime List"
+						   FontSize="20"
+						   FontWeight="Medium"
+						   Foreground="White"/>
+				<ListBox MaxHeight="75">
+					<ListBox.Items>
+						<ListBoxItem Content="Naruto"/>
+						<ListBoxItem Content="Bleach" />
+						<ListBoxItem Content="Noragami" />
+						<ListBoxItem Content="Kimetsu No Yayba" />
+					</ListBox.Items>
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="HorizontalAlignment" Value="Stretch" />
+							<Setter Property="Height" Value="25" />
+							<Setter Property="FontSize" Value="18" />
+							<Setter Property="FontWeight" Value="Regular" />
+							<Setter Property="Foreground" Value="White" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Grid Background="{TemplateBinding Background}"
+										  ColumnDefinitions="*,80,80,50,50">
+										<!-- Anime Title -->
+										<TextBlock Grid.Column="0"
+												   Text="{TemplateBinding Content}"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="White"
+												   FontSize="18"
+												   FontWeight="Regular" />
+
+										<!-- Anime Rating -->
+										<TextBlock Grid.Column="1"
+												   Text="#9"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="White"
+												   FontSize="18"
+												   FontWeight="Regular" />
+
+										<!-- Anime Score -->
+										<TextBlock Grid.Column="2"
+												   Text="8.82"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="White"
+												   FontSize="18"
+												   FontWeight="Regular" />
+
+										<!-- Watchlist Button -->
+										<CheckBox Grid.Column="3"
+												  HorizontalAlignment="Center"
+												  VerticalAlignment="Center">
+											<material:MaterialIcon Kind="MoviePlayOutline" />
+										</CheckBox>
+
+										<!-- Favourite Button -->
+										<CheckBox Grid.Column="4"
+												  HorizontalAlignment="Center"
+												  VerticalAlignment="Center">
+											<material:MaterialIcon Kind="HeartOutline" />
+										</CheckBox>
+									</Grid>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+					</ListBox.Styles>
+				</ListBox>
+			</StackPanel>
+		</Grid>
+	</Grid>
 </UserControl>

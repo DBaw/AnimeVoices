@@ -24,9 +24,9 @@ namespace AnimeVoices.ViewModels
         {
             MainMenuViewModel = new MainMenuViewModel(Messenger);
 
-            UserPanelViewModel = new UserPanelViewModel();
-            TopBarViewModel = new TopBarViewModel(Messenger);
             CurrentContentViewModel = new OverviewViewModel();
+            TopBarViewModel = new TopBarViewModel(Messenger);
+            UserPanelViewModel = new UserPanelViewModel();
 
             PreviousContentViewModel = CurrentContentViewModel;
             IsActive = true;
