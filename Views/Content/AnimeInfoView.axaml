@@ -23,15 +23,11 @@
 						   FontSize="20"
 						   FontWeight="Medium"
 						   Foreground="White"/>
-				<ListBox MaxHeight="75">
-					<ListBox.Items>
-						<ListBoxItem Content="Naruto"/>
-						<ListBoxItem Content="Bleach" />
-						<ListBoxItem Content="Noragami" />
-						<ListBoxItem Content="Kimetsu No Yayba" />
-					</ListBox.Items>
+				<ListBox MaxHeight="100"
+						 ItemsSource="{Binding AnimeList}">
 					<ListBox.Styles>
 						<Style Selector="ListBoxItem">
+							<Setter Property="Content" Value="{Binding Title}" />
 							<Setter Property="Background" Value="Transparent" />
 							<Setter Property="HorizontalAlignment" Value="Stretch" />
 							<Setter Property="Height" Value="25" />
@@ -41,31 +37,31 @@
 							<Setter Property="Template">
 								<ControlTemplate>
 									<Grid Background="{TemplateBinding Background}"
-										  ColumnDefinitions="*,80,80,50,50">
+										  ColumnDefinitions="*,100,100,50,50">
 										<!-- Anime Title -->
 										<TextBlock Grid.Column="0"
 												   Text="{TemplateBinding Content}"
 												   HorizontalAlignment="Center"
 												   VerticalAlignment="Center"
-												   Foreground="White"
+												   Foreground="{TemplateBinding Foreground}"
 												   FontSize="18"
 												   FontWeight="Regular" />
 
 										<!-- Anime Rating -->
 										<TextBlock Grid.Column="1"
-												   Text="#9"
+												   Text="{Binding Rating}"
 												   HorizontalAlignment="Center"
 												   VerticalAlignment="Center"
-												   Foreground="White"
+												   Foreground="{TemplateBinding Foreground}"
 												   FontSize="18"
 												   FontWeight="Regular" />
 
 										<!-- Anime Score -->
 										<TextBlock Grid.Column="2"
-												   Text="8.82"
+												   Text="{Binding Score}"
 												   HorizontalAlignment="Center"
 												   VerticalAlignment="Center"
-												   Foreground="White"
+												   Foreground="{TemplateBinding Foreground}"
 												   FontSize="18"
 												   FontWeight="Regular" />
 										
@@ -78,7 +74,9 @@
 												BorderThickness="0"
 												Padding="0">
 											<material:MaterialIcon Kind="{Binding IsOnWatchlist, Converter={StaticResource BooleanToWatchlistIconConverter}}"
-																   Foreground="White"/>
+																   Foreground="{TemplateBinding Foreground}"
+																   Height="20"
+																   Width="20"/>
 										</Button>
 										
 										<!-- Favourite -->
@@ -89,13 +87,22 @@
 												BorderBrush="Transparent"
 												BorderThickness="0"
 												Padding="0">
-											<material:MaterialIcon Kind="{Binding IsFavorite, Converter={StaticResource BooleanToFavouriteIconConverter}}"
-																   Foreground="White"/>
+											<material:MaterialIcon Kind="{Binding IsFavourite, Converter={StaticResource BooleanToFavouriteIconConverter}}"
+																   Foreground="{TemplateBinding Foreground}"
+																   Height="20"
+																   Width="20"/>
 										</Button>
 
 									</Grid>
 								</ControlTemplate>
 							</Setter>
+						</Style>
+						<Style Selector="ListBoxItem:pointerover">
+							<Setter Property="Background" Value="#282D37"/>
+						</Style>
+						<Style Selector="ListBoxItem:selected">
+							<Setter Property="Background" Value="#F8BBC6"/>
+							<Setter Property="Foreground" Value="Black"/>
 						</Style>
 					</ListBox.Styles>
 				</ListBox>

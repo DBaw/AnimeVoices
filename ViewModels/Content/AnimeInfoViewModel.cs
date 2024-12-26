@@ -10,19 +10,13 @@ namespace AnimeVoices.ViewModels.Content
 {
     public partial class AnimeInfoViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private bool _isFavorite;
-
-        [ObservableProperty]
-        private bool _isOnWatchlist;
 
         [ObservableProperty]
         private ObservableCollection<Anime> _animeList;
 
         public AnimeInfoViewModel()
         {
-            IsFavorite = false;
-            IsOnWatchlist = true;
+            AnimeList = new ObservableCollection<Anime>();
 
             List<AnimeDto> animeDtoList = new List<AnimeDto>()
             {
