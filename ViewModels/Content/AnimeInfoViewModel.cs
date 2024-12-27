@@ -74,21 +74,28 @@ namespace AnimeVoices.ViewModels.Content
                 Anime a = new(anime, LoggedUser);
                 FilteredAnimeList.Add(a);
             }
+            FullAnimeList = FilteredAnimeList;
         }
 
         [RelayCommand]
         public void DropExpandAnimeList()
         {
+            int height = 100;
+            FilteredAnimeList = new ObservableCollection<Anime>(FullAnimeList);
             if (AnimeListExpanded)
             {
-                MaxAnimeListHeight = 0;
+                if (SelectedAnime != null)
+                {
+                    height = 25;
+                    FilteredAnimeList = new ObservableCollection<Anime> { SelectedAnime };
+                }
+                else
+                {
+                    height = 0;
+                }
             }
-            else 
-            {
-                MaxAnimeListHeight = 100;   
-            }
+            MaxAnimeListHeight = height;
             AnimeListExpanded = !AnimeListExpanded;
-
         }
 
     }
