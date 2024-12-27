@@ -119,7 +119,7 @@ namespace AnimeVoices.ViewModels.Content
             FilteredCharacterList = new(FullCharacterList);
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = "CanAnimeListDropDown")]
         public void DropExpandAnimeList()
         {
             int height = 100;
@@ -140,8 +140,9 @@ namespace AnimeVoices.ViewModels.Content
             MaxAnimeListHeight = height;
             AnimeListExpanded = !AnimeListExpanded;
         }
+        private bool CanAnimeListDropDown() => FilteredAnimeList.Count > 0;
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = "CanCharacterListDropDown")]
         public void DropExpandCharactersList()
         {
             int height = 100;
@@ -161,6 +162,8 @@ namespace AnimeVoices.ViewModels.Content
             MaxCharacterListHeight = height;
             CharacterListExpanded = !CharacterListExpanded;
         }
+        private bool CanCharacterListDropDown() => FilteredCharacterList.Count > 0;
+
 
     }
 }
