@@ -19,10 +19,25 @@
 
 		<Grid Grid.Column="0">
 			<StackPanel Orientation="Vertical">
-				<TextBlock Text="Anime List"
-						   FontSize="20"
-						   FontWeight="Medium"
-						   Foreground="White"/>
+				<Grid ColumnDefinitions="200,*"
+					  Margin="0,5">
+					<TextBlock Text="Anime List"
+							   FontSize="20"
+							   FontWeight="Medium"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
+					<Button Grid.Column="1"
+							Height="30"
+							Width="30"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center">
+						<material:MaterialIcon Kind="ArrowDropDown"
+											   Foreground="White"
+											   Height="25"
+											   Width="25"/>
+					</Button>
+				</Grid>
 				<ListBox MaxHeight="100"
 						 ItemsSource="{Binding FilteredAnimeList}"
 						 SelectedItem="{Binding SelectedAnime}">
