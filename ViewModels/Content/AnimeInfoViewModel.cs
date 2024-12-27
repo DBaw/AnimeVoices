@@ -9,59 +9,44 @@ namespace AnimeVoices.ViewModels.Content
 {
     public partial class AnimeInfoViewModel : ObservableObject
     {
+        // Full and filtered data
+        [ObservableProperty] private ObservableCollection<Anime> _fullAnimeList;
+        [ObservableProperty] private ObservableCollection<Anime> _filteredAnimeList;
+        [ObservableProperty] private ObservableCollection<Character> _fullCharacterList;
+        [ObservableProperty] private ObservableCollection<Character> _filteredCharacterList;
+        [ObservableProperty] private ObservableCollection<Seiyuu> _seiyuuList;
 
-        [ObservableProperty]
-        private ObservableCollection<Anime> _fullAnimeList;
-        [ObservableProperty]
-        private ObservableCollection<Anime> _filteredAnimeList;
-
-        [ObservableProperty]
-        private ObservableCollection<Character> _fullCharacterList;
-        [ObservableProperty]
-        private ObservableCollection<Character> _filteredCharacterList;
-
-        [ObservableProperty]
-        private ObservableCollection<Seiyuu> _seiyuuList;
-
+        // Currently selected items
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DropExpandCharactersListCommand))]
         private Anime _selectedAnime;
-        [ObservableProperty]
+        [ObservableProperty] 
         private Character _selectedCharacter;
-        [ObservableProperty]
+        [ObservableProperty] 
         private Seiyuu _selectedSeiyuu;
 
-        [ObservableProperty]
-        private int _maxAnimeListHeight;
-        [ObservableProperty]
-        private bool _animeListExpanded;
+        // UI control properties
+        [ObservableProperty] private int _maxAnimeListHeight;
+        [ObservableProperty] private int _maxCharacterListHeight;
+        [ObservableProperty] private int _maxSeiyuuListHeight;
+        [ObservableProperty] private bool _animeListExpanded;
+        [ObservableProperty] private bool _characterListExpanded;
+        [ObservableProperty] private bool _seiyuuListExpanded;
 
-        [ObservableProperty]
-        private int _maxCharacterListHeight;
-        [ObservableProperty]
-        private bool _characterListExpanded;
-
-        [ObservableProperty]
-        private int _maxSeiyuuListHeight;
-        [ObservableProperty]
-        private bool _seiyuuListExpanded;
-
-        [ObservableProperty]
-        private bool _isUserLoggedIn;
-
-        [ObservableProperty]
-        private User _loggedUser;
+        // User login state
+        [ObservableProperty] private bool _isUserLoggedIn;
+        [ObservableProperty] private User _loggedUser;
 
         public AnimeInfoViewModel(User user)
         {
             LoggedUser = user;
             IsUserLoggedIn = LoggedUser != null;
 
-            AnimeListExpanded = false;
+            AnimeListExpanded = true;
             CharacterListExpanded = false;
             SeiyuuListExpanded = false;
 
-            MaxAnimeListHeight = 0;
+            MaxAnimeListHeight = 100;
             MaxCharacterListHeight = 0;
             MaxSeiyuuListHeight = 0;
 
@@ -145,16 +130,18 @@ namespace AnimeVoices.ViewModels.Content
 
         partial void OnSelectedAnimeChanged(Anime value)
         {
-            FilteredCharacterList = new();
+            FilteredCharacterList.Clear();
+            if (value == null)
+            {
+                return;
+            }
 
-            if (value != null) 
-            { 
-                foreach (Character character in FullCharacterList) 
+            // Filter characters by selected anime
+            foreach (var character in FullCharacterList)
+            {
+                if (value.Characters.Contains(character.Id))
                 {
-                    if (value.Characters.Contains(character.Id))
-                    {
-                        FilteredCharacterList.Add(character);
-                    }
+                    FilteredCharacterList.Add(character);
                 }
             }
         }
