@@ -10,9 +10,9 @@
 			 Background="Transparent"
              x:Class="AnimeVoices.Views.Content.AnimeInfoView">
 	<UserControl.Resources>
-		<converters:BooleanToWatchlistIconConverter x:Key="BooleanToWatchlistIconConverter" />
-		<converters:BooleanToFavouriteIconConverter x:Key="BooleanToFavouriteIconConverter" />
-		<converters:BooleanToDropIconConverter x:Key="BooleanToDropIconConverter" />
+		<converters:BooleanToWatchlistIconConverter x:Key="BooleanToWatchlistIconConverter"/>
+		<converters:BooleanToFavouriteIconConverter x:Key="BooleanToFavouriteIconConverter"/>
+		<converters:BooleanToDropIconConverter x:Key="BooleanToDropIconConverter"/>
 	</UserControl.Resources>
 	<Grid HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
@@ -20,7 +20,7 @@
 
 		<Grid Grid.Column="0">
 			<StackPanel Orientation="Vertical">
-				<Grid ColumnDefinitions="200,*"
+				<Grid ColumnDefinitions="200,50,*"
 					  Margin="0,5">
 					<TextBlock Text="Anime List"
 							   FontSize="20"
@@ -29,7 +29,8 @@
 							   HorizontalAlignment="Center"
 							   VerticalAlignment="Center"/>
 					<Button Grid.Column="1"
-							Command="{Binding DropExpandAnimeListCommand}"
+							Command="{Binding HideExpandAnimeListCommand}"
+							CommandParameter="anime"
 							Height="30"
 							Width="30"
 							HorizontalAlignment="Left"
@@ -39,6 +40,19 @@
 											   Height="25"
 											   Width="25"/>
 					</Button>
+					<Border Grid.Column="2"
+							VerticalAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							Background="#F8BBC6"
+							IsVisible="{Binding ShowSelectedAnime}">
+						<TextBlock Text="{Binding SelectedAnime.Title}"
+								   FontSize="20"
+								   FontWeight="Regular"
+								   Foreground="#2D323D"
+								   Background="Transparent"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>						
+					</Border>
 				</Grid>
 				<ListBox MaxHeight="{Binding MaxAnimeListHeight}"
 						 ItemsSource="{Binding FilteredAnimeList}"
@@ -135,7 +149,8 @@
 							   HorizontalAlignment="Center"
 							   VerticalAlignment="Center"/>
 					<Button Grid.Column="1"
-							Command="{Binding DropExpandCharactersListCommand}"
+							Command="{Binding HideExpandCharactersListCommand}"
+							CommandParameter="character"
 							Height="30"
 							Width="30"
 							HorizontalAlignment="Left"

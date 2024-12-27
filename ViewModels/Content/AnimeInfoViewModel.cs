@@ -9,6 +9,7 @@ namespace AnimeVoices.ViewModels.Content
 {
     public partial class AnimeInfoViewModel : ObservableObject
     {
+        #region Parameters
         // Full and filtered data
         [ObservableProperty] private ObservableCollection<Anime> _fullAnimeList;
         [ObservableProperty] private ObservableCollection<Anime> _filteredAnimeList;
@@ -18,7 +19,7 @@ namespace AnimeVoices.ViewModels.Content
 
         // Currently selected items
         [ObservableProperty]
-        [NotifyCanExecuteChangedFor(nameof(DropExpandCharactersListCommand))]
+        [NotifyCanExecuteChangedFor(nameof(HideExpandCharactersListCommand))]
         private Anime _selectedAnime;
         [ObservableProperty] 
         private Character _selectedCharacter;
@@ -32,11 +33,18 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] private bool _animeListExpanded;
         [ObservableProperty] private bool _characterListExpanded;
         [ObservableProperty] private bool _seiyuuListExpanded;
+        [ObservableProperty] private bool _showSelectedAnime;
 
         // User login state
         [ObservableProperty] private bool _isUserLoggedIn;
         [ObservableProperty] private User _loggedUser;
 
+        // Additional local variables
+        private int maxListHeight = 200;
+        private int hidedListHeight = 0;
+        #endregion
+
+        #region Constructors
         public AnimeInfoViewModel(User user)
         {
             LoggedUser = user;
@@ -45,6 +53,7 @@ namespace AnimeVoices.ViewModels.Content
             AnimeListExpanded = true;
             CharacterListExpanded = false;
             SeiyuuListExpanded = false;
+            ShowSelectedAnime = false;
 
             MaxAnimeListHeight = 100;
             MaxCharacterListHeight = 0;
@@ -82,52 +91,54 @@ namespace AnimeVoices.ViewModels.Content
             FilteredAnimeList = new(FullAnimeList);
             FilteredCharacterList = new();
         }
+        #endregion
 
+        #region Commands
         [RelayCommand(CanExecute = "CanAnimeListDropDown")]
-        public void DropExpandAnimeList()
+        public void HideExpandAnimeList(string list)
         {
-            int height = 100;
-            FilteredAnimeList = new ObservableCollection<Anime>(FullAnimeList);
+            CharacterListExpanded = false;
+            MaxCharacterListHeight = hidedListHeight;
+
             if (AnimeListExpanded)
             {
-                MaxAnimeListHeight = height;
-                if (SelectedAnime != null)
-                {
-                    height = 25;
-                    FilteredAnimeList = new ObservableCollection<Anime> { SelectedAnime };
-                }
-                else
-                {
-                    height = 0;
-                }
+                MaxAnimeListHeight = hidedListHeight;
             }
-            MaxAnimeListHeight = height;
+            else
+            {
+                MaxAnimeListHeight = maxListHeight;
+                ShowSelectedAnime = false;
+            }
+            if (AnimeListExpanded && SelectedAnime != null) 
+            {
+                ShowSelectedAnime = true;
+            }
             AnimeListExpanded = !AnimeListExpanded;
         }
         private bool CanAnimeListDropDown() => FilteredAnimeList.Count > 0;
 
         [RelayCommand(CanExecute = "CanCharacterListDropDown")]
-        public void DropExpandCharactersList()
+        public void HideExpandCharactersList(string list)
         {
-            int height = 100;
-            FilteredCharacterList = new ObservableCollection<Character>(FullCharacterList);
+            AnimeListExpanded = false;
+            MaxAnimeListHeight = hidedListHeight;
+
             if (CharacterListExpanded)
             {
-                if (SelectedCharacter != null)
-                {
-                    height = 25;
-                    FilteredCharacterList = new ObservableCollection<Character> { SelectedCharacter };
-                }
-                else
-                {
-                    height = 0;
-                }
+                MaxCharacterListHeight = hidedListHeight;
             }
-            MaxCharacterListHeight = height;
+            else
+            {
+                MaxCharacterListHeight = maxListHeight;
+                ShowSelectedAnime= true;
+            }
             CharacterListExpanded = !CharacterListExpanded;
+            
         }
         private bool CanCharacterListDropDown() => FilteredCharacterList.Count > 0;
+        #endregion
 
+        #region Partial Methods
         partial void OnSelectedAnimeChanged(Anime value)
         {
             FilteredCharacterList.Clear();
@@ -145,5 +156,7 @@ namespace AnimeVoices.ViewModels.Content
                 }
             }
         }
+        #endregion
+
     }
 }
