@@ -24,10 +24,10 @@
 						   FontWeight="Medium"
 						   Foreground="White"/>
 				<ListBox MaxHeight="100"
-						 ItemsSource="{Binding AnimeList}">
+						 ItemsSource="{Binding AnimeList}"
+						 SelectedItem="{Binding SelectedAnime}">
 					<ListBox.Styles>
 						<Style Selector="ListBoxItem">
-							<Setter Property="Content" Value="{Binding Title}" />
 							<Setter Property="Background" Value="Transparent" />
 							<Setter Property="HorizontalAlignment" Value="Stretch" />
 							<Setter Property="Height" Value="25" />
@@ -40,12 +40,12 @@
 										  ColumnDefinitions="*,100,100,50,50">
 										<!-- Anime Title -->
 										<TextBlock Grid.Column="0"
-												   Text="{TemplateBinding Content}"
+												   Text="{Binding Title}"
 												   HorizontalAlignment="Center"
 												   VerticalAlignment="Center"
 												   Foreground="{TemplateBinding Foreground}"
 												   FontSize="18"
-												   FontWeight="Regular" />
+												   FontWeight="{TemplateBinding FontWeight}" />
 
 										<!-- Anime Rating -->
 										<TextBlock Grid.Column="1"
@@ -54,7 +54,7 @@
 												   VerticalAlignment="Center"
 												   Foreground="{TemplateBinding Foreground}"
 												   FontSize="18"
-												   FontWeight="Regular" />
+												   FontWeight="{TemplateBinding FontWeight}" />
 
 										<!-- Anime Score -->
 										<TextBlock Grid.Column="2"
@@ -63,10 +63,11 @@
 												   VerticalAlignment="Center"
 												   Foreground="{TemplateBinding Foreground}"
 												   FontSize="18"
-												   FontWeight="Regular" />
+												   FontWeight="{TemplateBinding FontWeight}" />
 										
 										<!-- Watchlist -->
 										<Button Grid.Column="3"
+												IsVisible="{Binding DataContext.IsUserLoggedIn, RelativeSource={RelativeSource AncestorType=ListBox}}"
 												HorizontalAlignment="Center"
 												VerticalAlignment="Center"
 												Background="Transparent"
@@ -81,6 +82,7 @@
 										
 										<!-- Favourite -->
 										<Button Grid.Column="4"
+												IsVisible="{Binding DataContext.IsUserLoggedIn, RelativeSource={RelativeSource AncestorType=ListBox}}"
 												HorizontalAlignment="Center"
 												VerticalAlignment="Center"
 												Background="Transparent"
@@ -102,7 +104,8 @@
 						</Style>
 						<Style Selector="ListBoxItem:selected">
 							<Setter Property="Background" Value="#F8BBC6"/>
-							<Setter Property="Foreground" Value="Black"/>
+							<Setter Property="Foreground" Value="#2D323D"/>
+							<Setter Property="FontWeight" Value="SemiBold" />
 						</Style>
 					</ListBox.Styles>
 				</ListBox>

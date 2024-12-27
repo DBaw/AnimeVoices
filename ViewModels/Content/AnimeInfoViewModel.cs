@@ -1,10 +1,8 @@
 ﻿using AnimeVoices.DTO;
 using AnimeVoices.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -14,8 +12,19 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty]
         private ObservableCollection<Anime> _animeList;
 
-        public AnimeInfoViewModel()
+        [ObservableProperty]
+        private Anime _selectedAnime;
+
+        [ObservableProperty]
+        private bool _isUserLoggedIn;
+
+        [ObservableProperty]
+        private User _loggedUser;
+
+        public AnimeInfoViewModel(User user)
         {
+            LoggedUser = user;
+            IsUserLoggedIn = LoggedUser != null;
             AnimeList = new ObservableCollection<Anime>();
 
             List<AnimeDto> animeDtoList = new List<AnimeDto>()
@@ -49,13 +58,10 @@ namespace AnimeVoices.ViewModels.Content
                     Score = 9.21
                 }
             };
-            List<int> favAnime = new List<int>() { 1, 3 };
-            List<int> watchlist = new List<int>() { 4 };
-            User user = new(1, favAnime, watchlist);
 
             foreach (AnimeDto anime in animeDtoList)
             {
-                Anime a = new(anime, user);
+                Anime a = new(anime, LoggedUser);
                 AnimeList.Add(a);
             }
         }

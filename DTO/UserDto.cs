@@ -16,7 +16,19 @@ namespace AnimeVoices.DTO
 
         public UserDto()
         {
-            
+            Name = string.Empty;
+            Password = string.Empty;
+            FavouriteAnimes = "[]";
+            FavouritesSeiyuus = "[]";
+            Watchlist = "[]";
+        }
+        public UserDto(string favouriteAnimes, string watchlist)
+        {
+            Name = string.Empty;
+            Password = string.Empty;
+            FavouriteAnimes = favouriteAnimes;
+            FavouritesSeiyuus = "[]";
+            Watchlist = watchlist;
         }
     }
 }
