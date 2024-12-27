@@ -1,6 +1,7 @@
 ﻿using AnimeVoices.DTO;
 using AnimeVoices.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
@@ -18,6 +19,11 @@ namespace AnimeVoices.ViewModels.Content
         private Anime _selectedAnime;
 
         [ObservableProperty]
+        private int _maxAnimeListHeight;
+        [ObservableProperty]
+        private bool _animeListExpanded;
+
+        [ObservableProperty]
         private bool _isUserLoggedIn;
 
         [ObservableProperty]
@@ -26,6 +32,8 @@ namespace AnimeVoices.ViewModels.Content
         public AnimeInfoViewModel(User user)
         {
             LoggedUser = user;
+            AnimeListExpanded = false;
+            MaxAnimeListHeight = 0;
             IsUserLoggedIn = LoggedUser != null;
             FilteredAnimeList = new ObservableCollection<Anime>();
 
@@ -66,6 +74,21 @@ namespace AnimeVoices.ViewModels.Content
                 Anime a = new(anime, LoggedUser);
                 FilteredAnimeList.Add(a);
             }
+        }
+
+        [RelayCommand]
+        public void DropExpandAnimeList()
+        {
+            if (AnimeListExpanded)
+            {
+                MaxAnimeListHeight = 0;
+            }
+            else 
+            {
+                MaxAnimeListHeight = 100;   
+            }
+            AnimeListExpanded = !AnimeListExpanded;
+
         }
 
     }
