@@ -20,6 +20,7 @@
 
 		<Grid Grid.Column="0">
 			<StackPanel Orientation="Vertical">
+				<!-- Anime Header -->
 				<Grid ColumnDefinitions="200,50,*"
 					  Margin="0,5">
 					<TextBlock Text="Anime List"
@@ -40,11 +41,12 @@
 											   Height="25"
 											   Width="25"/>
 					</Button>
+					<!-- Selected Anime -->
 					<Border Grid.Column="2"
 							VerticalAlignment="Stretch"
 							HorizontalAlignment="Stretch"
 							Background="#F8BBC6"
-							IsVisible="{Binding ShowSelectedAnime}">
+							IsVisible="{Binding IsSelectedAnimeVisible}">
 						<TextBlock Text="{Binding SelectedAnime.Title}"
 								   FontSize="20"
 								   FontWeight="Regular"
@@ -54,6 +56,7 @@
 								   VerticalAlignment="Center"/>						
 					</Border>
 				</Grid>
+				<!-- Anime List -->
 				<ListBox MaxHeight="{Binding MaxAnimeListHeight}"
 						 ItemsSource="{Binding FilteredAnimeList}"
 						 SelectedItem="{Binding SelectedAnime}">
@@ -140,7 +143,8 @@
 						</Style>
 					</ListBox.Styles>
 				</ListBox>
-				<Grid ColumnDefinitions="200,*"
+				<!-- Character List -->
+				<Grid ColumnDefinitions="200,50,*"
 					  Margin="0,5">
 					<TextBlock Text="Characters List"
 							   FontSize="20"
@@ -160,6 +164,19 @@
 											   Height="25"
 											   Width="25"/>
 					</Button>
+					<Border Grid.Column="2"
+							VerticalAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							Background="#F8BBC6"
+							IsVisible="{Binding IsSelectedCharacterVisible}">
+						<TextBlock Text="{Binding SelectedCharacter.Name}"
+								   FontSize="20"
+								   FontWeight="Regular"
+								   Foreground="#2D323D"
+								   Background="Transparent"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
 				</Grid>
 				<ListBox MaxHeight="{Binding MaxCharacterListHeight}"
 						 ItemsSource="{Binding FilteredCharacterList}"

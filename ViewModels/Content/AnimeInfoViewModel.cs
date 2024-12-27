@@ -33,7 +33,8 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] private bool _animeListExpanded;
         [ObservableProperty] private bool _characterListExpanded;
         [ObservableProperty] private bool _seiyuuListExpanded;
-        [ObservableProperty] private bool _showSelectedAnime;
+        [ObservableProperty] private bool _isSelectedAnimeVisible;
+        [ObservableProperty] private bool _isSelectedCharacterVisible;
 
         // User login state
         [ObservableProperty] private bool _isUserLoggedIn;
@@ -53,7 +54,8 @@ namespace AnimeVoices.ViewModels.Content
             AnimeListExpanded = true;
             CharacterListExpanded = false;
             SeiyuuListExpanded = false;
-            ShowSelectedAnime = false;
+            IsSelectedAnimeVisible = false;
+            IsSelectedCharacterVisible = false;
 
             MaxAnimeListHeight = 100;
             MaxCharacterListHeight = 0;
@@ -107,11 +109,15 @@ namespace AnimeVoices.ViewModels.Content
             else
             {
                 MaxAnimeListHeight = maxListHeight;
-                ShowSelectedAnime = false;
+                IsSelectedAnimeVisible = false;
+                if(SelectedCharacter != null)
+                {
+                    IsSelectedCharacterVisible = true;
+                }
             }
             if (AnimeListExpanded && SelectedAnime != null) 
             {
-                ShowSelectedAnime = true;
+                IsSelectedAnimeVisible = true;
             }
             AnimeListExpanded = !AnimeListExpanded;
         }
@@ -130,7 +136,12 @@ namespace AnimeVoices.ViewModels.Content
             else
             {
                 MaxCharacterListHeight = maxListHeight;
-                ShowSelectedAnime= true;
+                IsSelectedCharacterVisible = false;
+                IsSelectedAnimeVisible = true;
+            }
+            if (CharacterListExpanded && SelectedCharacter != null)
+            {
+                IsSelectedCharacterVisible = true;
             }
             CharacterListExpanded = !CharacterListExpanded;
             
@@ -141,6 +152,7 @@ namespace AnimeVoices.ViewModels.Content
         #region Partial Methods
         partial void OnSelectedAnimeChanged(Anime value)
         {
+            IsSelectedCharacterVisible = false;
             FilteredCharacterList.Clear();
             if (value == null)
             {
