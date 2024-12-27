@@ -24,6 +24,7 @@ namespace AnimeVoices.ViewModels.Content
         private ObservableCollection<Seiyuu> _seiyuuList;
 
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(DropExpandCharactersListCommand))]
         private Anime _selectedAnime;
         [ObservableProperty]
         private Character _selectedCharacter;
@@ -70,40 +71,18 @@ namespace AnimeVoices.ViewModels.Content
 
             List<AnimeDto> animeDtoList = new List<AnimeDto>()
             {
-                new AnimeDto()
-                {
-                    Id = 1,
-                    Title = "Naruto",
-                    Rating = 12,
-                    Score = 8.88
-                },
-                new AnimeDto()
-                {
-                    Id = 2,
-                    Title = "Bleach",
-                    Rating = 29,
-                    Score = 8.65
-                },
-                new AnimeDto()
-                {
-                    Id = 3,
-                    Title = "Noragami",
-                    Rating = 258,
-                    Score = 8.02
-                },
-                new AnimeDto()
-                {
-                    Id = 4,
-                    Title = "Kimetsu No Yayba",
-                    Rating = 5,
-                    Score = 9.21
-                }
+                new AnimeDto(1,"Naruto", 12, 8.88, "[1]"),
+                new AnimeDto(2,"Bleach", 29, 8.65, "[2]"),
+                new AnimeDto(3,"Noragami", 258, 8.02),
+                new AnimeDto(4,"Kimetsu no Yayba", 5, 9.21)
             };
 
             List<Character> characters = new List<Character>()
             {
-                new Character(1,"Uzumaki Naruto"),
-                new Character(1,"Kurosaki Ichigo")
+                new Character(1, "Uzumaki Naruto"),
+                new Character(2, "Kurosaki Ichigo"),
+                new Character(3, "L"),
+                new Character(4, "Izuku Midorya"),
             };
 
             foreach (AnimeDto anime in animeDtoList)
@@ -116,7 +95,7 @@ namespace AnimeVoices.ViewModels.Content
                 FullCharacterList.Add(character);
             }
             FilteredAnimeList = new(FullAnimeList);
-            FilteredCharacterList = new(FullCharacterList);
+            FilteredCharacterList = new();
         }
 
         [RelayCommand(CanExecute = "CanAnimeListDropDown")]
@@ -164,6 +143,20 @@ namespace AnimeVoices.ViewModels.Content
         }
         private bool CanCharacterListDropDown() => FilteredCharacterList.Count > 0;
 
+        partial void OnSelectedAnimeChanged(Anime value)
+        {
+            FilteredCharacterList = new();
 
+            if (value != null) 
+            { 
+                foreach (Character character in FullCharacterList) 
+                {
+                    if (value.Characters.Contains(character.Id))
+                    {
+                        FilteredCharacterList.Add(character);
+                    }
+                }
+            }
+        }
     }
 }

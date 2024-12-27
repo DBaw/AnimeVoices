@@ -1,4 +1,6 @@
 ﻿using AnimeVoices.DTO;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace AnimeVoices.Models
 {
@@ -8,6 +10,7 @@ namespace AnimeVoices.Models
         public string Title { get; set; }
         public string Rating { get; set; }
         public string Score { get; set; }
+        public List<int> Characters { get; set; }
         public bool IsFavourite { get; set; }
         public bool IsOnWatchlist { get; set; }
 
@@ -17,6 +20,7 @@ namespace AnimeVoices.Models
             Title = animeDto.Title;
             Rating = animeDto.Rating == -1 ? "" : ("#" + animeDto.Rating.ToString());
             Score = animeDto.Score == -1  ? "" : animeDto.Score.ToString();
+            Characters = string.IsNullOrEmpty(animeDto.Characters) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(animeDto.Characters);
 
             IsFavourite = user?.FavouriteAnimes.Contains(Id) ?? false;
             IsOnWatchlist = user?.Watchlist.Contains(Id) ?? false;

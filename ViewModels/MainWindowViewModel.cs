@@ -3,7 +3,6 @@ using AnimeVoices.Models;
 using AnimeVoices.Utilities;
 using AnimeVoices.Utilities.Events;
 using AnimeVoices.ViewModels.Content;
-using AnimeVoices.Views.Content;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
