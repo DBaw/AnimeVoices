@@ -10,7 +10,9 @@ namespace AnimeVoices.ViewModels.Content
     {
 
         [ObservableProperty]
-        private ObservableCollection<Anime> _animeList;
+        private ObservableCollection<Anime> _fullAnimeList;
+        [ObservableProperty]
+        private ObservableCollection<Anime> _filteredAnimeList;
 
         [ObservableProperty]
         private Anime _selectedAnime;
@@ -25,7 +27,7 @@ namespace AnimeVoices.ViewModels.Content
         {
             LoggedUser = user;
             IsUserLoggedIn = LoggedUser != null;
-            AnimeList = new ObservableCollection<Anime>();
+            FilteredAnimeList = new ObservableCollection<Anime>();
 
             List<AnimeDto> animeDtoList = new List<AnimeDto>()
             {
@@ -62,7 +64,7 @@ namespace AnimeVoices.ViewModels.Content
             foreach (AnimeDto anime in animeDtoList)
             {
                 Anime a = new(anime, LoggedUser);
-                AnimeList.Add(a);
+                FilteredAnimeList.Add(a);
             }
         }
 

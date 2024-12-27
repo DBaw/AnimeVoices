@@ -24,7 +24,7 @@
 						   FontWeight="Medium"
 						   Foreground="White"/>
 				<ListBox MaxHeight="100"
-						 ItemsSource="{Binding AnimeList}"
+						 ItemsSource="{Binding FilteredAnimeList}"
 						 SelectedItem="{Binding SelectedAnime}">
 					<ListBox.Styles>
 						<Style Selector="ListBoxItem">
