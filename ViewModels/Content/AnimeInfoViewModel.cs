@@ -16,12 +16,34 @@ namespace AnimeVoices.ViewModels.Content
         private ObservableCollection<Anime> _filteredAnimeList;
 
         [ObservableProperty]
+        private ObservableCollection<Character> _fullCharacterList;
+        [ObservableProperty]
+        private ObservableCollection<Character> _filteredCharacterList;
+
+        [ObservableProperty]
+        private ObservableCollection<Seiyuu> _seiyuuList;
+
+        [ObservableProperty]
         private Anime _selectedAnime;
+        [ObservableProperty]
+        private Character _selectedCharacter;
+        [ObservableProperty]
+        private Seiyuu _selectedSeiyuu;
 
         [ObservableProperty]
         private int _maxAnimeListHeight;
         [ObservableProperty]
         private bool _animeListExpanded;
+
+        [ObservableProperty]
+        private int _maxCharacterListHeight;
+        [ObservableProperty]
+        private bool _characterListExpanded;
+
+        [ObservableProperty]
+        private int _maxSeiyuuListHeight;
+        [ObservableProperty]
+        private bool _seiyuuListExpanded;
 
         [ObservableProperty]
         private bool _isUserLoggedIn;
@@ -32,10 +54,19 @@ namespace AnimeVoices.ViewModels.Content
         public AnimeInfoViewModel(User user)
         {
             LoggedUser = user;
-            AnimeListExpanded = false;
-            MaxAnimeListHeight = 0;
             IsUserLoggedIn = LoggedUser != null;
-            FilteredAnimeList = new ObservableCollection<Anime>();
+
+            AnimeListExpanded = false;
+            CharacterListExpanded = false;
+            SeiyuuListExpanded = false;
+
+            MaxAnimeListHeight = 0;
+            MaxCharacterListHeight = 0;
+            MaxSeiyuuListHeight = 0;
+
+            FullAnimeList = new ObservableCollection<Anime>();
+            FullCharacterList = new ObservableCollection<Character>();
+            SeiyuuList = new ObservableCollection<Seiyuu>();
 
             List<AnimeDto> animeDtoList = new List<AnimeDto>()
             {
@@ -69,12 +100,23 @@ namespace AnimeVoices.ViewModels.Content
                 }
             };
 
+            List<Character> characters = new List<Character>()
+            {
+                new Character(1,"Uzumaki Naruto"),
+                new Character(1,"Kurosaki Ichigo")
+            };
+
             foreach (AnimeDto anime in animeDtoList)
             {
                 Anime a = new(anime, LoggedUser);
-                FilteredAnimeList.Add(a);
+                FullAnimeList.Add(a);
             }
-            FullAnimeList = FilteredAnimeList;
+            foreach(Character character in characters)
+            {
+                FullCharacterList.Add(character);
+            }
+            FilteredAnimeList = new(FullAnimeList);
+            FilteredCharacterList = new(FullCharacterList);
         }
 
         [RelayCommand]
@@ -84,6 +126,7 @@ namespace AnimeVoices.ViewModels.Content
             FilteredAnimeList = new ObservableCollection<Anime>(FullAnimeList);
             if (AnimeListExpanded)
             {
+                MaxAnimeListHeight = height;
                 if (SelectedAnime != null)
                 {
                     height = 25;
@@ -96,6 +139,27 @@ namespace AnimeVoices.ViewModels.Content
             }
             MaxAnimeListHeight = height;
             AnimeListExpanded = !AnimeListExpanded;
+        }
+
+        [RelayCommand]
+        public void DropExpandCharactersList()
+        {
+            int height = 100;
+            FilteredCharacterList = new ObservableCollection<Character>(FullCharacterList);
+            if (CharacterListExpanded)
+            {
+                if (SelectedCharacter != null)
+                {
+                    height = 25;
+                    FilteredCharacterList = new ObservableCollection<Character> { SelectedCharacter };
+                }
+                else
+                {
+                    height = 0;
+                }
+            }
+            MaxCharacterListHeight = height;
+            CharacterListExpanded = !CharacterListExpanded;
         }
 
     }
