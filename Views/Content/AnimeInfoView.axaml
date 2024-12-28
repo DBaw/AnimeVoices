@@ -255,7 +255,7 @@
 								   VerticalAlignment="Center"/>
 					</Border>
 				</Grid>
-				<!-- Seiyuu Anime List -->
+				<!-- Seiyuu Characters List -->
 				<ListBox MaxHeight="{Binding ResultListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
 						 ItemsSource="{Binding ResultList}"
 						 SelectedItem="{Binding SelectedResult}">
