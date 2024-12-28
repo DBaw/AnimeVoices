@@ -235,22 +235,21 @@
 							   HorizontalAlignment="Center"
 							   VerticalAlignment="Center"/>
 					<Button Grid.Column="1"
-							Command="{Binding HideExpandSeiyuuListCommand}"
-							CommandParameter="character"
+							Command="{Binding HideExpandResultListCommand}"
 							Height="30"
 							Width="30"
 							HorizontalAlignment="Left"
 							VerticalAlignment="Center">
-						<material:MaterialIcon Kind="{Binding SeiyuuListExpanded, Converter={StaticResource BooleanToDropIconConverter}}"
+						<material:MaterialIcon Kind="{Binding ResultListExpanded, Converter={StaticResource BooleanToDropIconConverter}}"
 											   Foreground="White"
 											   Height="25"
 											   Width="25"/>
 					</Button>
 				</Grid>
-				<!-- Seiyuu List -->
-				<ListBox MaxHeight="{Binding MaxSeiyuuListHeight}"
-						 ItemsSource="{Binding SeiyuuList}"
-						 SelectedItem="{Binding SelectedSeiyuuAnime}">
+				<!-- Seiyuu Anime List -->
+				<ListBox MaxHeight="{Binding ResultListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
+						 ItemsSource="{Binding ResultList}"
+						 SelectedItem="{Binding SelectedResult}">
 					<ListBox.Styles>
 						<Style Selector="ListBoxItem">
 							<Setter Property="Background" Value="Transparent" />
@@ -265,13 +264,13 @@
 											HorizontalAlignment="Stretch"
 											VerticalAlignment="Stretch">
 										<!-- Character Name -->
-										<TextBlock Text="{Binding Name}"
+										<TextBlock Text="{Binding Character}"
 												   Background="Transparent"
-												   HorizontalAlignment="Center"
-												   VerticalAlignment="Center"
 												   Foreground="{TemplateBinding Foreground}"
+												   FontWeight="{TemplateBinding FontWeight}" 
 												   FontSize="18"
-												   FontWeight="{TemplateBinding FontWeight}" />
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center" />
 									</Border>
 								</ControlTemplate>
 							</Setter>

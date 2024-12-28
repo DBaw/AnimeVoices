@@ -9,5 +9,11 @@ namespace AnimeVoices.Models
         public string Name { get; set; }
         public List<int> Characters { get; set; }
         public Image Picture { get; set; }
+
+        public Seiyuu(int id, List<int> characters) 
+        {
+            Id = id;
+            Characters = characters;
+        }
     }
 }
