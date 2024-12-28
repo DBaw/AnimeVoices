@@ -72,13 +72,13 @@ namespace AnimeVoices.ViewModels.Content
                 new AnimeDto(5,"One Piece", 7, 9.01,"[5]")
             };
 
-            List<Character> characters = new List<Character>()
+            List<CharacterDto> charactersDtoList = new List<CharacterDto>()
             {
-                new Character(1, "Uzumaki Naruto"),
-                new Character(2, "Kurosaki Ichigo", 1),
-                new Character(3, "L"),
-                new Character(4, "Izuku Midorya"),
-                new Character(5, "Marco", 1)
+                new CharacterDto(1, "Uzumaki Naruto", "[1]", -1),
+                new CharacterDto(2, "Kurosaki Ichigo", "[2]",  1),
+                new CharacterDto(3, "L", "[-1]", -1),
+                new CharacterDto(4, "Izuku Midorya", "[-1]", -1),
+                new CharacterDto(5, "Marco","[5]", 1)
             };
 
             foreach (AnimeDto anime in animeDtoList)
@@ -86,9 +86,10 @@ namespace AnimeVoices.ViewModels.Content
                 Anime a = new(anime, LoggedUser);
                 _fullAnimeList.Add(a);
             }
-            foreach(Character character in characters)
+            foreach(CharacterDto character in charactersDtoList)
             {
-                _fullCharacterList.Add(character);
+                Character c = new(character);
+                _fullCharacterList.Add(c);
             }
             FilteredAnimeList = new(_fullAnimeList);
             FilteredCharacterList = new();
