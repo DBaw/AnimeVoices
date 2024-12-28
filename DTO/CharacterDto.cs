@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AnimeVoices.DTO
 {
@@ -8,12 +9,21 @@ namespace AnimeVoices.DTO
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public string Anime {  get; set; }
         public int Seiyuu { get; set; }
         public string ImageUrl { get; set; }
 
         public CharacterDto()
         {
             
+        }
+
+        public CharacterDto(int id, string name, string anime, int seiyuu)
+        {
+            Id = id;
+            Name = name;
+            Anime = String.IsNullOrEmpty(anime) ? String.Empty : anime;
+            Seiyuu = seiyuu;
         }
     }
 }
