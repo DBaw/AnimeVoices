@@ -13,6 +13,12 @@
 		<converters:BooleanToWatchlistIconConverter x:Key="BooleanToWatchlistIconConverter"/>
 		<converters:BooleanToFavouriteIconConverter x:Key="BooleanToFavouriteIconConverter"/>
 		<converters:BooleanToDropIconConverter x:Key="BooleanToDropIconConverter"/>
+		<converters:BooleanNotConverter x:Key="BooleanNotConverter"/>
+		<converters:BooleanToListHeightConverter x:Key="BooleanToListHeightConverter"/>
+		<converters:AnimeToBackgroundColorConverter x:Key="AnimeToBackgroundColorConverter"/>
+		<converters:AnimeToForegroundColorConverter x:Key="AnimeToForegroundColorConverter"/>
+		<converters:CharacterToBackgroundColorConverter x:Key="CharacterToBackgroundColorConverter"/>
+		<converters:CharacterToForegroundColorConverter x:Key="CharacterToForegroundColorConverter"/>
 	</UserControl.Resources>
 	<Grid HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
@@ -43,21 +49,22 @@
 					</Button>
 					<!-- Selected Anime -->
 					<Border Grid.Column="2"
-							VerticalAlignment="Stretch"
+							Background="{Binding SelectedAnime, Converter={StaticResource AnimeToBackgroundColorConverter}}"
 							HorizontalAlignment="Stretch"
-							Background="#F8BBC6"
-							IsVisible="{Binding IsSelectedAnimeVisible}">
-						<TextBlock Text="{Binding SelectedAnime.Title}"
+							VerticalAlignment="Center"
+							IsVisible="{Binding AnimeListExpanded, Converter={StaticResource BooleanNotConverter}}">
+						<TextBlock Grid.Column="2"
+								   Text="{Binding SelectedAnime.Title}"
+								   Background="Transparent"
+								   Foreground="{Binding SelectedAnime, Converter={StaticResource AnimeToForegroundColorConverter}}"
 								   FontSize="20"
 								   FontWeight="Regular"
-								   Foreground="#2D323D"
-								   Background="Transparent"
 								   HorizontalAlignment="Center"
-								   VerticalAlignment="Center"/>						
+								   VerticalAlignment="Center"/>	
 					</Border>
 				</Grid>
 				<!-- Anime List -->
-				<ListBox MaxHeight="{Binding MaxAnimeListHeight}"
+				<ListBox MaxHeight="{Binding AnimeListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
 						 ItemsSource="{Binding FilteredAnimeList}"
 						 SelectedItem="{Binding SelectedAnime}">
 					<ListBox.Styles>
@@ -143,7 +150,7 @@
 						</Style>
 					</ListBox.Styles>
 				</ListBox>
-				<!-- Character List -->
+				<!-- Character Header -->
 				<Grid ColumnDefinitions="200,50,*"
 					  Margin="0,5">
 					<TextBlock Text="Characters List"
@@ -165,22 +172,85 @@
 											   Width="25"/>
 					</Button>
 					<Border Grid.Column="2"
-							VerticalAlignment="Stretch"
+							Background="{Binding SelectedCharacter, Converter={StaticResource CharacterToBackgroundColorConverter}}"
 							HorizontalAlignment="Stretch"
-							Background="#F8BBC6"
-							IsVisible="{Binding IsSelectedCharacterVisible}">
-						<TextBlock Text="{Binding SelectedCharacter.Name}"
+							VerticalAlignment="Center"
+							IsVisible="{Binding CharacterListExpanded, Converter={StaticResource BooleanNotConverter}}">
+						<TextBlock Grid.Column="2"
+								   Text="{Binding SelectedCharacter.Name}"
+								   Background="Transparent"
+								   Foreground="{Binding SelectedCharacter, Converter={StaticResource CharacterToForegroundColorConverter}}"
 								   FontSize="20"
 								   FontWeight="Regular"
-								   Foreground="#2D323D"
-								   Background="Transparent"
 								   HorizontalAlignment="Center"
 								   VerticalAlignment="Center"/>
 					</Border>
 				</Grid>
-				<ListBox MaxHeight="{Binding MaxCharacterListHeight}"
+				<!-- Character List -->
+				<ListBox MaxHeight="{Binding CharacterListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
 						 ItemsSource="{Binding FilteredCharacterList}"
 						 SelectedItem="{Binding SelectedCharacter}">
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="HorizontalAlignment" Value="Stretch" />
+							<Setter Property="Height" Value="25" />
+							<Setter Property="FontSize" Value="18" />
+							<Setter Property="FontWeight" Value="Regular" />
+							<Setter Property="Foreground" Value="White" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Border Background="{TemplateBinding Background}"
+											HorizontalAlignment="Stretch"
+											VerticalAlignment="Stretch">
+										<!-- Character Name -->
+										<TextBlock Text="{Binding Name}"
+												   Background="Transparent"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="{TemplateBinding Foreground}"
+												   FontSize="18"
+												   FontWeight="{TemplateBinding FontWeight}" />
+									</Border>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+						<Style Selector="ListBoxItem:pointerover">
+							<Setter Property="Background" Value="#282D37"/>
+						</Style>
+						<Style Selector="ListBoxItem:selected">
+							<Setter Property="Background" Value="#F8BBC6"/>
+							<Setter Property="Foreground" Value="#2D323D"/>
+							<Setter Property="FontWeight" Value="SemiBold" />
+						</Style>
+					</ListBox.Styles>
+				</ListBox>
+				<!-- Seiyuu Anime Header -->
+				<Grid ColumnDefinitions="200,50,*"
+					  Margin="0,5">
+					<TextBlock Text="Seiyuu Anime List"
+							   FontSize="20"
+							   FontWeight="Medium"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
+					<Button Grid.Column="1"
+							Command="{Binding HideExpandSeiyuuListCommand}"
+							CommandParameter="character"
+							Height="30"
+							Width="30"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center">
+						<material:MaterialIcon Kind="{Binding SeiyuuListExpanded, Converter={StaticResource BooleanToDropIconConverter}}"
+											   Foreground="White"
+											   Height="25"
+											   Width="25"/>
+					</Button>
+				</Grid>
+				<!-- Seiyuu List -->
+				<ListBox MaxHeight="{Binding MaxSeiyuuListHeight}"
+						 ItemsSource="{Binding SeiyuuList}"
+						 SelectedItem="{Binding SelectedSeiyuuAnime}">
 					<ListBox.Styles>
 						<Style Selector="ListBoxItem">
 							<Setter Property="Background" Value="Transparent" />

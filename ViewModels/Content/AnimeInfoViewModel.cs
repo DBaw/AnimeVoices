@@ -15,7 +15,7 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] private ObservableCollection<Anime> _filteredAnimeList;
         [ObservableProperty] private ObservableCollection<Character> _fullCharacterList;
         [ObservableProperty] private ObservableCollection<Character> _filteredCharacterList;
-        [ObservableProperty] private ObservableCollection<Seiyuu> _seiyuuList;
+        [ObservableProperty] private ObservableCollection<Seiyuu> _seiyuuAnimeList;
 
         // Currently selected items
         [ObservableProperty]
@@ -24,7 +24,7 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] 
         private Character _selectedCharacter;
         [ObservableProperty] 
-        private Seiyuu _selectedSeiyuu;
+        private Seiyuu _seiyuuList;
 
         // UI control properties
         [ObservableProperty] private int _maxAnimeListHeight;
@@ -33,16 +33,10 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] private bool _animeListExpanded;
         [ObservableProperty] private bool _characterListExpanded;
         [ObservableProperty] private bool _seiyuuListExpanded;
-        [ObservableProperty] private bool _isSelectedAnimeVisible;
-        [ObservableProperty] private bool _isSelectedCharacterVisible;
 
         // User login state
         [ObservableProperty] private bool _isUserLoggedIn;
         [ObservableProperty] private User _loggedUser;
-
-        // Additional local variables
-        private int maxListHeight = 200;
-        private int hidedListHeight = 0;
         #endregion
 
         #region Constructors
@@ -54,16 +48,10 @@ namespace AnimeVoices.ViewModels.Content
             AnimeListExpanded = true;
             CharacterListExpanded = false;
             SeiyuuListExpanded = false;
-            IsSelectedAnimeVisible = false;
-            IsSelectedCharacterVisible = false;
-
-            MaxAnimeListHeight = 100;
-            MaxCharacterListHeight = 0;
-            MaxSeiyuuListHeight = 0;
 
             FullAnimeList = new ObservableCollection<Anime>();
             FullCharacterList = new ObservableCollection<Character>();
-            SeiyuuList = new ObservableCollection<Seiyuu>();
+            //SeiyuuList = new ObservableCollection<Seiyuu>();
 
             List<AnimeDto> animeDtoList = new List<AnimeDto>()
             {
@@ -100,25 +88,7 @@ namespace AnimeVoices.ViewModels.Content
         public void HideExpandAnimeList(string list)
         {
             CharacterListExpanded = false;
-            MaxCharacterListHeight = hidedListHeight;
-
-            if (AnimeListExpanded)
-            {
-                MaxAnimeListHeight = hidedListHeight;
-            }
-            else
-            {
-                MaxAnimeListHeight = maxListHeight;
-                IsSelectedAnimeVisible = false;
-                if(SelectedCharacter != null)
-                {
-                    IsSelectedCharacterVisible = true;
-                }
-            }
-            if (AnimeListExpanded && SelectedAnime != null) 
-            {
-                IsSelectedAnimeVisible = true;
-            }
+            SeiyuuListExpanded = false;
             AnimeListExpanded = !AnimeListExpanded;
         }
         private bool CanAnimeListDropDown() => FilteredAnimeList.Count > 0;
@@ -127,24 +97,8 @@ namespace AnimeVoices.ViewModels.Content
         public void HideExpandCharactersList(string list)
         {
             AnimeListExpanded = false;
-            MaxAnimeListHeight = hidedListHeight;
-
-            if (CharacterListExpanded)
-            {
-                MaxCharacterListHeight = hidedListHeight;
-            }
-            else
-            {
-                MaxCharacterListHeight = maxListHeight;
-                IsSelectedCharacterVisible = false;
-                IsSelectedAnimeVisible = true;
-            }
-            if (CharacterListExpanded && SelectedCharacter != null)
-            {
-                IsSelectedCharacterVisible = true;
-            }
+            SeiyuuListExpanded = false;
             CharacterListExpanded = !CharacterListExpanded;
-            
         }
         private bool CanCharacterListDropDown() => FilteredCharacterList.Count > 0;
         #endregion
@@ -152,7 +106,6 @@ namespace AnimeVoices.ViewModels.Content
         #region Partial Methods
         partial void OnSelectedAnimeChanged(Anime value)
         {
-            IsSelectedCharacterVisible = false;
             FilteredCharacterList.Clear();
             if (value == null)
             {
