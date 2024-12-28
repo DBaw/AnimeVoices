@@ -15,10 +15,8 @@
 		<converters:BooleanToDropIconConverter x:Key="BooleanToDropIconConverter"/>
 		<converters:BooleanNotConverter x:Key="BooleanNotConverter"/>
 		<converters:BooleanToListHeightConverter x:Key="BooleanToListHeightConverter"/>
-		<converters:AnimeToBackgroundColorConverter x:Key="AnimeToBackgroundColorConverter"/>
-		<converters:AnimeToForegroundColorConverter x:Key="AnimeToForegroundColorConverter"/>
-		<converters:CharacterToBackgroundColorConverter x:Key="CharacterToBackgroundColorConverter"/>
-		<converters:CharacterToForegroundColorConverter x:Key="CharacterToForegroundColorConverter"/>
+		<converters:ObjectToBackgroundColorConverter x:Key="ObjectToBackgroundColorConverter"/>
+		<converters:ObjectToForegroundColorConverter x:Key="ObjectToForegroundColorConverter"/>
 	</UserControl.Resources>
 	<Grid HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
@@ -27,7 +25,7 @@
 		<Grid Grid.Column="0">
 			<StackPanel Orientation="Vertical">
 				<!-- Anime Header -->
-				<Grid ColumnDefinitions="200,50,*"
+				<Grid ColumnDefinitions="250,50,*"
 					  Margin="0,5">
 					<TextBlock Text="Anime List"
 							   FontSize="20"
@@ -49,14 +47,13 @@
 					</Button>
 					<!-- Selected Anime -->
 					<Border Grid.Column="2"
-							Background="{Binding SelectedAnime, Converter={StaticResource AnimeToBackgroundColorConverter}}"
+							Background="{Binding SelectedAnime, Converter={StaticResource ObjectToBackgroundColorConverter}}"
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Center"
 							IsVisible="{Binding AnimeListExpanded, Converter={StaticResource BooleanNotConverter}}">
-						<TextBlock Grid.Column="2"
-								   Text="{Binding SelectedAnime.Title}"
+						<TextBlock Text="{Binding SelectedAnime.Title}"
 								   Background="Transparent"
-								   Foreground="{Binding SelectedAnime, Converter={StaticResource AnimeToForegroundColorConverter}}"
+								   Foreground="{Binding SelectedAnime, Converter={StaticResource ObjectToForegroundColorConverter}}"
 								   FontSize="20"
 								   FontWeight="Regular"
 								   HorizontalAlignment="Center"
@@ -151,7 +148,7 @@
 					</ListBox.Styles>
 				</ListBox>
 				<!-- Character Header -->
-				<Grid ColumnDefinitions="200,50,*"
+				<Grid ColumnDefinitions="250,50,*"
 					  Margin="0,5">
 					<TextBlock Text="Characters List"
 							   FontSize="20"
@@ -172,14 +169,13 @@
 											   Width="25"/>
 					</Button>
 					<Border Grid.Column="2"
-							Background="{Binding SelectedCharacter, Converter={StaticResource CharacterToBackgroundColorConverter}}"
+							Background="{Binding SelectedCharacter, Converter={StaticResource ObjectToBackgroundColorConverter}}"
 							HorizontalAlignment="Stretch"
 							VerticalAlignment="Center"
 							IsVisible="{Binding CharacterListExpanded, Converter={StaticResource BooleanNotConverter}}">
-						<TextBlock Grid.Column="2"
-								   Text="{Binding SelectedCharacter.Name}"
+						<TextBlock Text="{Binding SelectedCharacter.Name}"
 								   Background="Transparent"
-								   Foreground="{Binding SelectedCharacter, Converter={StaticResource CharacterToForegroundColorConverter}}"
+								   Foreground="{Binding SelectedCharacter, Converter={StaticResource ObjectToForegroundColorConverter}}"
 								   FontSize="20"
 								   FontWeight="Regular"
 								   HorizontalAlignment="Center"
@@ -225,10 +221,10 @@
 						</Style>
 					</ListBox.Styles>
 				</ListBox>
-				<!-- Seiyuu Anime Header -->
-				<Grid ColumnDefinitions="200,50,*"
+				<!-- Seiyuu Characters Header -->
+				<Grid ColumnDefinitions="250,50,*"
 					  Margin="0,5">
-					<TextBlock Text="Seiyuu Anime List"
+					<TextBlock Text="Seiyuu Characters List"
 							   FontSize="20"
 							   FontWeight="Medium"
 							   Foreground="White"
@@ -245,6 +241,19 @@
 											   Height="25"
 											   Width="25"/>
 					</Button>
+					<Border Grid.Column="2"
+							Background="{Binding SelectedResult, Converter={StaticResource ObjectToBackgroundColorConverter}}"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Center"
+							IsVisible="{Binding ResultListExpanded, Converter={StaticResource BooleanNotConverter}}">
+						<TextBlock Text="{Binding SelectedResult.Character}"
+								   Background="Transparent"
+								   Foreground="{Binding SelectedCharacter, Converter={StaticResource ObjectToForegroundColorConverter}}"
+								   FontSize="20"
+								   FontWeight="Regular"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
 				</Grid>
 				<!-- Seiyuu Anime List -->
 				<ListBox MaxHeight="{Binding ResultListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
