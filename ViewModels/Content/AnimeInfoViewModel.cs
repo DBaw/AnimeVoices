@@ -103,6 +103,11 @@ namespace AnimeVoices.ViewModels.Content
             CharacterListExpanded = false;
             ResultListExpanded = false;
             AnimeListExpanded = !AnimeListExpanded;
+
+            if (!AnimeListExpanded && !CharacterListExpanded && !ResultListExpanded && ResultList.Count > 0)
+            {
+                ResultListExpanded = true;
+            }
         }
         private bool CanAnimeListDropDown() => FilteredAnimeList.Count > 0;
 
@@ -121,6 +126,11 @@ namespace AnimeVoices.ViewModels.Content
             AnimeListExpanded = false;
             CharacterListExpanded = false;
             ResultListExpanded = !ResultListExpanded;
+
+            if(!AnimeListExpanded && !CharacterListExpanded && !ResultListExpanded)
+            {
+                AnimeListExpanded = true;
+            }
         }
         private bool CanResultListDropDown() => ResultList.Count > 0;
         #endregion
@@ -146,7 +156,13 @@ namespace AnimeVoices.ViewModels.Content
         partial void OnSelectedCharacterChanged(Character value)
         {
             ResultList.Clear();
+            if (value == null)
+            {
+                return;
+            }
+
             FoundSeiyuu = _fullSeiyuuList.Find(s => value.Seiyuu == s.Id);
+
             if (FoundSeiyuu != null) 
             {
                 foreach(Character character in _fullCharacterList)

@@ -14,6 +14,7 @@ namespace AnimeVoices.Models
         {
             Id = id;
             Name = name;
+            Seiyuu = -1;
         }
         public Character(int id, string name, int seiyuu)
         {
