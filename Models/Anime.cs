@@ -20,7 +20,7 @@ namespace AnimeVoices.Models
             Title = animeDto.Title;
             Rating = animeDto.Rating == -1 ? "" : ("#" + animeDto.Rating.ToString());
             Score = animeDto.Score == -1  ? "" : animeDto.Score.ToString();
-            Characters = string.IsNullOrEmpty(animeDto.Characters) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(animeDto.Characters);
+            Characters = string.IsNullOrEmpty(animeDto.CharactersJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(animeDto.CharactersJson);
 
             IsFavourite = user?.FavouriteAnimes.Contains(Id) ?? false;
             IsOnWatchlist = user?.Watchlist.Contains(Id) ?? false;

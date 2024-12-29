@@ -18,8 +18,8 @@ namespace AnimeVoices.Models
             Id = userDto.Id;
             Name = userDto.Name;
             Password = userDto.Password;
-            FavouriteAnimes = userDto.FavouriteAnimes == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.FavouriteAnimes);
-            FavouritesSeiyuus = userDto.FavouritesSeiyuus == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.FavouritesSeiyuus);
+            FavouriteAnimes = userDto.FavouriteAnimesJson == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.FavouriteAnimesJson);
+            FavouritesSeiyuus = userDto.FavouritesSeiyuusJson == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.FavouritesSeiyuusJson);
             Watchlist = userDto.Watchlist == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.Watchlist);
         }
 

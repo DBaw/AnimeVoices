@@ -10,7 +10,7 @@ namespace AnimeVoices.DTO
         public string Title { get; set; }
         public int Rating { get; set; }
         public double Score { get; set; }
-        public string Characters { get; set; }
+        public string CharactersJson { get; set; }
 
         public AnimeDto()
         {
@@ -22,7 +22,7 @@ namespace AnimeVoices.DTO
             Title = title;
             Rating = rating;
             Score = score;
-            Characters = String.Empty;
+            CharactersJson = String.Empty;
         }
         public AnimeDto(int id, string title, int rating, double score, string characters) 
         {
@@ -30,7 +30,7 @@ namespace AnimeVoices.DTO
             Title = title;  
             Rating = rating;
             Score = score;
-            Characters = String.IsNullOrEmpty(characters) ? String.Empty : characters;
+            CharactersJson = String.IsNullOrEmpty(characters) ? String.Empty : characters;
         }
     }
 }

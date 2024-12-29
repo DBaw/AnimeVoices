@@ -8,7 +8,7 @@ namespace AnimeVoices.DTO
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Characters { get; set; }
+        public string CharactersJson { get; set; }
         public string ImageUrl { get; set; }
 
         public SeiyuuDto()
