@@ -9,7 +9,7 @@ namespace AnimeVoices.DTO
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Anime {  get; set; }
+        public string AnimeJson {  get; set; }
         public int Seiyuu { get; set; }
         public string ImageUrl { get; set; }
 
@@ -22,7 +22,7 @@ namespace AnimeVoices.DTO
         {
             Id = id;
             Name = name;
-            Anime = String.IsNullOrEmpty(anime) ? String.Empty : anime;
+            AnimeJson = String.IsNullOrEmpty(anime) ? String.Empty : anime;
             Seiyuu = seiyuu;
         }
     }

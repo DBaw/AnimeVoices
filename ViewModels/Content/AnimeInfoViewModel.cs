@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -86,9 +87,9 @@ namespace AnimeVoices.ViewModels.Content
                 Anime a = new(anime, LoggedUser);
                 _fullAnimeList.Add(a);
             }
-            foreach(CharacterDto character in charactersDtoList)
+            foreach(CharacterDto characterDto in charactersDtoList)
             {
-                Character c = new(character);
+                Character c = new(characterDto);
                 _fullCharacterList.Add(c);
             }
             FilteredAnimeList = new(_fullAnimeList);
@@ -170,7 +171,17 @@ namespace AnimeVoices.ViewModels.Content
                 {
                     if(character.Seiyuu == FoundSeiyuu.Id && character.Id != value.Id)
                     {
-                        Result result = new("Anime Title", character.Name);
+                        List<Anime> charactersAnime= _fullAnimeList.FindAll(a => character.AnimeList.Contains(a.Id));
+                        string animeTitle = "";
+                        foreach(Anime anime in charactersAnime)
+                        {
+                            if (anime.Characters.Contains(character.Id))
+                            {
+                                animeTitle = anime.Title;
+                                break;
+                            }
+                        }
+                        Result result = new(animeTitle, character.Name);
                         ResultList.Add(result);
                     }
                 }

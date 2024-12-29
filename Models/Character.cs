@@ -9,7 +9,7 @@ namespace AnimeVoices.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> Anime { get; set; }
+        public List<int> AnimeList { get; set; }
         public int Seiyuu { get; set; }
         public Image ImageUrl { get; set; }
 
@@ -18,14 +18,14 @@ namespace AnimeVoices.Models
             Id = id;
             Name = name;
             Seiyuu = -1;
-            Anime = new();
+            AnimeList = new();
         }
         public Character(int id, string name, int seiyuu)
         {
             Id = id;
             Name = name;
             Seiyuu = seiyuu;
-            Anime = new() ;
+            AnimeList = new() ;
         }
 
         public Character(CharacterDto characterDto)
@@ -33,7 +33,7 @@ namespace AnimeVoices.Models
             Id = characterDto.Id;
             Name = characterDto.Name;
             Seiyuu = characterDto.Seiyuu;
-            Anime = string.IsNullOrEmpty(characterDto.Anime) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(characterDto.Anime); ;
+            AnimeList = string.IsNullOrEmpty(characterDto.AnimeJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(characterDto.AnimeJson); ;
         }
     }
 }
