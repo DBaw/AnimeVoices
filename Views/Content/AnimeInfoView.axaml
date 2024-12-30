@@ -20,9 +20,10 @@
 	</UserControl.Resources>
 	<Grid HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
-		  ColumnDefinitions="*,40">
-
-		<Grid Grid.Column="0">
+		  ColumnDefinitions="*,200,40">
+		<!-- Lists -->
+		<Grid Grid.Column="0"
+			  Grid.ColumnSpan="2">
 			<StackPanel Orientation="Vertical">
 				<!-- Anime Header -->
 				<Grid ColumnDefinitions="250,50,*"
@@ -305,6 +306,66 @@
 					</ListBox.Styles>
 				</ListBox>
 			</StackPanel>
+		</Grid>
+		<!-- Info Panels -->
+		<Grid Grid.Column="1">
+			
+		</Grid>
+		<!-- Info Buttons -->
+		<Grid Grid.Column="2"
+			  RowDefinitions="*,*,*">
+			<Button Grid.Row="0"
+					Background="#99A1E0"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Margin="0,0,0,-12"
+					CornerRadius="10,0,0,0">
+				<TextBlock Text="ANIME"
+						   Foreground="#2D323D"
+						   FontSize="12"
+						   Width="10"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   TextTrimming="None"
+						   HorizontalAlignment="Stretch"
+						   VerticalAlignment="Center"/>
+			</Button>
+			<Button Grid.Row="1"
+					Background="#A2C2DD"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Margin="0,0,0,-12"
+					CornerRadius="10,0,0,0">
+				<TextBlock Text="CHARACTER"
+						   Foreground="#2D323D"
+						   FontSize="12"
+						   Width="10"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   HorizontalAlignment="Stretch"
+						   VerticalAlignment="Center"/>
+			</Button>
+			<Button Grid.Row="2"
+					Background="#ABE2DA"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Margin="0,0,0,-12"
+					CornerRadius="10,0,0,0">
+				<TextBlock Text="RESULT"
+						   Foreground="#2D323D"
+						   FontSize="12"
+						   Width="10"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   HorizontalAlignment="Stretch"
+						   VerticalAlignment="Center"/>
+			</Button>
 		</Grid>
 	</Grid>
 </UserControl>
