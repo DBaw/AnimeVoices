@@ -20,7 +20,7 @@
 	</UserControl.Resources>
 	<Grid HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
-		  ColumnDefinitions="*,200,40">
+		  ColumnDefinitions="*,300,40">
 		<!-- Lists -->
 		<Grid Grid.Column="0"
 			  Grid.ColumnSpan="2">
@@ -308,12 +308,68 @@
 			</StackPanel>
 		</Grid>
 		<!-- Info Panels -->
-		<Grid Grid.Column="1">
+		<Grid Grid.Column="1"
+			  Grid.ColumnSpan="2">
+			<!-- Anime Panel -->
+			<Border Padding="0,0,40,0"
+					Background="#99A1E0"
+					CornerRadius="15,0,0,15">
+				<Grid RowDefinitions="30,150,*,30"
+					  Margin="10">
+					<!-- Title -->
+					<TextBlock Grid.Row="0"
+							   Text="TITLE"
+							   Foreground="#EAEAEA"
+							   FontSize="22"
+							   FontWeight="DemiBold"
+							   HorizontalAlignment="Stretch"
+							   VerticalAlignment="Center"
+							   TextAlignment="Center"/>
+					<!-- Info -->
+					<Grid Grid.Row="1"
+						  ColumnDefinitions="70,*">
+						<Grid Grid.Column="0"
+							  RowDefinitions="*,*,*,*,*">
+							<TextBlock Grid.Row="0" Text="Studio:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+							<TextBlock Grid.Row="1" Text="Status:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+							<TextBlock Grid.Row="2" Text="Aired:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+							<TextBlock Grid.Row="3" Text="Episodes:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+							<TextBlock Grid.Row="4" Text="Synopsis:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+						</Grid>
+						<Grid Grid.Column="1"
+							  RowDefinitions="*,*,*,*,*"
+							  Margin="8,0,0,0">
+							<TextBlock Grid.Row="0" Text="Studio Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="1" Text="Status Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="2" Text="Aired Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="3" Text="Episodes Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+						</Grid>
+					</Grid>
+					<TextBlock Grid.Row="2"
+							   Text="Anime Synopsis"
+							   Foreground="#e6f4f1"
+							   TextAlignment="Justify"
+							   TextWrapping="Wrap"
+							   FontStyle="Italic"
+							   FontSize="12"
+							   MaxLines="23"
+							   Margin="5"
+							   LineSpacing="2"/>
+					<Button Grid.Row="3"
+							Content="Refresh"
+							Background="#F8BBC6"
+							Foreground="#2A2A2A"
+							Margin="50,0"
+							CornerRadius="15"/>
+				</Grid>
+					
+			</Border>
 			
 		</Grid>
 		<!-- Info Buttons -->
 		<Grid Grid.Column="2"
 			  RowDefinitions="*,*,*">
+			<!-- Anime Info Button -->
 			<Button Grid.Row="0"
 					Command="{Binding ShowAnimeInfoCommand}"
 					Background="#99A1E0"
@@ -332,6 +388,7 @@
 						   HorizontalAlignment="Stretch"
 						   VerticalAlignment="Center"/>
 			</Button>
+			<!-- Character Info Button -->
 			<Button Grid.Row="1"
 					Command="{Binding ShowCharacterInfoCommand}"
 					Background="#A2C2DD"
@@ -349,6 +406,7 @@
 						   HorizontalAlignment="Stretch"
 						   VerticalAlignment="Center"/>
 			</Button>
+			<!-- Result Info Button -->
 			<Button Grid.Row="2"
 					Command="{Binding ShowResultInfoCommand}"
 					Background="#ABE2DA"
