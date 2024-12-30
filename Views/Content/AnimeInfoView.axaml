@@ -321,7 +321,7 @@
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					CornerRadius="10,0,0,10">
+					CornerRadius="15,0,0,15">
 				<TextBlock Text="ANIME"
 						   Foreground="#2D323D"
 						   FontSize="12"
@@ -339,7 +339,7 @@
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					CornerRadius="10,0,0,10">
+					CornerRadius="15,0,0,15">
 				<TextBlock Text="CHARACTER"
 						   Foreground="#2D323D"
 						   FontSize="12"
@@ -356,7 +356,7 @@
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					CornerRadius="10,0,0,10">
+					CornerRadius="15,0,0,15">
 				<TextBlock Text="RESULT"
 						   Foreground="#2D323D"
 						   FontSize="12"
