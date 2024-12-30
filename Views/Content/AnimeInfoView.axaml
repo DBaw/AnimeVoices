@@ -315,6 +315,7 @@
 		<Grid Grid.Column="2"
 			  RowDefinitions="*,*,*">
 			<Button Grid.Row="0"
+					Command="{Binding ShowAnimeInfoCommand}"
 					Background="#99A1E0"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
@@ -333,6 +334,7 @@
 						   VerticalAlignment="Center"/>
 			</Button>
 			<Button Grid.Row="1"
+					Command="{Binding ShowCharacterInfoCommand}"
 					Background="#A2C2DD"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
@@ -350,6 +352,7 @@
 						   VerticalAlignment="Center"/>
 			</Button>
 			<Button Grid.Row="2"
+					Command="{Binding ShowResultInfoCommand}"
 					Background="#ABE2DA"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"

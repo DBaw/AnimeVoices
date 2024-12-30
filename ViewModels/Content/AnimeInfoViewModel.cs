@@ -25,11 +25,14 @@ namespace AnimeVoices.ViewModels.Content
         // Currently selected items
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(HideExpandCharactersListCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ShowAnimeInfoCommand))]
         private Anime _selectedAnime;
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(HideExpandResultListCommand))]
+        [NotifyCanExecuteChangedFor(nameof(ShowCharacterInfoCommand))]
         private Character _selectedCharacter;
         [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(ShowResultInfoCommand))]
         private Result _selectedResult;
         [ObservableProperty] 
         private Seiyuu _foundSeiyuu;
@@ -135,6 +138,27 @@ namespace AnimeVoices.ViewModels.Content
             }
         }
         private bool CanResultListDropDown() => ResultList.Count > 0;
+
+        [RelayCommand(CanExecute = "CanShowAnimeInfo")]
+        public void ShowAnimeInfo()
+        {
+
+        }
+        private bool CanShowAnimeInfo() => SelectedAnime != null;
+
+        [RelayCommand(CanExecute = "CanShowCharacterInfo")]
+        public void ShowCharacterInfo()
+        {
+
+        }
+        private bool CanShowCharacterInfo() => SelectedCharacter != null;
+
+        [RelayCommand(CanExecute = "CanShowResultInfo")]
+        public void ShowResultInfo()
+        {
+
+        }
+        private bool CanShowResultInfo() => SelectedResult != null;
         #endregion
 
         #region Partial Methods
