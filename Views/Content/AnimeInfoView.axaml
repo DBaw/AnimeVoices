@@ -318,7 +318,7 @@
 					  Margin="10">
 					<!-- Title -->
 					<TextBlock Grid.Row="0"
-							   Text="TITLE"
+							   Text="{Binding SelectedAnime.Title}"
 							   Foreground="#EAEAEA"
 							   FontSize="22"
 							   FontWeight="DemiBold"
@@ -339,14 +339,14 @@
 						<Grid Grid.Column="1"
 							  RowDefinitions="*,*,*,*,*"
 							  Margin="8,0,0,0">
-							<TextBlock Grid.Row="0" Text="Studio Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
-							<TextBlock Grid.Row="1" Text="Status Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
-							<TextBlock Grid.Row="2" Text="Aired Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
-							<TextBlock Grid.Row="3" Text="Episodes Info" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="0" Text="{Binding SelectedAnime.Studio}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="1" Text="{Binding SelectedAnime.Status}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="2" Text="{Binding SelectedAnime.Aired}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+							<TextBlock Grid.Row="3" Text="{Binding SelectedAnime.Episodes}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
 						</Grid>
 					</Grid>
 					<TextBlock Grid.Row="2"
-							   Text="Anime Synopsis"
+							   Text="{Binding SelectedAnime.Synopsis}"
 							   Foreground="#e6f4f1"
 							   TextAlignment="Justify"
 							   TextWrapping="Wrap"
