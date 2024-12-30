@@ -313,7 +313,8 @@
 			<!-- Anime Panel -->
 			<Border Padding="0,0,40,0"
 					Background="#99A1E0"
-					CornerRadius="15,0,0,15">
+					CornerRadius="15,0,0,15"
+					IsVisible="{Binding IsAnimeInfoPanelVisible}">
 				<Grid RowDefinitions="30,150,*,30"
 					  Margin="10">
 					<!-- Title -->
