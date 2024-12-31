@@ -1,6 +1,8 @@
 ﻿using AnimeVoices.DTO;
 using Avalonia.Controls;
 using Newtonsoft.Json;
+using SkiaSharp;
+using System;
 using System.Collections.Generic;
 
 namespace AnimeVoices.Models
@@ -11,7 +13,7 @@ namespace AnimeVoices.Models
         public string Name { get; set; }
         public List<int> AnimeList { get; set; }
         public int Seiyuu { get; set; }
-        public Image ImageUrl { get; set; }
+        public Uri Image { get; set; }
 
         public Character(int id, string name)
         {
@@ -33,7 +35,10 @@ namespace AnimeVoices.Models
             Id = characterDto.Id;
             Name = characterDto.Name;
             Seiyuu = characterDto.Seiyuu;
-            AnimeList = string.IsNullOrEmpty(characterDto.AnimeJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(characterDto.AnimeJson); ;
+            AnimeList = string.IsNullOrEmpty(characterDto.AnimeJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(characterDto.AnimeJson);
+            Image = !string.IsNullOrEmpty(characterDto.ImageUrl)
+            ? new Uri(characterDto.ImageUrl, UriKind.Absolute)
+            : new Uri("avares://AnimeVoices/Assets/not-found-image.png");
         }
     }
 }

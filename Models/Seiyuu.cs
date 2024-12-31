@@ -1,4 +1,5 @@
 ﻿using Avalonia.Controls;
+using System;
 using System.Collections.Generic;
 
 namespace AnimeVoices.Models
@@ -8,7 +9,7 @@ namespace AnimeVoices.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<int> Characters { get; set; }
-        public Image Picture { get; set; }
+        public Uri Image { get; set; }
 
         public Seiyuu(int id, List<int> characters) 
         {

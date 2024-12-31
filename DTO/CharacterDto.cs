@@ -24,6 +24,7 @@ namespace AnimeVoices.DTO
             Name = name;
             AnimeJson = String.IsNullOrEmpty(anime) ? String.Empty : anime;
             Seiyuu = seiyuu;
+            ImageUrl = "";
         }
     }
 }

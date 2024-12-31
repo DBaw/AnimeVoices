@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace AnimeVoices.Views.Content.InfoPanels;
 
-public partial class AnimeInfoPanelView : UserControl
+public partial class CharacterInfoPanelView : UserControl
 {
-    public AnimeInfoPanelView()
+    public CharacterInfoPanelView()
     {
         InitializeComponent();
     }

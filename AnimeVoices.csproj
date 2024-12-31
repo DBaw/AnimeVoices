@@ -32,4 +32,17 @@
   <ItemGroup>
     <UpToDateCheckInput Remove="Views\UserPanelView.axaml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaXaml Update="Views\Content\InfoPanels\CharacterInfoPanelView.axaml">
+      <SubType>Designer</SubType>
+    </AvaloniaXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\Content\InfoPanels\CharacterInfoPanelView.axaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>CharacterInfoPanelView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
