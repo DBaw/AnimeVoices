@@ -1,10 +1,11 @@
 ﻿using AnimeVoices.DTO;
 using AnimeVoices.Models;
+using AnimeVoices.ViewModels.Content.InfoPanels;
+using AnimeVoices.Views.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -21,6 +22,10 @@ namespace AnimeVoices.ViewModels.Content
         private ObservableCollection<Character> _filteredCharacterList;
         [ObservableProperty] 
         private ObservableCollection<Result> _resultList;
+
+        // Info panels ViewModels
+        [ObservableProperty] ObservableObject _infoPanelViewModel;
+
 
         // Currently selected items
         [ObservableProperty]
@@ -41,9 +46,6 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] private bool _animeListExpanded;
         [ObservableProperty] private bool _characterListExpanded;
         [ObservableProperty] private bool _resultListExpanded;
-        [ObservableProperty] private bool _isAnimeInfoPanelVisible;
-        [ObservableProperty] private bool _isCharacterInfoPanelVisible;
-        [ObservableProperty] private bool _isResultInfoPanelVisible;
 
         // User login state
         [ObservableProperty] private bool _isUserLoggedIn;
@@ -59,9 +61,6 @@ namespace AnimeVoices.ViewModels.Content
             AnimeListExpanded = true;
             CharacterListExpanded = false;
             ResultListExpanded = false;
-            IsAnimeInfoPanelVisible = false;
-            IsCharacterInfoPanelVisible = false;
-            IsResultInfoPanelVisible = false;
 
             _fullAnimeList = new List<Anime>();
             _fullCharacterList = new List<Character>();
@@ -148,27 +147,26 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowAnimeInfo")]
         public void ShowAnimeInfo()
         {
-            IsCharacterInfoPanelVisible = false;
-            IsResultInfoPanelVisible = false;
-            IsAnimeInfoPanelVisible = !IsAnimeInfoPanelVisible;
+            if(InfoPanelViewModel == null) 
+            {  
+                InfoPanelViewModel = new AnimeInfoPanelViewModel(SelectedAnime); 
+            }
+            else
+            {
+                InfoPanelViewModel = null;
+            }
         }
         private bool CanShowAnimeInfo() => SelectedAnime != null;
 
         [RelayCommand(CanExecute = "CanShowCharacterInfo")]
         public void ShowCharacterInfo()
         {
-            IsResultInfoPanelVisible = false;
-            IsAnimeInfoPanelVisible = false;
-            IsCharacterInfoPanelVisible = !IsCharacterInfoPanelVisible;
         }
         private bool CanShowCharacterInfo() => SelectedCharacter != null;
 
         [RelayCommand(CanExecute = "CanShowResultInfo")]
         public void ShowResultInfo()
         {
-            IsCharacterInfoPanelVisible = false;
-            IsAnimeInfoPanelVisible = false;
-            IsResultInfoPanelVisible = !IsResultInfoPanelVisible;
         }
         private bool CanShowResultInfo() => SelectedResult != null;
         #endregion
