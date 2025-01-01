@@ -150,7 +150,7 @@ namespace AnimeVoices.ViewModels.Content
         {
             bool isPanelsOpened = InfoPanelViewModel is AnimeInfoPanelViewModel;
             InfoPanelViewModel = null;
-            if(!(isPanelsOpened)) 
+            if(!isPanelsOpened) 
             {
                 InfoPanelViewModel = new AnimeInfoPanelViewModel(SelectedAnime); 
             }
@@ -160,8 +160,9 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowCharacterInfo")]
         public void ShowCharacterInfo()
         {
+            bool isPanelsOpened = InfoPanelViewModel is CharacterInfoPanelViewModel;
             InfoPanelViewModel = null;
-            if (!(InfoPanelViewModel is CharacterInfoPanelViewModel))
+            if (!isPanelsOpened)
             {
                 InfoPanelViewModel = new CharacterInfoPanelViewModel(SelectedCharacter, FoundSeiyuu);
             }
@@ -171,6 +172,12 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowResultInfo")]
         public void ShowResultInfo()
         {
+            bool isPanelsOpened = InfoPanelViewModel is ResultInfoPanelViewModel;
+            InfoPanelViewModel = null;
+            if (!isPanelsOpened)
+            {
+                InfoPanelViewModel = new ResultInfoPanelViewModel(SelectedCharacter, SelectedResult);
+            }
         }
         private bool CanShowResultInfo() => SelectedResult != null;
         #endregion
@@ -219,7 +226,7 @@ namespace AnimeVoices.ViewModels.Content
                                 break;
                             }
                         }
-                        Result result = new(animeTitle, character.Name);
+                        Result result = new(animeTitle, character.Name, character.Image);
                         ResultList.Add(result);
                     }
                 }
