@@ -1,8 +1,5 @@
-﻿using AnimeVoices.DTO;
-using AnimeVoices.Utilities.Helpers;
-using Avalonia.Controls;
+﻿using AnimeVoices.Utilities.Helpers;
 using Avalonia.Media.Imaging;
-using System;
 using System.Collections.Generic;
 
 namespace AnimeVoices.Models
