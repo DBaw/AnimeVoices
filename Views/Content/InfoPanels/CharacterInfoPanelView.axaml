@@ -22,9 +22,11 @@
 					   TextAlignment="Center"/>
 			<!-- Character Picture -->
 			<Image Grid.Row="1"
-				   Source="{Binding Character.Image}"/>
+				   Source="avares://AnimeVoices/Assets/not-found-image.png"
+				   MaxHeight="100"
+				   MaxWidth="150"/>
 			<!-- Seiyuu Name -->
-			<TextBlock Grid.Row="0"
+			<TextBlock Grid.Row="2"
 					   Text="{Binding Seiyuu.Name}"
 					   Foreground="#EAEAEA"
 					   FontSize="22"
@@ -33,8 +35,10 @@
 					   VerticalAlignment="Center"
 					   TextAlignment="Center"/>
 			<!-- Seiyuu Picture -->
-			<Image Grid.Row="1"
-				   Source="{Binding Seiyuu.Image}"/>
+			<Image Grid.Row="3"
+				   Source="{Binding Seiyuu.Image}"
+				   MaxHeight="100"
+				   MaxWidth="150"/>
 			<Button Grid.Row="4"
 					Content="Refresh"
 					Background="#F8BBC6"

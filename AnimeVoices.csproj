@@ -12,6 +12,8 @@
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 
+
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="11.2.3" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
@@ -29,20 +31,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\UserPanelView.axaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AvaloniaXaml Update="Views\Content\InfoPanels\CharacterInfoPanelView.axaml">
-      <SubType>Designer</SubType>
-    </AvaloniaXaml>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Views\Content\InfoPanels\CharacterInfoPanelView.axaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>CharacterInfoPanelView.axaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
 </Project>

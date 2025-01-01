@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -147,13 +148,11 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowAnimeInfo")]
         public void ShowAnimeInfo()
         {
-            if(InfoPanelViewModel == null) 
-            {  
-                InfoPanelViewModel = new AnimeInfoPanelViewModel(SelectedAnime); 
-            }
-            else
+            bool isPanelsOpened = InfoPanelViewModel is AnimeInfoPanelViewModel;
+            InfoPanelViewModel = null;
+            if(!(isPanelsOpened)) 
             {
-                InfoPanelViewModel = null;
+                InfoPanelViewModel = new AnimeInfoPanelViewModel(SelectedAnime); 
             }
         }
         private bool CanShowAnimeInfo() => SelectedAnime != null;
@@ -161,6 +160,11 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowCharacterInfo")]
         public void ShowCharacterInfo()
         {
+            InfoPanelViewModel = null;
+            if (!(InfoPanelViewModel is CharacterInfoPanelViewModel))
+            {
+                InfoPanelViewModel = new CharacterInfoPanelViewModel(SelectedCharacter, FoundSeiyuu);
+            }
         }
         private bool CanShowCharacterInfo() => SelectedCharacter != null;
 

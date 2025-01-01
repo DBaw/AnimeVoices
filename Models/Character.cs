@@ -1,9 +1,15 @@
 ﻿using AnimeVoices.DTO;
+using AnimeVoices.Utilities.Helpers;
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
+using Material.Icons;
 using Newtonsoft.Json;
-using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 
 namespace AnimeVoices.Models
 {
@@ -13,7 +19,7 @@ namespace AnimeVoices.Models
         public string Name { get; set; }
         public List<int> AnimeList { get; set; }
         public int Seiyuu { get; set; }
-        public Uri Image { get; set; }
+        public Bitmap Image { get; set; }
 
         public Character(int id, string name)
         {
@@ -36,9 +42,20 @@ namespace AnimeVoices.Models
             Name = characterDto.Name;
             Seiyuu = characterDto.Seiyuu;
             AnimeList = string.IsNullOrEmpty(characterDto.AnimeJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(characterDto.AnimeJson);
-            Image = !string.IsNullOrEmpty(characterDto.ImageUrl)
-            ? new Uri(characterDto.ImageUrl, UriKind.Absolute)
-            : new Uri("avares://AnimeVoices/Assets/not-found-image.png");
+            Image = string.IsNullOrEmpty(characterDto.ImageUrl) ? ImageHelper.LoadFromResource("avares://AnimeVoices/Assets/not-found-image.png") : ImageHelper.LoadFromWeb(characterDto.ImageUrl).Result;
+            /*
+             * if (string.IsNullOrEmpty(characterDto.ImageUrl))
+            {
+                Image = new Bitmap(AssetLoader.Open(new Uri("avares://AnimeVoices/Assets/not-found-image.png")));
+            }
+            else
+            {
+                using var httpClient = new HttpClient();
+                var response = httpClient.GetAsync(characterDto.ImageUrl);
+                var data = response.Result.Content.ReadAsStream().ReadByte();
+                Image =  new Bitmap(new MemoryStream(data));
+            }
+            */
         }
     }
 }
