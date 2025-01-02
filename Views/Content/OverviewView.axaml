@@ -7,11 +7,113 @@
 			 d:DesignHeight="460"
              x:Class="AnimeVoices.Views.Content.OverviewView"
 			 Background="Transparent">
-	<Border Background="Transparent">
-		<TextBlock Text="Overview"
+	<Grid RowDefinitions="100,*,100">
+		<TextBlock Grid.Row="0"
+				   Text="SEARCH FROM"
+				   FontSize="32"
+				   FontWeight="Bold"
 				   HorizontalAlignment="Center"
-				   VerticalAlignment="Center"
-				   Foreground="White"
-				   FontSize="24"/>
-	</Border>
+				   VerticalAlignment="Center"/>
+		<Grid Grid.Row="1"
+			  ColumnDefinitions="*,*,*">
+			<StackPanel Grid.Column="0"
+						Orientation="Vertical"
+						VerticalAlignment="Center"
+						Spacing="10">
+				<Border Height="200"
+						Width="200"
+						CornerRadius="100"
+						Background="#AFB5E7">
+					<Border Height="150"
+							Width="150"
+							CornerRadius="75"
+							Background="#2D323D">
+						<TextBlock Text="251"
+								   FontSize="24"
+								   FontWeight="SemiBold"
+								   FontStyle="Italic"
+								   LetterSpacing="2"
+								   Foreground="White"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
+				</Border>
+				<TextBlock Text="ANIME"
+						   LetterSpacing="1"
+						   FontSize="26"
+						   FontWeight="SemiBold"
+						   Foreground="White"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel Grid.Column="1"
+						Orientation="Vertical"
+						VerticalAlignment="Center"
+						Spacing="10">
+				<Border Height="200"
+						Width="200"
+						CornerRadius="100"
+						Background="#99A1E0">
+					<Border Height="150"
+							Width="150"
+							CornerRadius="75"
+							Background="#2D323D">
+						<TextBlock Text="518"
+								   FontSize="24"
+								   FontWeight="SemiBold"
+								   FontStyle="Italic"
+								   LetterSpacing="2"
+								   Foreground="White"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
+				</Border>
+				<TextBlock Text="CHARACTERS"
+						   LetterSpacing="1"
+						   FontSize="26"
+						   FontWeight="SemiBold"
+						   Foreground="White"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel Grid.Column="2"
+						Orientation="Vertical"
+						VerticalAlignment="Center"
+						Spacing="10">
+				<Border Height="200"
+						Width="200"
+						CornerRadius="100"
+						Background="#787FB0">
+					<Border Height="150"
+							Width="150"
+							CornerRadius="75"
+							Background="#2D323D">
+						<TextBlock Text="74"
+								   FontSize="24"
+								   FontWeight="SemiBold"
+								   FontStyle="Italic"
+								   LetterSpacing="2"
+								   Foreground="White"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
+				</Border>
+				<TextBlock Text="SEIYUU"
+						   LetterSpacing="1"
+						   FontSize="26"
+						   FontWeight="SemiBold"
+						   Foreground="White"
+						   HorizontalAlignment="Center"
+						   VerticalAlignment="Center"/>
+			</StackPanel>
+		</Grid>
+		<Button Grid.Row="2"
+				Content="GET MORE"
+				Background="#53AA93"
+				Foreground="#2D323D"
+				FontWeight="Medium"
+				Height="50"
+				Width="300"
+				CornerRadius="25"/>
+	</Grid>
 </UserControl>
