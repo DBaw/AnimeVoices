@@ -18,11 +18,11 @@ namespace AnimeVoices.DTO
             
         }
 
-        public CharacterDto(int id, string name, string anime, int seiyuu)
+        public CharacterDto(int id, string name, string animeJson, int seiyuu)
         {
             Id = id;
             Name = name;
-            AnimeJson = String.IsNullOrEmpty(anime) ? String.Empty : anime;
+            AnimeJson = String.IsNullOrEmpty(animeJson) ? String.Empty : animeJson;
             Seiyuu = seiyuu;
             ImageUrl = string.Empty;
         }
