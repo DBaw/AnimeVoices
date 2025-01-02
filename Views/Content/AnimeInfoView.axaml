@@ -320,7 +320,7 @@
 			<!-- Anime Info Button -->
 			<Button Grid.Row="0"
 					Command="{Binding ShowAnimeInfoCommand}"
-					Background="#99A1E0"
+					Background="#AFB5E7"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"
@@ -339,7 +339,7 @@
 			<!-- Character Info Button -->
 			<Button Grid.Row="1"
 					Command="{Binding ShowCharacterInfoCommand}"
-					Background="#A2C2DD"
+					Background="#99A1E0"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"
@@ -357,7 +357,7 @@
 			<!-- Result Info Button -->
 			<Button Grid.Row="2"
 					Command="{Binding ShowResultInfoCommand}"
-					Background="#ABE2DA"
+					Background="#787FB0"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Stretch"
 					HorizontalContentAlignment="Center"

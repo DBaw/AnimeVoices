@@ -1,12 +1,10 @@
 ﻿using AnimeVoices.DTO;
 using AnimeVoices.Models;
 using AnimeVoices.ViewModels.Content.InfoPanels;
-using AnimeVoices.Views.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -148,7 +146,7 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowAnimeInfo")]
         public void ShowAnimeInfo()
         {
-            bool isPanelsOpened = InfoPanelViewModel is AnimeInfoPanelViewModel;
+            bool isPanelsOpened = InfoPanelViewModel != null;
             InfoPanelViewModel = null;
             if(!isPanelsOpened) 
             {
@@ -160,7 +158,7 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowCharacterInfo")]
         public void ShowCharacterInfo()
         {
-            bool isPanelsOpened = InfoPanelViewModel is CharacterInfoPanelViewModel;
+            bool isPanelsOpened = InfoPanelViewModel != null;
             InfoPanelViewModel = null;
             if (!isPanelsOpened)
             {
@@ -172,7 +170,7 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand(CanExecute = "CanShowResultInfo")]
         public void ShowResultInfo()
         {
-            bool isPanelsOpened = InfoPanelViewModel is ResultInfoPanelViewModel;
+            bool isPanelsOpened = InfoPanelViewModel != null;
             InfoPanelViewModel = null;
             if (!isPanelsOpened)
             {

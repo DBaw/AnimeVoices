@@ -7,7 +7,7 @@
 			 d:DesignHeight="460"
              x:Class="AnimeVoices.Views.Content.InfoPanels.AnimeInfoPanelView"
 			 Background="Transparent">
-	<Border Background="#99A1E0"
+	<Border Background="#AFB5E7"
 			CornerRadius="15,0,0,15">
 		<Grid RowDefinitions="30,150,*,30"
 			  Margin="10">
@@ -52,8 +52,8 @@
 					   LineSpacing="2"/>
 			<Button Grid.Row="3"
 					Content="Refresh"
-					Background="#F8BBC6"
-					Foreground="#2A2A2A"
+					Background="#717495"
+					Foreground="#e6f4f1"
 					Margin="50,0"
 					CornerRadius="15"/>
 		</Grid>

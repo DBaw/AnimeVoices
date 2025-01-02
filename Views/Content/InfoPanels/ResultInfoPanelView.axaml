@@ -7,7 +7,7 @@
 			 d:DesignHeight="460"
              x:Class="AnimeVoices.Views.Content.InfoPanels.ResultInfoPanelView"
 			 Background="Transparent">
-	<Border Background="#ABE2DA"
+	<Border Background="#787FB0"
 			CornerRadius="15,0,0,15">
 		<Grid RowDefinitions="30,30,30,*,30"
 			  Margin="10">
