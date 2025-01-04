@@ -19,6 +19,11 @@ namespace AnimeVoices.Models
         public bool IsFavourite { get; set; }
         public bool IsOnWatchlist { get; set; }
 
+        public Anime()
+        {
+            
+        }
+
         public Anime(AnimeDto animeDto, User? user)
         {
             Id = animeDto.Id;

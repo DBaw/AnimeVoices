@@ -16,8 +16,6 @@ namespace AnimeVoices.DataModels.Entities
         public string Synopsis { get; set; }
         public int Episodes { get; set; }
         public string Characters { get; set; } // ID's separate by comma
-        public bool IsFavourite { get; set; }
-        public bool IsOnWatchlist { get; set; }
 
         public AnimeEntity()
         {
