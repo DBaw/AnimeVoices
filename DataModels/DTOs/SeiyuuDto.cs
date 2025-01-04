@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AnimeVoices.DataModels
+namespace AnimeVoices.DataModels.DTOs
 {
     public class SeiyuuDto
     {
@@ -13,7 +13,7 @@ namespace AnimeVoices.DataModels
 
         public SeiyuuDto()
         {
-            
+
         }
     }
 }

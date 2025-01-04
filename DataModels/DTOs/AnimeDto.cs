@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AnimeVoices.DataModels
+namespace AnimeVoices.DataModels.DTOs
 {
     public class AnimeDto
     {
@@ -10,7 +10,7 @@ namespace AnimeVoices.DataModels
         public string Title { get; set; }
         public int Rating { get; set; }
         public double Score { get; set; }
-        public string Studio {  get; set; }
+        public string Studio { get; set; }
         public string Aired { get; set; }
         public string Status { get; set; }
         public string Synopsis { get; set; }
@@ -19,7 +19,7 @@ namespace AnimeVoices.DataModels
 
         public AnimeDto()
         {
-            
+
         }
         public AnimeDto(int id, string title, int rating, double score)
         {
@@ -27,20 +27,20 @@ namespace AnimeVoices.DataModels
             Title = title;
             Rating = rating;
             Score = score;
-            CharactersJson = String.Empty;
+            CharactersJson = string.Empty;
             Studio = "Studio";
             Status = "Ended";
             Aired = "Jan 2, 2019 to Dec 19, 2020";
             Synopsis = "Anime about something";
             Episodes = 3;
         }
-        public AnimeDto(int id, string title, int rating, double score, string characters) 
+        public AnimeDto(int id, string title, int rating, double score, string characters)
         {
             Id = id;
-            Title = title;  
+            Title = title;
             Rating = rating;
             Score = score;
-            CharactersJson = String.IsNullOrEmpty(characters) ? String.Empty : characters;
+            CharactersJson = string.IsNullOrEmpty(characters) ? string.Empty : characters;
             Studio = "Ghibi";
             Status = "Currently Airing";
             Aired = "Oct 20, 1999 to ?";

@@ -41,7 +41,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Factories\" />
     <Folder Include="Mappers\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
