@@ -1,6 +1,17 @@
-﻿namespace AnimeVoices.Factories
+﻿using AnimeVoices.DataModels.DTOs;
+using AnimeVoices.Models;
+
+namespace AnimeVoices.Factories
 {
-    public class SeiyuuFactory
+    public static class SeiyuuFactory
     {
+        public static Seiyuu Create(SeiyuuDto dto) 
+        {
+            return new Seiyuu()
+            {
+                Id = dto.Id,
+                Name = dto.Name
+            };
+        }
     }
 }

@@ -1,6 +1,19 @@
-﻿namespace AnimeVoices.Factories
+﻿using AnimeVoices.DataModels.DTOs;
+using AnimeVoices.Models;
+
+namespace AnimeVoices.Factories
 {
-    public class AnimeFactory
+    public static class AnimeFactory
     {
+        public static Anime Create(AnimeDto dto)
+        {
+            return new Anime
+            {
+                Id = dto.Id,
+                Title = dto.Title,
+                IsFavourite = false,
+                IsOnWatchlist = false
+            };
+        }
     }
 }
