@@ -9,14 +9,19 @@ namespace AnimeVoices.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<int> Characters { get; set; }
-        public Bitmap Image { get; set; }
+        public string ImageUrl { get; set; }
+
+        public Seiyuu()
+        {
+            
+        }
 
         public Seiyuu(int id, List<int> characters) 
         {
             Name = "Some Seiyuu";
             Id = id;
             Characters = characters;
-            Image = string.IsNullOrEmpty("") ? ImageHelper.LoadFromResource("avares://AnimeVoices/Assets/not-found-image.png") : ImageHelper.LoadFromWeb("").Result;
+            ImageUrl = "";
         }
     }
 }
