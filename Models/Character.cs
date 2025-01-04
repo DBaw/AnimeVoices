@@ -1,4 +1,4 @@
-﻿using AnimeVoices.DTO;
+﻿using AnimeVoices.DataModels;
 using AnimeVoices.Utilities.Helpers;
 using Avalonia.Media.Imaging;
 using Newtonsoft.Json;

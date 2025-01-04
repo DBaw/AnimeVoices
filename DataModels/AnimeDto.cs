@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace AnimeVoices.DTO
+namespace AnimeVoices.DataModels
 {
     public class AnimeDto
     {

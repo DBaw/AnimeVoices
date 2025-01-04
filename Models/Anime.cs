@@ -1,4 +1,4 @@
-﻿using AnimeVoices.DTO;
+﻿using AnimeVoices.DataModels;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 

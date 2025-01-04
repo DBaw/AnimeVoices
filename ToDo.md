@@ -9,7 +9,8 @@ High prio
 8. Get data page (Settings? Other?) 
 9. Favourites View/Model
 10. Watchlist View/Model 
-11. User 
+11. Searchbar
+12. User 
 
 Low prio
 1. Better panels colors (foreground)

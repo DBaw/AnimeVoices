@@ -1,4 +1,4 @@
-﻿using AnimeVoices.DTO;
+﻿using AnimeVoices.DataModels;
 using AnimeVoices.Models;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
