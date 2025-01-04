@@ -2,6 +2,7 @@
 using AnimeVoices.Utilities.Helpers;
 using Avalonia.Media.Imaging;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace AnimeVoices.Models
@@ -12,7 +13,12 @@ namespace AnimeVoices.Models
         public string Name { get; set; }
         public List<int> AnimeList { get; set; }
         public int Seiyuu { get; set; }
-        public Bitmap Image { get; set; }
+        public string ImageUrl { get; set; }
+
+        public Character()
+        {
+            
+        }
 
         public Character(int id, string name)
         {
@@ -35,7 +41,7 @@ namespace AnimeVoices.Models
             Name = characterDto.Name;
             Seiyuu = characterDto.Seiyuu;
             AnimeList = string.IsNullOrEmpty(characterDto.AnimeJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(characterDto.AnimeJson);
-            Image = string.IsNullOrEmpty(characterDto.ImageUrl) ? ImageHelper.LoadFromResource("avares://AnimeVoices/Assets/not-found-image.png") : ImageHelper.LoadFromWeb(characterDto.ImageUrl).Result;
+            ImageUrl = characterDto.ImageUrl;
         }
     }
 }

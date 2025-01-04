@@ -30,5 +30,15 @@ namespace AnimeVoices.Utilities.Helpers
                 return null;
             }
         }
+
+        public static Bitmap LoadImage(string resource)
+        {
+            if (string.IsNullOrEmpty(resource))
+            {
+               return LoadFromResource("avares://AnimeVoices/Assets/not-found-image.png");
+            }
+
+            return LoadFromWeb(resource).Result;
+        }
     }
 }
