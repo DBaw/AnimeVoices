@@ -17,13 +17,13 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<Seiyuu> GetSeiyuuByIdAsync(int id)
         {
-            var seiyuuDto = await _seiyuuApi.GetSeiyuuById(id);
+            var seiyuuDto = await _seiyuuApi.GetSeiyuuByIdAsync(id);
             return SeiyuuFactory.Create(seiyuuDto);
         }
 
         public async Task<List<Seiyuu>> GetTopSeiyuuAsync(int page)
         {
-            var seiyuuDtos = await _seiyuuApi.GetTopSeiyuu(page);
+            var seiyuuDtos = await _seiyuuApi.GetTopSeiyuuAsync(page);
 
             var seiyuuModels = new List<Seiyuu>();
             foreach (var seiyuuDto in seiyuuDtos)

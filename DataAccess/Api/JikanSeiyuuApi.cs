@@ -8,7 +8,7 @@ namespace AnimeVoices.DataAccess.Api
 {
     public class JikanSeiyuuApi : ISeiyuuApi
     {
-        HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public JikanSeiyuuApi(HttpClient httpClient)
         {
