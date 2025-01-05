@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AnimeVoices.DataModels.DTOs.Nested;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AnimeVoices.DataModels.DTOs
@@ -6,46 +8,48 @@ namespace AnimeVoices.DataModels.DTOs
     public class AnimeDto
     {
         [Key]
+        [JsonProperty("mal_id")]
         public int Id { get; set; }
+
+        [JsonProperty("images")]
+        public ImagesDto Images { get; set; }
+
+        [JsonProperty("title")]
         public string Title { get; set; }
-        public int Rating { get; set; }
-        public double Score { get; set; }
-        public string Studio { get; set; }
-        public string Aired { get; set; }
+
+        [JsonProperty("episodes")]
+        public int? Episodes { get; set; }
+
+        [JsonProperty("status")]
         public string Status { get; set; }
-        public string Synopsis { get; set; }
-        public int Episodes { get; set; }
-        public string CharactersJson { get; set; }
+
+        [JsonProperty("airing")]
+        public bool Airing { get; set; }
+
+        [JsonProperty("aired")]
+        public AiredDto Aired { get; set; }
+
+        [JsonProperty("score")]
+        public double? Score { get; set; }
+
+        [JsonProperty("synopsis")]
+        public string About { get; set; }
+
+        [JsonProperty("year")]
+        public int? Year { get; set; }
+
+        [JsonProperty("broadcast")]
+        public BroadcastDto Broadcast { get; set; }
+
+        [JsonProperty("producers")]
+        public List<StudioOrProducerDto> Producers { get; set; }
+
+        [JsonProperty("studios")]
+        public List<StudioOrProducerDto> Studios { get; set; }
 
         public AnimeDto()
         {
 
-        }
-        public AnimeDto(int id, string title, int rating, double score)
-        {
-            Id = id;
-            Title = title;
-            Rating = rating;
-            Score = score;
-            CharactersJson = string.Empty;
-            Studio = "Studio";
-            Status = "Ended";
-            Aired = "Jan 2, 2019 to Dec 19, 2020";
-            Synopsis = "Anime about something";
-            Episodes = 3;
-        }
-        public AnimeDto(int id, string title, int rating, double score, string characters)
-        {
-            Id = id;
-            Title = title;
-            Rating = rating;
-            Score = score;
-            CharactersJson = string.IsNullOrEmpty(characters) ? string.Empty : characters;
-            Studio = "Ghibi";
-            Status = "Currently Airing";
-            Aired = "Oct 20, 1999 to ?";
-            Synopsis = "Anime about something";
-            Episodes = 2358;
         }
     }
 }

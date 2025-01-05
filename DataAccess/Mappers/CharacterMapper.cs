@@ -2,7 +2,7 @@
 using AnimeVoices.Models;
 using System.Linq;
 
-namespace AnimeVoices.Mappers
+namespace AnimeVoices.DataAccess.Mappers
 {
     public static class CharacterMapper
     {

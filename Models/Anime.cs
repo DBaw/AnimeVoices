@@ -23,24 +23,5 @@ namespace AnimeVoices.Models
         {
             
         }
-
-        public Anime(AnimeDto animeDto, User? user)
-        {
-            Id = animeDto.Id;
-            Title = animeDto.Title;
-            Rating = animeDto.Rating == -1 ? "" : ("#" + animeDto.Rating.ToString());
-            Score = animeDto.Score == -1  ? "" : animeDto.Score.ToString();
-            Characters = string.IsNullOrEmpty(animeDto.CharactersJson) ? new List<int>() : JsonConvert.DeserializeObject<List<int>>(animeDto.CharactersJson);
-            Studio = animeDto.Studio;
-            Aired = animeDto.Aired;
-            Status = animeDto.Status;
-            Synopsis = animeDto.Synopsis;
-            Episodes = animeDto.Episodes.ToString();
-
-            IsFavourite = user?.FavouriteAnimes.Contains(Id) ?? false;
-            IsOnWatchlist = user?.Watchlist.Contains(Id) ?? false;
-        }
-
-
     }
 }

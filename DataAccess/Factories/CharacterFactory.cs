@@ -1,13 +1,13 @@
 ﻿using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.Models;
 
-namespace AnimeVoices.Factories
+namespace AnimeVoices.DataAccess.Factories
 {
-    public static class SeiyuuFactory
+    public static class CharacterFactory
     {
-        public static Seiyuu Create(SeiyuuDto dto) 
+        public static Character Create(CharacterDto dto)
         {
-            return new Seiyuu()
+            return new Character
             {
                 Id = dto.Id,
                 Name = dto.Name

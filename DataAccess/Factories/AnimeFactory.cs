@@ -1,7 +1,7 @@
 ﻿using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.Models;
 
-namespace AnimeVoices.Factories
+namespace AnimeVoices.DataAccess.Factories
 {
     public static class AnimeFactory
     {
@@ -9,7 +9,7 @@ namespace AnimeVoices.Factories
         {
             return new Anime
             {
-                Id = dto.Id,
+                Id = dto.MalId,
                 Title = dto.Title,
                 IsFavourite = false,
                 IsOnWatchlist = false

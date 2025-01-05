@@ -64,41 +64,6 @@ namespace AnimeVoices.ViewModels.Content
             _fullAnimeList = new List<Anime>();
             _fullCharacterList = new List<Character>();
 
-            List<int> seiyuuChars = new List<int>() { 2,5 };
-            _fullSeiyuuList = new List<Seiyuu>()
-            {
-                new Seiyuu(1, seiyuuChars)
-            };
-
-
-            List<AnimeDto> animeDtoList = new List<AnimeDto>()
-            {
-                new AnimeDto(1,"Naruto", 12, 8.88, "[1]"),
-                new AnimeDto(2,"Bleach", 29, 8.65, "[2]"),
-                new AnimeDto(3,"Noragami", 258, 8.02),
-                new AnimeDto(4,"Kimetsu no Yayba", 5, 9.21),
-                new AnimeDto(5,"One Piece", 7, 9.01,"[5]")
-            };
-
-            List<CharacterDto> charactersDtoList = new List<CharacterDto>()
-            {
-                new CharacterDto(1, "Uzumaki Naruto", "[1]", -1),
-                new CharacterDto(2, "Kurosaki Ichigo", "[2]",  1),
-                new CharacterDto(3, "L", "[-1]", -1),
-                new CharacterDto(4, "Izuku Midorya", "[-1]", -1),
-                new CharacterDto(5, "Marco","[5]", 1)
-            };
-
-            foreach (AnimeDto anime in animeDtoList)
-            {
-                Anime a = new(anime, LoggedUser);
-                _fullAnimeList.Add(a);
-            }
-            foreach(CharacterDto characterDto in charactersDtoList)
-            {
-                Character c = new(characterDto);
-                _fullCharacterList.Add(c);
-            }
             FilteredAnimeList = new(_fullAnimeList);
             FilteredCharacterList = new();
             ResultList = new ObservableCollection<Result>();
