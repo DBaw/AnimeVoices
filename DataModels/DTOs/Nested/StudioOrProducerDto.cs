@@ -5,7 +5,7 @@ namespace AnimeVoices.DataModels.DTOs.Nested
     public class StudioOrProducerDto
     {
         [JsonProperty("mal_id")]
-        public int MalId { get; set; }
+        public int Id { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }

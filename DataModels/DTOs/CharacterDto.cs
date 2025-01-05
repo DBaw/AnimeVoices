@@ -17,14 +17,5 @@ namespace AnimeVoices.DataModels.DTOs
         {
 
         }
-
-        public CharacterDto(int id, string name, string animeJson, int seiyuu)
-        {
-            Id = id;
-            Name = name;
-            AnimeJson = string.IsNullOrEmpty(animeJson) ? string.Empty : animeJson;
-            Seiyuu = seiyuu;
-            ImageUrl = string.Empty;
-        }
     }
 }
