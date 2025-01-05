@@ -2,29 +2,51 @@
 using AnimeVoices.DataAccess.Mappers;
 using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.DataModels.Entities;
+using AnimeVoices.DB;
 using AnimeVoices.Models;
+using AnimeVoices.Stores;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnimeVoices.DataAccess.Repositories
 {
     public class CharacterRepository : ICharacterRepository
     {
-        public List<Character> GetAllCharacters(List<CharacterEntity> entities)
+        private readonly CharacterStore _characterStore;
+        private readonly IAppDatabase _appDatabase;
+
+        public CharacterRepository(CharacterStore characterStore, IAppDatabase appDatabase)
         {
-            List<Character> result = new();
-
-            foreach (CharacterEntity entity in entities)
-            {
-                Character character = CharacterMapper.ToModel(entity);
-                result.Add(character);
-            }
-
-            return result;
+            _characterStore = characterStore;
+            _appDatabase = appDatabase;
         }
 
-        public List<Character> GetCharactersFromSeiyuu(SeiyuuDto dto)
+        public async Task InitializeAsync()
         {
-            return CharacterFactory.Create(dto);
+            List<CharacterEntity> entities = await _appDatabase.GetAllCharactersAsync();
+            List<Character> characterList = entities.Select(e => CharacterMapper.ToModel(e)).ToList();
+
+            foreach (Character character in characterList)
+            {
+                _characterStore.Add(character);
+            }
+        }
+
+        public void SaveCharactersFromSeiyuu(SeiyuuDto dto)
+        {
+            List<Character> characterList = CharacterFactory.Create(dto);
+
+            foreach (Character character in characterList)
+            {
+                _characterStore.Add(character);
+                _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
+            }
+        }
+
+        public List<Character> GetAllCharacters()
+        {
+            return _characterStore.CharacterCollection.ToList();
         }
     }
 }
