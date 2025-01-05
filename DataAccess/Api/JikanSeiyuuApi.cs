@@ -14,13 +14,13 @@ namespace AnimeVoices.DataAccess.Api
         {
             _httpClient = httpClient;
         }
-        public async Task<SeiyuuDto> GetSeiyuuById(int id)
+        public async Task<SeiyuuDto> GetSeiyuuByIdAsync(int id)
         {
             var response = await _httpClient.GetStringAsync("people/" + id.ToString() + "/full");
             return JsonConvert.DeserializeObject<SeiyuuDto>(response);
         }
 
-        public async Task<List<SeiyuuDto>> GetTopSeiyuu(int page)
+        public async Task<List<SeiyuuDto>> GetTopSeiyuuAsync(int page)
         {
             var response = await _httpClient.GetStringAsync("top/people?page=" + page.ToString());
             return JsonConvert.DeserializeObject<List<SeiyuuDto>>(response);

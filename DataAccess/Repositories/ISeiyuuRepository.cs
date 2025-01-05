@@ -1,6 +1,12 @@
-﻿namespace AnimeVoices.DataAccess.Repositories
+﻿using AnimeVoices.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace AnimeVoices.DataAccess.Repositories
 {
-    internal interface ISeiyuuRepository
+    public interface ISeiyuuRepository
     {
+        public Task<Seiyuu> GetSeiyuuByIdAsync(int id);
+        public Task<List<Seiyuu>> GetTopSeiyuuAsync(int page);
     }
 }

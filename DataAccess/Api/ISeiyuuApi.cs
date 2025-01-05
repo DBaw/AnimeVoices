@@ -6,7 +6,7 @@ namespace AnimeVoices.DataAccess.Api
 {
     public interface ISeiyuuApi
     {
-        public Task<SeiyuuDto> GetSeiyuuById(int id);
-        public Task<List<SeiyuuDto>> GetTopSeiyuu(int page);
+        public Task<SeiyuuDto> GetSeiyuuByIdAsync(int id);
+        public Task<List<SeiyuuDto>> GetTopSeiyuuAsync(int page);
     }
 }
