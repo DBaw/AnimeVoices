@@ -15,12 +15,6 @@ namespace AnimeVoices.DataAccess.Api
             _httpClient.BaseAddress = new System.Uri("https://api.jikan.moe/v4/");
         }
 
-        public async Task<TopAnimeDto> GetTopAnimeAsync()
-        {
-            var response = await _httpClient.GetStringAsync("top/anime");
-            return JsonConvert.DeserializeObject<TopAnimeDto>(response);
-        }
-
         public async Task<AnimeDto> GetAnimeByIdAsync(int id)
         {
             var response = await _httpClient.GetStringAsync("anime/" + id.ToString() + "/full");

@@ -8,6 +8,7 @@ namespace AnimeVoices.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        /*
         public string Rating { get; set; }
         public string Score { get; set; }
         public string Studio { get; set; }
@@ -15,6 +16,7 @@ namespace AnimeVoices.Models
         public string Status { get; set; }
         public string Synopsis { get; set; }
         public string Episodes { get; set; }
+        */
         public List<int> Characters { get; set; }
         public bool IsFavourite { get; set; }
         public bool IsOnWatchlist { get; set; }

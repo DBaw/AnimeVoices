@@ -1,6 +1,5 @@
 ﻿using AnimeVoices.DataModels.DTOs.Nested;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AnimeVoices.DataModels.DTOs
@@ -11,12 +10,12 @@ namespace AnimeVoices.DataModels.DTOs
         [JsonProperty("mal_id")]
         public int Id { get; set; }
 
-        [JsonProperty("images")]
-        public ImagesDto Images { get; set; }
-
         [JsonProperty("title")]
         public string Title { get; set; }
 
+        [JsonProperty("images")]
+        public ImagesDto Images { get; set; }
+        /*
         [JsonProperty("episodes")]
         public int? Episodes { get; set; }
 
@@ -46,7 +45,7 @@ namespace AnimeVoices.DataModels.DTOs
 
         [JsonProperty("studios")]
         public List<StudioOrProducerDto> Studios { get; set; }
-
+        */
         public AnimeDto()
         {
 

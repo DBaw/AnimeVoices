@@ -4,10 +4,13 @@ namespace AnimeVoices.DataModels.DTOs.Nested
 {
     public class VoiceDto
     {
-        [JsonProperty("language")]
-        public string Language { get; set; }
+        [JsonProperty("role")]
+        public string Role { get; set; }
 
-        [JsonProperty("person")]
-        public SeiyuuDto Seiyuu { get; set; }
+        [JsonProperty("anime")]
+        public AnimeDto Anime { get; set; }
+
+        [JsonProperty("anime")]
+        public CharacterDto Character { get; set; }
     }
 }

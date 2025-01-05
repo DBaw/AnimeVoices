@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 namespace AnimeVoices.DataModels.DTOs
 {
-    public class TopAnimeDto
+    public class TopSeiyuuDto
     {
         [JsonProperty("data")]
-        public List<AnimeDto> Data { get; set; }
+        public List<SeiyuuDto> Data { get; set; }
 
         [JsonProperty("pagination")]
         public PaginationDto Pagination { get; set; }

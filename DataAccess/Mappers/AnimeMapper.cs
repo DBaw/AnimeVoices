@@ -12,6 +12,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Title = entity.Title,
+                /*
                 Rating = entity.Rating,
                 Score = entity.Score.ToString(),
                 Studio = entity.Studio,
@@ -19,6 +20,7 @@ namespace AnimeVoices.DataAccess.Mappers
                 Status = entity.Status,
                 Synopsis = entity.Synopsis,
                 Episodes = entity.Episodes.ToString(),
+                */
                 Characters = entity.Characters.Split(',').ToList().Select(int.Parse).ToList(),
                 IsFavourite = user == null ? false : user.FavouriteAnimes.Contains(entity.Id),
                 IsOnWatchlist = user == null ? false : user.Watchlist.Contains(entity.Id),
@@ -31,6 +33,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Title = model.Title,
+                /*
                 Rating = model.Rating,
                 Score = int.Parse(model.Score),
                 Studio = model.Studio,
@@ -38,6 +41,7 @@ namespace AnimeVoices.DataAccess.Mappers
                 Status = model.Status,
                 Synopsis = model.Synopsis,
                 Episodes = int.Parse(model.Episodes),
+                */
                 Characters = string.Join(",", model.Characters)
             };
         }
