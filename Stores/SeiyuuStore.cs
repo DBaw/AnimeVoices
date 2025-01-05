@@ -6,33 +6,33 @@ namespace AnimeVoices.Stores
 {
     public class SeiyuuStore
     {
-        public ObservableCollection<Seiyuu> CharacterCollection { get; }
+        public ObservableCollection<Seiyuu> SeiyuuCollection { get; }
 
         public SeiyuuStore()
         {
-            CharacterCollection = new();
+            SeiyuuCollection = new();
         }
 
         public void Add(Seiyuu seiyuu)
         {
-            if (!CharacterCollection.Any(s => s.Id == seiyuu.Id))
-                CharacterCollection.Add(seiyuu);
+            if (!SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
+                SeiyuuCollection.Add(seiyuu);
         }
 
         public void Remove(int Id)
         {
-            var seiyuu = CharacterCollection.First(s => s.Id == Id);
+            var seiyuu = SeiyuuCollection.First(s => s.Id == Id);
             if (seiyuu != null)
-                CharacterCollection.Remove(seiyuu);
+                SeiyuuCollection.Remove(seiyuu);
         }
 
         public void Update(Seiyuu seiyuu)
         {
-            var existing = CharacterCollection.First(s => s.Id == seiyuu.Id);
+            var existing = SeiyuuCollection.First(s => s.Id == seiyuu.Id);
             if (existing != null)
             {
-                CharacterCollection.Remove(existing);
-                CharacterCollection.Add(seiyuu);
+                SeiyuuCollection.Remove(existing);
+                SeiyuuCollection.Add(seiyuu);
             }
         }
     }
