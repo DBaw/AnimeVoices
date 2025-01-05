@@ -2,6 +2,7 @@
 using AnimeVoices.DataAccess.Mappers;
 using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.DataModels.Entities;
+using AnimeVoices.DB;
 using AnimeVoices.Models;
 using AnimeVoices.Stores;
 using System.Collections.Generic;
@@ -13,20 +14,20 @@ namespace AnimeVoices.DataAccess.Repositories
     public class AnimeRepository : IAnimeRepository
     {
         private readonly AnimeStore _animeStore;
-        private readonly IAnimeDatabase _animeDatabase;
+        private readonly IAppDatabase _appDatabase;
 
-        public AnimeRepository(AnimeStore animeStore, IAnimeDatabase animeDatabase)
+        public AnimeRepository(AnimeStore animeStore, IAppDatabase appDatabase)
         {
             _animeStore = animeStore;
-            _animeDatabase = animeDatabase;
+            _appDatabase = appDatabase;
         }
 
         public async Task InitializeAsync()
         {
-            var entities = await _animeDatabase.GetAllAnimeAsync();
-            var animeList = entities.Select(AnimeMapper.ToModel).ToList();
+            List<AnimeEntity> entities = await _appDatabase.GetAllAnimeAsync();
+            List<Anime> animeList = entities.Select(e => AnimeMapper.ToModel(e)).ToList();
 
-            foreach (var anime in animeList)
+            foreach (Anime anime in animeList)
             {
                 _animeStore.Add(anime);
             }
@@ -34,15 +35,13 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public void SaveAnimeFromSeiyuu(SeiyuuDto dto)
         {
-            var animeList = AnimeFactory.Create(dto);
+            List<Anime> animeList = AnimeFactory.Create(dto);
 
-            foreach (var anime in animeList)
+            foreach (Anime anime in animeList)
             {
-                // Add to store
                 _animeStore.Add(anime);
 
-                // Persist to database
-                _animeDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+                _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
             }
         }
 

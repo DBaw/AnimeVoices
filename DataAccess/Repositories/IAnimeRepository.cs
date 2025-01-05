@@ -1,5 +1,4 @@
 ﻿using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.DataModels.Entities;
 using AnimeVoices.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
