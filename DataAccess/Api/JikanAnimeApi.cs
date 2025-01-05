@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.DataAccess.Api
 {
-    public class AnimeApi
+    public class JikanAnimeApi
     {
         private HttpClient _httpClient;
 
-        public AnimeApi()
+        public JikanAnimeApi(HttpClient httpClient)
         {
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
             _httpClient.BaseAddress = new System.Uri("https://api.jikan.moe/v4/");
         }
 
