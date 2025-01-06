@@ -1,5 +1,5 @@
-﻿using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.Models;
+﻿using AnimeVoices.Models;
+using AnimeVoices.Utilities.Helpers;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -189,7 +189,7 @@ namespace AnimeVoices.ViewModels.Content
                                 break;
                             }
                         }
-                        Result result = new(animeTitle, character.Name, character.Image);
+                        Result result = new(animeTitle, character.Name, ImageHelper.LoadImage(character.ImageUrl));
                         ResultList.Add(result);
                     }
                 }

@@ -1,5 +1,4 @@
-﻿using AnimeVoices.DTO;
-using AnimeVoices.Models;
+﻿using AnimeVoices.Models;
 using AnimeVoices.Utilities;
 using AnimeVoices.Utilities.Events;
 using AnimeVoices.ViewModels.Content;

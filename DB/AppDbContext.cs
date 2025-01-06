@@ -1,5 +1,4 @@
-﻿using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.DataModels.Entities;
+﻿using AnimeVoices.DataModels.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 
