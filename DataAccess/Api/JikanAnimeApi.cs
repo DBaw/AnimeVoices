@@ -12,7 +12,6 @@ namespace AnimeVoices.DataAccess.Api
         public JikanAnimeApi(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new System.Uri("https://api.jikan.moe/v4/");
         }
 
         public async Task<AnimeDto> GetAnimeByIdAsync(int id)

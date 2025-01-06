@@ -5,16 +5,13 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace AnimeVoices.ViewModels
 {
-    public partial class MainMenuViewModel : ObservableObject
+    public partial class MainMenuViewModel : BaseViewModel
     {
-        private IMessenger _messenger;
-
         [ObservableProperty]
         private int _selectedItemIndex;
 
-        public MainMenuViewModel(IMessenger messenger)
+        public MainMenuViewModel(IMessenger messenger) : base(messenger)
         {
-            _messenger = messenger;
             SelectedItemIndex = 0;
         }
         

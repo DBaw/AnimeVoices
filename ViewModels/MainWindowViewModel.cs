@@ -1,49 +1,54 @@
-﻿using AnimeVoices.Models;
-using AnimeVoices.Utilities;
+﻿using AnimeVoices.Utilities;
 using AnimeVoices.Utilities.Events;
 using AnimeVoices.ViewModels.Content;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Collections.Generic;
 
 namespace AnimeVoices.ViewModels
 {
 
-    public partial class MainWindowViewModel : ObservableRecipient, IRecipient<SwitchContentView>
+    public partial class MainWindowViewModel : BaseViewModel, IRecipient<SwitchContentView>
     {
-        public ObservableObject MainMenuViewModel { get; set; }
-        public ObservableObject UserPanelViewModel { get; set; }
-        public ObservableObject TopBarViewModel { get; set; }
-
-
-        [ObservableProperty]
-        private ObservableObject _currentContentViewModel;
+        public BaseViewModel MainMenuViewModel { get; set; }
+        public BaseViewModel UserPanelViewModel { get; set; }
+        public BaseViewModel TopBarViewModel { get; set; }
 
         [ObservableProperty]
-        private ObservableObject _previousContentViewModel;
+        private BaseViewModel _currentContentViewModel;
 
-        private User _user;
+        [ObservableProperty]
+        private BaseViewModel _previousContentViewModel;
 
-        public MainWindowViewModel()
+        // ViewModels
+        private readonly MainMenuViewModel _mainMenuViewModel;
+        private readonly OverviewViewModel _overviewViewModel;
+        private readonly TopBarViewModel _topBarViewModel;
+        private readonly UserPanelViewModel _userPanelViewModel;
+        private readonly AnimeInfoViewModel _animeInfoViewModel;
+        private readonly FavouritesViewModel _favouritesViewModel;
+        private readonly WatchlistViewModel _watchlistViewModel;
+        private readonly SettingsViewModel _settingsViewModel;
+
+        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, FavouritesViewModel favouritesViewModel, WatchlistViewModel watchlistViewModel, SettingsViewModel settingsViewModel) : base(messenger)
         {
-            MainMenuViewModel = new MainMenuViewModel(Messenger);
+            _mainMenuViewModel = mainMenuViewModel;
+            _topBarViewModel = topBarViewModel;
+            _userPanelViewModel = userPanelViewModel;
+            _overviewViewModel = overviewViewModel;
+            _animeInfoViewModel = animeInfoViewModel;
+            _favouritesViewModel = favouritesViewModel;
+            _watchlistViewModel = watchlistViewModel;
+            _settingsViewModel = settingsViewModel;
 
-            CurrentContentViewModel = new OverviewViewModel();
-            TopBarViewModel = new TopBarViewModel(Messenger);
-            UserPanelViewModel = new UserPanelViewModel();
+            MainMenuViewModel = _mainMenuViewModel;
+
+            CurrentContentViewModel = _overviewViewModel;
+            TopBarViewModel = _topBarViewModel;
+            UserPanelViewModel = _userPanelViewModel;
 
             PreviousContentViewModel = CurrentContentViewModel;
-            IsActive = true;
 
-            List<int> favAnime = new List<int>() { 2, 3 };
-            List<int> watchlist = new List<int>() { 4 };
-            //_user = null;
-            _user = new(1, favAnime, watchlist);
-        }
-
-        protected override void OnActivated()
-        {
-            Messenger.RegisterAll(this);
+            _messenger.RegisterAll(this);
         }
 
         public void Receive(SwitchContentView message)
@@ -54,19 +59,19 @@ namespace AnimeVoices.ViewModels
             switch(contentType)
             {
                 case (ContentTypes.OVERVIEW):
-                    CurrentContentViewModel = new OverviewViewModel();
+                    CurrentContentViewModel = _overviewViewModel;
                     break;
                 case (ContentTypes.ANIMELIST):
-                    CurrentContentViewModel = new AnimeInfoViewModel(_user);
+                    CurrentContentViewModel = _animeInfoViewModel;
                     break;
                 case (ContentTypes.FAVOURITES):
-                    CurrentContentViewModel = new FavouritesViewModel();
+                    CurrentContentViewModel = _favouritesViewModel;
                     break;
                 case (ContentTypes.WATCHLIST):
-                    CurrentContentViewModel = new WatchlistViewModel();
+                    CurrentContentViewModel = _watchlistViewModel;
                     break;
                 case (ContentTypes.SETTINGS):
-                    CurrentContentViewModel = new SettingsViewModel();
+                    CurrentContentViewModel = _settingsViewModel;
                     break;
             }
         }

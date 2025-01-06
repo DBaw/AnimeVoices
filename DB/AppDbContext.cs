@@ -1,6 +1,5 @@
 ﻿using AnimeVoices.DataModels.Entities;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace AnimeVoices.DB
 {
@@ -10,11 +9,8 @@ namespace AnimeVoices.DB
         public DbSet<CharacterEntity> Character { get; set; }
         public DbSet<SeiyuuEntity> Seiyuu { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            string dbPath = System.IO.Path.Combine(AppContext.BaseDirectory, "AnimeVoices.db");
-
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
         }
     }
 }

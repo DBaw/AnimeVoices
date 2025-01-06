@@ -1,8 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class OverviewViewModel : ObservableObject
+    public partial class OverviewViewModel : BaseViewModel
     {
+        public OverviewViewModel(IMessenger messenger) : base(messenger) { }
     }
 }

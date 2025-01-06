@@ -1,6 +1,4 @@
-﻿using AnimeVoices.Utilities.Helpers;
-using Avalonia.Media.Imaging;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AnimeVoices.Models
 {

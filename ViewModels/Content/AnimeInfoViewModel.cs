@@ -3,12 +3,13 @@ using AnimeVoices.Utilities.Helpers;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class AnimeInfoViewModel : ObservableObject
+    public partial class AnimeInfoViewModel : BaseViewModel
     {
         #region Parameters
         // Full and filtered data
@@ -52,9 +53,9 @@ namespace AnimeVoices.ViewModels.Content
         #endregion
 
         #region Constructors
-        public AnimeInfoViewModel(User user)
+        public AnimeInfoViewModel(IMessenger messenger) : base(messenger)
         {
-            LoggedUser = user;
+            LoggedUser = null;
             IsUserLoggedIn = LoggedUser != null;
 
             AnimeListExpanded = true;

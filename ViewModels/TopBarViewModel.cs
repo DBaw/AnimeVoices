@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels
 {
-    public partial class TopBarViewModel : ObservableObject
+    public partial class TopBarViewModel : BaseViewModel
     {
-        private IMessenger _messenger;
 
-        public TopBarViewModel(IMessenger messenger)
+        public TopBarViewModel(IMessenger messenger) : base(messenger)
         {
-            _messenger = messenger;
+
         }
 
         [RelayCommand]
