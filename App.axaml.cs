@@ -77,6 +77,7 @@ namespace AnimeVoices
             services.AddSingleton<AnimeStore>();
             services.AddSingleton<CharacterStore>();
             services.AddSingleton<SeiyuuStore>();
+            services.AddSingleton<SeiyuuDtoStore>();
 
             // Register APIs
             services.AddHttpClient<ISeiyuuApi, JikanSeiyuuApi>(client =>

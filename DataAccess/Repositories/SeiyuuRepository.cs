@@ -16,12 +16,14 @@ namespace AnimeVoices.DataAccess.Repositories
         private readonly ISeiyuuApi _seiyuuApi;
         private readonly IAppDatabase _appDatabase;
         private readonly SeiyuuStore _seiyuuStore;
+        private readonly SeiyuuDtoStore _seiyuuDtoStore;
 
-        public SeiyuuRepository(ISeiyuuApi seiyuuApi, IAppDatabase appDatabase, SeiyuuStore seiyuuStore)
+        public SeiyuuRepository(ISeiyuuApi seiyuuApi, IAppDatabase appDatabase, SeiyuuStore seiyuuStore, SeiyuuDtoStore seiyuuDtoStore)
         {
             _seiyuuApi = seiyuuApi;
             _appDatabase = appDatabase;
             _seiyuuStore = seiyuuStore;
+            _seiyuuDtoStore = seiyuuDtoStore;
         }
 
         public async Task InitializeAsync()
@@ -37,8 +39,16 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<Seiyuu> GetSeiyuuByIdAsync(int id)
         {
-            var seiyuuDto = await _seiyuuApi.GetSeiyuuByIdAsync(id);
-            Seiyuu seiyuu = SeiyuuFactory.Create(seiyuuDto);
+            if (_seiyuuDtoStore.Contains(id))
+            {
+                var seiyuuDto = _seiyuuDtoStore.Get(id);
+                return SeiyuuFactory.Create(seiyuuDto);
+            }
+
+            var seiyuuDtoFromApi = await _seiyuuApi.GetSeiyuuByIdAsync(id);
+            _seiyuuDtoStore.Add(seiyuuDtoFromApi);
+
+            var seiyuu = SeiyuuFactory.Create(seiyuuDtoFromApi);
 
             if (!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
             {
@@ -56,15 +66,13 @@ namespace AnimeVoices.DataAccess.Repositories
             var seiyuuModels = new List<Seiyuu>();
             foreach (var seiyuuDto in seiyuuDtos)
             {
-                Seiyuu seiyuu = SeiyuuFactory.Create(seiyuuDto);
-
-                if (!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
+                if (!_seiyuuDtoStore.Contains(seiyuuDto.Id))
                 {
-                    _seiyuuStore.Add(seiyuu);
-                    await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
+                    _seiyuuDtoStore.Add(seiyuuDto);
                 }
-
-                seiyuuModels.Add(seiyuu);
+                await Task.Delay(400);
+                var fullSeiyuu = await GetSeiyuuByIdAsync(seiyuuDto.Id);
+                seiyuuModels.Add(fullSeiyuu);
             }
 
             return seiyuuModels;
