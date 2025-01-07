@@ -18,5 +18,7 @@ namespace AnimeVoices.Stores
         public SeiyuuDto Get(int id) => _store.TryGetValue(id, out var seiyuuDto) ? seiyuuDto : null;
 
         public bool Contains(int id) => _store.ContainsKey(id);
+
+        public void Clear() => _store.Clear();
     }
 }

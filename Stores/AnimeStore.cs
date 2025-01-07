@@ -1,4 +1,6 @@
 ﻿using AnimeVoices.Models;
+using AnimeVoices.Utilities.Events;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -6,11 +8,20 @@ namespace AnimeVoices.Stores
 {
     public class AnimeStore
     {
+        private readonly IMessenger _messenger;
+
         public ObservableCollection<Anime> AnimeCollection { get; }
 
-        public AnimeStore()
+        public AnimeStore(IMessenger messenger)
         {
+            _messenger = messenger;
+            
             AnimeCollection = new();
+
+            AnimeCollection.CollectionChanged += (s, e) =>
+            {
+                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
+            };
         }
 
         public void Add(Anime anime)
@@ -34,6 +45,11 @@ namespace AnimeVoices.Stores
                 AnimeCollection.Remove(existing);
                 AnimeCollection.Add(anime);
             }
+        }
+
+        public int CountCollection()
+        {
+            return AnimeCollection.Count;
         }
     }
 }

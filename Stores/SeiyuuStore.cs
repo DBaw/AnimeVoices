@@ -35,5 +35,10 @@ namespace AnimeVoices.Stores
                 SeiyuuCollection.Add(seiyuu);
             }
         }
+
+        public int CountCollection()
+        {
+            return SeiyuuCollection.Count;
+        }
     }
 }

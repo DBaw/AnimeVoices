@@ -35,5 +35,10 @@ namespace AnimeVoices.Stores
                 CharacterCollection.Add(character);
             }
         }
+
+        public int CountCollection()
+        {
+            return CharacterCollection.Count;
+        }
     }
 }
