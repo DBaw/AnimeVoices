@@ -1,10 +1,12 @@
 ﻿using AnimeVoices.DataAccess.Api;
 using AnimeVoices.DataAccess.Factories;
 using AnimeVoices.DataAccess.Mappers;
+using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.DataModels.Entities;
 using AnimeVoices.DB;
 using AnimeVoices.Models;
 using AnimeVoices.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,26 +31,29 @@ namespace AnimeVoices.DataAccess.Repositories
         public async Task InitializeAsync()
         {
             List<SeiyuuEntity> entities = await _appDatabase.GetAllSeiyuuAsync();
-            List<Seiyuu> seiyuuList = entities.Select(e => SeiyuuMapper.ToModel(e)).ToList();
 
-            foreach (Seiyuu seiyuu in seiyuuList)
+            foreach (SeiyuuEntity e in entities)
             {
+                await Task.Delay(50);
+                Seiyuu seiyuu = SeiyuuMapper.ToModel(e);
                 _seiyuuStore.Add(seiyuu);
             }
         }
 
         public async Task<Seiyuu> GetSeiyuuByIdAsync(int id)
         {
+            SeiyuuDto seiyuuDto = new();
             if (_seiyuuDtoStore.Contains(id))
             {
-                var seiyuuDto = _seiyuuDtoStore.Get(id);
+                seiyuuDto = _seiyuuDtoStore.Get(id);
                 return SeiyuuFactory.Create(seiyuuDto);
             }
 
-            var seiyuuDtoFromApi = await _seiyuuApi.GetSeiyuuByIdAsync(id);
-            _seiyuuDtoStore.Add(seiyuuDtoFromApi);
+            var responseFromApi = await _seiyuuApi.GetSeiyuuByIdAsync(id);
+            seiyuuDto = responseFromApi.SeiyuuDto;
+            _seiyuuDtoStore.Add(seiyuuDto);
 
-            var seiyuu = SeiyuuFactory.Create(seiyuuDtoFromApi);
+            var seiyuu = SeiyuuFactory.Create(seiyuuDto);
 
             if (!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
             {
@@ -61,16 +66,13 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<List<Seiyuu>> GetTopSeiyuuAsync(int page)
         {
-            var seiyuuDtos = await _seiyuuApi.GetTopSeiyuuAsync(page);
+            var topSeiyuu = await _seiyuuApi.GetTopSeiyuuAsync(page);
+            List<SeiyuuDto> dtos = topSeiyuu.Data;
 
             var seiyuuModels = new List<Seiyuu>();
-            foreach (var seiyuuDto in seiyuuDtos)
+            foreach (var seiyuuDto in dtos)
             {
-                if (!_seiyuuDtoStore.Contains(seiyuuDto.Id))
-                {
-                    _seiyuuDtoStore.Add(seiyuuDto);
-                }
-                await Task.Delay(400);
+                await Task.Delay(1000);
                 var fullSeiyuu = await GetSeiyuuByIdAsync(seiyuuDto.Id);
                 seiyuuModels.Add(fullSeiyuu);
             }

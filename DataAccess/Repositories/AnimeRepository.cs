@@ -25,10 +25,11 @@ namespace AnimeVoices.DataAccess.Repositories
         public async Task InitializeAsync()
         {
             List<AnimeEntity> entities = await _appDatabase.GetAllAnimeAsync();
-            List<Anime> animeList = entities.Select(e => AnimeMapper.ToModel(e)).ToList();
 
-            foreach (Anime anime in animeList)
+            foreach (AnimeEntity e in entities)
             {
+                await Task.Delay(50);
+                Anime anime = AnimeMapper.ToModel(e);
                 _animeStore.Add(anime);
             }
         }

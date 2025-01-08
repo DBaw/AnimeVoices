@@ -10,7 +10,7 @@ namespace AnimeVoices.DataModels.DTOs.Nested
         [JsonProperty("anime")]
         public AnimeDto Anime { get; set; }
 
-        [JsonProperty("anime")]
+        [JsonProperty("character")]
         public CharacterDto Character { get; set; }
     }
 }

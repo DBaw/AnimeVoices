@@ -32,7 +32,7 @@
 							CornerRadius="75"
 							Background="#2D323D">
 						<!-- Counter -->
-						<TextBlock Text="251"
+						<TextBlock Text="{Binding AnimeCount}"
 								   FontSize="24"
 								   FontWeight="SemiBold"
 								   FontStyle="Italic"
@@ -65,7 +65,7 @@
 							CornerRadius="75"
 							Background="#2D323D">
 						<!-- Counter -->
-						<TextBlock Text="518"
+						<TextBlock Text="{Binding CharacterCount}"
 								   FontSize="24"
 								   FontWeight="SemiBold"
 								   FontStyle="Italic"
@@ -98,7 +98,7 @@
 							CornerRadius="75"
 							Background="#2D323D">
 						<!-- Counter -->
-						<TextBlock Text="74"
+						<TextBlock Text="{Binding SeiyuuCount}"
 								   FontSize="24"
 								   FontWeight="SemiBold"
 								   FontStyle="Italic"
@@ -120,6 +120,7 @@
 		</Grid>
 		<Button Grid.Row="2"
 				Content="GET MORE"
+				Command="{Binding GetMoreDataCommand}"
 				Background="#53AA93"
 				Foreground="#2D323D"
 				FontWeight="Medium"

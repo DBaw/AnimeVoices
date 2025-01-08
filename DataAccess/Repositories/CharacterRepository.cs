@@ -25,10 +25,11 @@ namespace AnimeVoices.DataAccess.Repositories
         public async Task InitializeAsync()
         {
             List<CharacterEntity> entities = await _appDatabase.GetAllCharactersAsync();
-            List<Character> characterList = entities.Select(e => CharacterMapper.ToModel(e)).ToList();
 
-            foreach (Character character in characterList)
+            foreach (CharacterEntity e in entities)
             {
+                await Task.Delay(50);
+                Character character = CharacterMapper.ToModel(e);
                 _characterStore.Add(character);
             }
         }

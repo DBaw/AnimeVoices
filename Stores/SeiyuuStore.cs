@@ -1,4 +1,6 @@
 ﻿using AnimeVoices.Models;
+using AnimeVoices.Utilities.Events;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -6,11 +8,19 @@ namespace AnimeVoices.Stores
 {
     public class SeiyuuStore
     {
+        private readonly IMessenger _messenger;
+
         public ObservableCollection<Seiyuu> SeiyuuCollection { get; }
 
-        public SeiyuuStore()
+        public SeiyuuStore(IMessenger messenger)
         {
             SeiyuuCollection = new();
+            _messenger = messenger;
+
+            SeiyuuCollection.CollectionChanged += (s, e) =>
+            {
+                _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
+            };
         }
 
         public void Add(Seiyuu seiyuu)

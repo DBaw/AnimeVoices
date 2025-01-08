@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -20,25 +21,42 @@ namespace AnimeVoices.ViewModels.Content
         private readonly ICharacterRepository _characterRepository;
         private readonly ISeiyuuRepository _seiyuuRepository;
 
+        [ObservableProperty]
+        private static bool _isApiWorking;
+
         [ObservableProperty] public int _animeCount;
         [ObservableProperty] public int _characterCount;
         [ObservableProperty] public int _seiyuuCount;
 
         public OverviewViewModel(IMessenger messenger, AnimeStore animeStore, CharacterStore characterStore, SeiyuuStore seiyuuStore, SeiyuuDtoStore seiyuuDtoStore, IAnimeRepository animeRepository, ICharacterRepository characterRepository, ISeiyuuRepository seiyuuRepository) : base(messenger)
         {
-            _seiyuuDtoStore = seiyuuDtoStore;
+            _messenger.RegisterAll(this);
+
             _animeRepository = animeRepository;
             _characterRepository = characterRepository;
             _seiyuuRepository = seiyuuRepository;
 
+            _animeStore = animeStore;
+            _characterStore = characterStore;
+            _seiyuuStore = seiyuuStore;
+            _seiyuuDtoStore = seiyuuDtoStore;
+
+            _animeRepository.InitializeAsync();
+            _characterRepository.InitializeAsync();
+            _seiyuuRepository.InitializeAsync();
+
             AnimeCount = _animeStore.CountCollection();
             CharacterCount = _characterStore.CountCollection();
             SeiyuuCount = _seiyuuStore.CountCollection();
+
+            _isApiWorking = false;
         }
 
-        [RelayCommand]
+        [RelayCommand(CanExecute = "CanGetMoreData")]
         public async void GetMoreData()
         {
+            _isApiWorking = true;
+
             List<Seiyuu> seiyuuList = await _seiyuuRepository.GetTopSeiyuuAsync(1);
 
             foreach (Seiyuu seiyuu in seiyuuList)
@@ -47,7 +65,11 @@ namespace AnimeVoices.ViewModels.Content
                 _animeRepository.SaveAnimeFromSeiyuu(dto);
                 _characterRepository.SaveCharactersFromSeiyuu(dto);
             }
+
+            await Task.Delay(25000);
+            _isApiWorking = false;
         }
+        private bool CanGetMoreData() => !_isApiWorking;
 
         public void Receive(AnimeCollectionChanged message)
         {

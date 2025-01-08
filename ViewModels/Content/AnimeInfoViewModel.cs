@@ -1,4 +1,5 @@
 ﻿using AnimeVoices.Models;
+using AnimeVoices.Stores;
 using AnimeVoices.Utilities.Helpers;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -26,7 +27,6 @@ namespace AnimeVoices.ViewModels.Content
         // Info panels ViewModels
         [ObservableProperty] ObservableObject _infoPanelViewModel;
 
-
         // Currently selected items
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(HideExpandCharactersListCommand))]
@@ -50,11 +50,22 @@ namespace AnimeVoices.ViewModels.Content
         // User login state
         [ObservableProperty] private bool _isUserLoggedIn;
         [ObservableProperty] private User _loggedUser;
+
+        // Constructor parameters
+        private readonly IMessenger _messenger;
+        private readonly AnimeStore _animeStore;
+        private readonly CharacterStore _characterStore;
+        private readonly SeiyuuStore _seiyuuStore;
         #endregion
 
         #region Constructors
-        public AnimeInfoViewModel(IMessenger messenger) : base(messenger)
+        public AnimeInfoViewModel(IMessenger messenger, AnimeStore animeStore, CharacterStore characterStore, SeiyuuStore seiyuuStore) : base(messenger)
         {
+            _messenger = messenger;
+            _animeStore = animeStore;
+            _characterStore = characterStore;
+            _seiyuuStore = seiyuuStore;
+
             LoggedUser = null;
             IsUserLoggedIn = LoggedUser != null;
 
@@ -62,10 +73,7 @@ namespace AnimeVoices.ViewModels.Content
             CharacterListExpanded = false;
             ResultListExpanded = false;
 
-            _fullAnimeList = new List<Anime>();
-            _fullCharacterList = new List<Character>();
-
-            FilteredAnimeList = new(_fullAnimeList);
+            FilteredAnimeList = new(_animeStore.AnimeCollection);
             FilteredCharacterList = new();
             ResultList = new ObservableCollection<Result>();
         }

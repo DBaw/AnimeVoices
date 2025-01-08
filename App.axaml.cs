@@ -1,6 +1,4 @@
 using AnimeVoices.DataAccess.Api;
-using AnimeVoices.DataAccess.Factories;
-using AnimeVoices.DataAccess.Mappers;
 using AnimeVoices.DataAccess.Repositories;
 using AnimeVoices.DB;
 using AnimeVoices.Stores;
@@ -17,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 
 namespace AnimeVoices
 {
@@ -91,6 +88,9 @@ namespace AnimeVoices
                 string dbPath = Path.Combine(AppContext.BaseDirectory, dbFileName);
                 options.UseSqlite($"Data Source={dbPath}");
             });
+
+            // Register Database
+            services.AddSingleton<IAppDatabase, AppDatabase>();
 
             // Register Repositories
             services.AddSingleton<IAnimeRepository, AnimeRepository>();
