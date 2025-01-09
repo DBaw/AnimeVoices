@@ -8,7 +8,7 @@ namespace AnimeVoices.DataAccess.Repositories
     public interface ICharacterRepository
     {
         public Task InitializeAsync();
-        public void SaveCharactersFromSeiyuu(SeiyuuDto dto);
+        public Task SaveCharactersFromSeiyuu(SeiyuuDto dto);
         public List<Character> GetAllCharacters();
     }
 }

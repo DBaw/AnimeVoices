@@ -59,12 +59,13 @@ namespace AnimeVoices.ViewModels.Content
             IsApiWorking = true;
 
             List<Seiyuu> seiyuuList = await _seiyuuRepository.GetTopSeiyuuAsync(1);
-            await Task.Delay(25);
+            await Task.Delay(100);
+
             foreach (Seiyuu seiyuu in seiyuuList)
             {
                 SeiyuuDto dto = _seiyuuDtoStore.Get(seiyuu.Id);
-                _animeRepository.SaveAnimeFromSeiyuu(dto);
-                _characterRepository.SaveCharactersFromSeiyuu(dto);
+                await _animeRepository.SaveAnimeFromSeiyuu(dto);
+                await _characterRepository.SaveCharactersFromSeiyuu(dto);
             }
 
             await Task.Delay(25000);
@@ -74,7 +75,7 @@ namespace AnimeVoices.ViewModels.Content
 
         public void Receive(AnimeCollectionChanged message)
         {
-            AnimeCount = 15;
+            AnimeCount = message.NewCount;
         }
 
         public void Receive(CharacterCollectionChanged message)

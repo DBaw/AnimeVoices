@@ -5,6 +5,7 @@ using AnimeVoices.DataModels.Entities;
 using AnimeVoices.DB;
 using AnimeVoices.Models;
 using AnimeVoices.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,16 +29,14 @@ namespace AnimeVoices.DataAccess.Repositories
 
             foreach (AnimeEntity e in entities)
             {
-                await Task.Delay(50);
                 Anime anime = AnimeMapper.ToModel(e);
                 _animeStore.Add(anime);
             }
         }
 
-        public void SaveAnimeFromSeiyuu(SeiyuuDto dto)
+        public async Task SaveAnimeFromSeiyuu(SeiyuuDto dto)
         {
             List<Anime> animeList = AnimeFactory.Create(dto);
-
             foreach (Anime anime in animeList)
             {
                 Anime existingAnime = _animeStore.AnimeCollection.FirstOrDefault(a => a.Id == anime.Id);
@@ -57,15 +56,16 @@ namespace AnimeVoices.DataAccess.Repositories
                     
                     if (updated)
                     {
-                        _appDatabase.UpdateAnimeAsync(AnimeMapper.ToEntity(existingAnime));
+                        _animeStore.Update(existingAnime);
+                        await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(existingAnime));
                     }
                 }
                 else
                 {
                     _animeStore.Add(anime);
-
-                    _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+                    await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
                 }
+
             }
         }
 

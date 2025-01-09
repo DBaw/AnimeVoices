@@ -28,20 +28,44 @@ namespace AnimeVoices.DataAccess.Repositories
 
             foreach (CharacterEntity e in entities)
             {
-                await Task.Delay(50);
+                await Task.Delay(5);
                 Character character = CharacterMapper.ToModel(e);
                 _characterStore.Add(character);
             }
         }
 
-        public void SaveCharactersFromSeiyuu(SeiyuuDto dto)
+        public async Task SaveCharactersFromSeiyuu(SeiyuuDto dto)
         {
             List<Character> characterList = CharacterFactory.Create(dto);
 
             foreach (Character character in characterList)
             {
-                _characterStore.Add(character);
-                _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
+                Character existingCharacter = _characterStore.CharacterCollection.FirstOrDefault(c => c.Id == character.Id);
+
+                if (existingCharacter != null)
+                {
+                    bool updated = false;
+
+                    foreach (int animeId in character.AnimeList)
+                    {
+                        if (!existingCharacter.AnimeList.Contains(animeId))
+                        {
+                            existingCharacter.AnimeList.Add(animeId);
+                            updated = true;
+                        }
+                    }
+
+                    if (updated)
+                    {
+                        _characterStore.Update(existingCharacter);
+                        await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(existingCharacter));
+                    }
+                }
+                else
+                {
+                    _characterStore.Add(character);
+                    await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
+                }
             }
         }
 

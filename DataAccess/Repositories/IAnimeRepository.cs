@@ -8,7 +8,7 @@ namespace AnimeVoices.DataAccess.Repositories
     public interface IAnimeRepository
     {
         Task InitializeAsync();
-        void SaveAnimeFromSeiyuu(SeiyuuDto dto);
+        Task SaveAnimeFromSeiyuu(SeiyuuDto dto);
         List<Anime> GetAllAnime();
     }
 }

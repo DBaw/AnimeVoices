@@ -35,7 +35,7 @@ namespace AnimeVoices.DataAccess.Repositories
 
             foreach (SeiyuuEntity e in entities)
             {
-                await Task.Delay(10);
+                await Task.Delay(5);
                 Seiyuu seiyuu = SeiyuuMapper.ToModel(e);
                 _seiyuuStore.Add(seiyuu);
             }
@@ -59,7 +59,7 @@ namespace AnimeVoices.DataAccess.Repositories
             if (!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
             {
                 _seiyuuStore.Add(seiyuu);
-                //await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
+                await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
             }
 
             return seiyuu;

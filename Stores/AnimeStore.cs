@@ -15,26 +15,29 @@ namespace AnimeVoices.Stores
         public AnimeStore(IMessenger messenger)
         {
             _messenger = messenger;
-            
             AnimeCollection = new();
-
-            AnimeCollection.CollectionChanged += (s, e) =>
-            {
-                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
-            };
         }
 
-        public void Add(Anime anime)
+        public void Add(Anime anime, bool updateUi = true)
         {
             if (!AnimeCollection.Any(a => a.Id == anime.Id))
+            {
                 AnimeCollection.Add(anime);
+                if (updateUi)
+                {
+                    _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
+                }
+            }
         }
 
         public void Remove(int Id)
         {
             var anime = AnimeCollection.First(a => a.Id == Id);
             if (anime != null)
+            {
                 AnimeCollection.Remove(anime);
+                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
+            }
         }
 
         public void Update(Anime anime)
@@ -44,6 +47,7 @@ namespace AnimeVoices.Stores
             {
                 AnimeCollection.Remove(existing);
                 AnimeCollection.Add(anime);
+                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
             }
         }
 

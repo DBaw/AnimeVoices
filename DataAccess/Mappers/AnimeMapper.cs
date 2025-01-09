@@ -33,15 +33,13 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Title = model.Title,
-                /*
-                Rating = model.Rating,
-                Score = int.Parse(model.Score),
-                Studio = model.Studio,
-                Aired = model.Aired,
-                Status = model.Status,
-                Synopsis = model.Synopsis,
-                Episodes = int.Parse(model.Episodes),
-                */
+                Rating = "",
+                Score = -1,
+                Studio = "",
+                Aired = "",
+                Status = "",
+                Synopsis = "",
+                Episodes = -1,
                 Characters = string.Join(",", model.Characters)
             };
         }
