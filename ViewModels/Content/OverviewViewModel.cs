@@ -84,9 +84,7 @@ namespace AnimeVoices.ViewModels.Content
 
         public void Receive(SeiyuuCollectionChanged message)
         {
-            File.AppendAllText("log_seiyuu_count.txt", "Message reveived\n");
             SeiyuuCount = message.NewCount;
-            File.AppendAllText("log_seiyuu_count.txt", "SeiyuuCount changed\n----- " + message.NewCount + " -----\n\n");
         }
     }
 }

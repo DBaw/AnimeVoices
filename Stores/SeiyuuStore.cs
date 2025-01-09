@@ -24,13 +24,7 @@ namespace AnimeVoices.Stores
             if (!SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
             {
                 SeiyuuCollection.Add(seiyuu);
-
-                // Logging addition
-                File.AppendAllText("log_seiyuu_count.txt", "Added to store: " + SeiyuuCollection.Count + "\n");
-
-                // Send update message
                 _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
-                File.AppendAllText("log_seiyuu_count.txt", "Message sent\n");
             }
         }
 
