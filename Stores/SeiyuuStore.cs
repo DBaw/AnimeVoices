@@ -2,6 +2,7 @@
 using AnimeVoices.Utilities.Events;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 
 namespace AnimeVoices.Stores
@@ -16,33 +17,54 @@ namespace AnimeVoices.Stores
         {
             SeiyuuCollection = new();
             _messenger = messenger;
-
-            SeiyuuCollection.CollectionChanged += (s, e) =>
-            {
-                _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
-            };
         }
 
         public void Add(Seiyuu seiyuu)
         {
             if (!SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
+            {
                 SeiyuuCollection.Add(seiyuu);
+
+                // Logging addition
+                File.AppendAllText("log_seiyuu_count.txt", "Added to store: " + SeiyuuCollection.Count + "\n");
+
+                // Send update message
+                _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
+                File.AppendAllText("log_seiyuu_count.txt", "Message sent\n");
+            }
         }
 
-        public void Remove(int Id)
+        public void Remove(int id)
         {
-            var seiyuu = SeiyuuCollection.First(s => s.Id == Id);
+            var seiyuu = SeiyuuCollection.FirstOrDefault(s => s.Id == id);
             if (seiyuu != null)
+            {
                 SeiyuuCollection.Remove(seiyuu);
+
+                // Logging removal
+                File.AppendAllText("log_seiyuu_count.txt", "Removed from store: " + id + "\n");
+
+                // Send update message
+                _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
+                File.AppendAllText("log_seiyuu_count.txt", "Message sent\n");
+            }
         }
 
         public void Update(Seiyuu seiyuu)
         {
-            var existing = SeiyuuCollection.First(s => s.Id == seiyuu.Id);
+            var existing = SeiyuuCollection.FirstOrDefault(s => s.Id == seiyuu.Id);
             if (existing != null)
             {
+                // Replace the existing seiyuu
                 SeiyuuCollection.Remove(existing);
                 SeiyuuCollection.Add(seiyuu);
+
+                // Logging update
+                File.AppendAllText("log_seiyuu_count.txt", "Updated in store: " + seiyuu.Id + "\n");
+
+                // Send update message
+                _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
+                File.AppendAllText("log_seiyuu_count.txt", "Message sent\n");
             }
         }
 

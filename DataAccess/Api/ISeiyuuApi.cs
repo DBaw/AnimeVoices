@@ -1,4 +1,5 @@
 ﻿using AnimeVoices.DataModels.DTOs;
+using AnimeVoices.DataModels.Entities;
 using System.Threading.Tasks;
 
 namespace AnimeVoices.DataAccess.Api

@@ -12,7 +12,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Characters = entity.Characters.Split(",").ToList().Select(int.Parse).ToList(),
+                Characters = string.IsNullOrEmpty(entity.Characters) ? new() : entity.Characters.Split(",").ToList().Select(int.Parse).ToList(),
                 ImageUrl = entity.ImageUrl,
             };
         }

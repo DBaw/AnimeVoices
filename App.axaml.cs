@@ -12,6 +12,7 @@ using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.IO;
 using System.Linq;
@@ -81,6 +82,7 @@ namespace AnimeVoices
             {
                 client.BaseAddress = baseAdress;
             });
+            services.AddScoped<ISeiyuuApi, JikanSeiyuuApi>();
 
             // Register Database Context
             services.AddDbContext<AppDbContext>(options =>

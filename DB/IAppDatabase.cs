@@ -11,9 +11,11 @@ namespace AnimeVoices.DB
     {
         Task<List<AnimeEntity>> GetAllAnimeAsync();
         Task SaveAnimeAsync(AnimeEntity anime);
+        Task UpdateAnimeAsync(AnimeEntity anime);
 
         Task<List<CharacterEntity>> GetAllCharactersAsync();
         Task SaveCharacterAsync(CharacterEntity character);
+        Task UpdateCharacterAsync(CharacterEntity character);
 
         Task<List<SeiyuuEntity>> GetAllSeiyuuAsync();
         Task SaveSeiyuuAsync(SeiyuuEntity seiyuu);

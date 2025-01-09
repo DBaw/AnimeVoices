@@ -2,7 +2,6 @@
 using AnimeVoices.DataModels.DTOs.Nested;
 using AnimeVoices.Models;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace AnimeVoices.DataAccess.Factories
 {

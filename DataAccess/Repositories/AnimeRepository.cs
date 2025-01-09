@@ -40,9 +40,32 @@ namespace AnimeVoices.DataAccess.Repositories
 
             foreach (Anime anime in animeList)
             {
-                _animeStore.Add(anime);
+                Anime existingAnime = _animeStore.AnimeCollection.FirstOrDefault(a => a.Id == anime.Id);
 
-                _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+                if (existingAnime != null)
+                {
+                    bool updated = false;
+
+                    foreach (int characterId in anime.Characters)
+                    {
+                        if (!existingAnime.Characters.Contains(characterId))
+                        {
+                            existingAnime.Characters.Add(characterId);
+                            updated = true;
+                        }
+                    }
+                    
+                    if (updated)
+                    {
+                        _appDatabase.UpdateAnimeAsync(AnimeMapper.ToEntity(existingAnime));
+                    }
+                }
+                else
+                {
+                    _animeStore.Add(anime);
+
+                    _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+                }
             }
         }
 

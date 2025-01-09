@@ -21,7 +21,7 @@ namespace AnimeVoices.DataAccess.Mappers
                 Synopsis = entity.Synopsis,
                 Episodes = entity.Episodes.ToString(),
                 */
-                Characters = entity.Characters.Split(',').ToList().Select(int.Parse).ToList(),
+                Characters = string.IsNullOrEmpty(entity.Characters) ? new() : entity.Characters.Split(',').ToList().Select(int.Parse).ToList(),
                 IsFavourite = user == null ? false : user.FavouriteAnimes.Contains(entity.Id),
                 IsOnWatchlist = user == null ? false : user.Watchlist.Contains(entity.Id),
             };

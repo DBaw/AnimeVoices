@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
@@ -22,7 +23,7 @@ namespace AnimeVoices.ViewModels.Content
         private readonly ISeiyuuRepository _seiyuuRepository;
 
         [ObservableProperty]
-        private static bool _isApiWorking;
+        private bool _isApiWorking;
 
         [ObservableProperty] public int _animeCount;
         [ObservableProperty] public int _characterCount;
@@ -49,16 +50,16 @@ namespace AnimeVoices.ViewModels.Content
             CharacterCount = _characterStore.CountCollection();
             SeiyuuCount = _seiyuuStore.CountCollection();
 
-            _isApiWorking = false;
+            IsApiWorking = false;
         }
 
         [RelayCommand(CanExecute = "CanGetMoreData")]
         public async void GetMoreData()
         {
-            _isApiWorking = true;
+            IsApiWorking = true;
 
             List<Seiyuu> seiyuuList = await _seiyuuRepository.GetTopSeiyuuAsync(1);
-
+            await Task.Delay(25);
             foreach (Seiyuu seiyuu in seiyuuList)
             {
                 SeiyuuDto dto = _seiyuuDtoStore.Get(seiyuu.Id);
@@ -67,13 +68,13 @@ namespace AnimeVoices.ViewModels.Content
             }
 
             await Task.Delay(25000);
-            _isApiWorking = false;
+            IsApiWorking = false;
         }
-        private bool CanGetMoreData() => !_isApiWorking;
+        private bool CanGetMoreData() => !IsApiWorking;
 
         public void Receive(AnimeCollectionChanged message)
         {
-            AnimeCount = message.NewCount;
+            AnimeCount = 15;
         }
 
         public void Receive(CharacterCollectionChanged message)
@@ -83,7 +84,9 @@ namespace AnimeVoices.ViewModels.Content
 
         public void Receive(SeiyuuCollectionChanged message)
         {
+            File.AppendAllText("log_seiyuu_count.txt", "Message reveived\n");
             SeiyuuCount = message.NewCount;
+            File.AppendAllText("log_seiyuu_count.txt", "SeiyuuCount changed\n----- " + message.NewCount + " -----\n\n");
         }
     }
 }

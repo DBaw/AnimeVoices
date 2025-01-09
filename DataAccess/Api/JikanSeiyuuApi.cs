@@ -1,4 +1,5 @@
 ﻿using AnimeVoices.DataModels.DTOs;
+using AnimeVoices.DataModels.Entities;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -14,6 +15,8 @@ namespace AnimeVoices.DataAccess.Api
         public JikanSeiyuuApi(HttpClient httpClient)
         {
             _httpClient = httpClient;
+            Uri baseAdress = new Uri("https://api.jikan.moe/v4/");
+            _httpClient.BaseAddress = baseAdress;
         }
         public async Task<SingleSeiyuuDto> GetSeiyuuByIdAsync(int id)
         {

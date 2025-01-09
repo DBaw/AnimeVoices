@@ -1,4 +1,5 @@
 ﻿using AnimeVoices.DataModels.Entities;
+using AnimeVoices.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -72,6 +73,16 @@ namespace AnimeVoices.DB
                 _dbContext.Entry(existingSeiyuu).CurrentValues.SetValues(seiyuu);
             }
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateAnimeAsync(AnimeEntity anime)
+        {
+            _dbContext.Update(anime);
+        }
+
+        public async Task UpdateCharacterAsync(CharacterEntity character)
+        {
+            _dbContext.Update(character);
         }
     }
 
