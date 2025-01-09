@@ -13,13 +13,5 @@ namespace AnimeVoices.Models
         {
             
         }
-
-        public Seiyuu(int id, List<int> characters) 
-        {
-            Name = "Some Seiyuu";
-            Id = id;
-            Characters = characters;
-            ImageUrl = "";
-        }
     }
 }

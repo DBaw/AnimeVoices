@@ -6,13 +6,13 @@ namespace AnimeVoices.Models
     {
         public string Anime {  get; set; }
         public string Character { get; set; }
-        public Bitmap Image { get; set; }   
+        public string ImageUrl { get; set; }   
 
-        public Result(string anime, string character, Bitmap image)
+        public Result(string anime, string character, string image)
         {
             Anime = anime;
             Character = character;
-            Image = image;
+            ImageUrl = image;
         }
     }
 }

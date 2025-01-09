@@ -1,5 +1,6 @@
 ﻿using AnimeVoices.Models;
 using AnimeVoices.Stores;
+using AnimeVoices.Utilities.Events;
 using AnimeVoices.Utilities.Helpers;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -7,16 +8,14 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class AnimeInfoViewModel : BaseViewModel
+    public partial class AnimeInfoViewModel : BaseViewModel, IRecipient<AnimeCollectionChanged>, IRecipient<CharacterCollectionChanged>, IRecipient<SeiyuuCollectionChanged>
     {
         #region Parameters
         // Full and filtered data
-        private List<Anime> _fullAnimeList;
-        private List<Character> _fullCharacterList;
-        private List<Seiyuu> _fullSeiyuuList;
         [ObservableProperty] 
         private ObservableCollection<Anime> _filteredAnimeList;
         [ObservableProperty] 
@@ -163,7 +162,7 @@ namespace AnimeVoices.ViewModels.Content
                 return;
             }
 
-            foreach (var character in _fullCharacterList)
+            foreach (var character in _characterStore.CharacterCollection)
             {
                 if (value.Characters.Contains(character.Id))
                 {
@@ -180,31 +179,47 @@ namespace AnimeVoices.ViewModels.Content
                 return;
             }
 
-            FoundSeiyuu = _fullSeiyuuList.Find(s => value.Seiyuu == s.Id);
+            FoundSeiyuu = _seiyuuStore.SeiyuuCollection.ToList().Find(s => value.Seiyuu == s.Id);
 
             if (FoundSeiyuu != null) 
             {
-                foreach(Character character in _fullCharacterList)
+                List<Character> sameCharacters = _characterStore.CharacterCollection.ToList().FindAll(c => FoundSeiyuu.Id == c.Seiyuu);
+
+                foreach (Character character in sameCharacters)
                 {
-                    if(character.Seiyuu == FoundSeiyuu.Id && character.Id != value.Id)
+                    List<Anime> characterAnime =  _animeStore.AnimeCollection.ToList().FindAll(a => a.Characters.Contains(character.Id));
+                    string shortestTitle = null;
+
+                    foreach (Anime anime in characterAnime)
                     {
-                        List<Anime> charactersAnime= _fullAnimeList.FindAll(a => character.AnimeList.Contains(a.Id));
-                        string animeTitle = "";
-                        foreach(Anime anime in charactersAnime)
+                        if (shortestTitle == null || anime.Title.Length < shortestTitle.Length)
                         {
-                            if (anime.Characters.Contains(character.Id))
-                            {
-                                animeTitle = anime.Title;
-                                break;
-                            }
+                            shortestTitle = anime.Title;
                         }
-                        Result result = new(animeTitle, character.Name, ImageHelper.LoadImage(character.ImageUrl));
-                        ResultList.Add(result);
                     }
+                    Result res = new Result(shortestTitle, character.Name, character.ImageUrl);
+                    ResultList.Add(res);
                 }
             }
         }
+
         #endregion
 
+        #region Messages
+        public void Receive(AnimeCollectionChanged message)
+        {
+            FilteredAnimeList = new(_animeStore.AnimeCollection);
+        }
+
+        public void Receive(CharacterCollectionChanged message)
+        {
+            FilteredCharacterList = new(_characterStore.CharacterCollection);
+        }
+
+        public void Receive(SeiyuuCollectionChanged message)
+        {
+            
+        }
+        #endregion
     }
 }

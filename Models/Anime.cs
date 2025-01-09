@@ -1,6 +1,4 @@
-﻿using AnimeVoices.DataModels.DTOs;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AnimeVoices.Models
 {

@@ -28,7 +28,6 @@ namespace AnimeVoices.DataAccess.Repositories
 
             foreach (CharacterEntity e in entities)
             {
-                await Task.Delay(5);
                 Character character = CharacterMapper.ToModel(e);
                 _characterStore.Add(character);
             }

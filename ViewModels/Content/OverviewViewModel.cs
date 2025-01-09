@@ -64,9 +64,11 @@ namespace AnimeVoices.ViewModels.Content
             foreach (Seiyuu seiyuu in seiyuuList)
             {
                 SeiyuuDto dto = _seiyuuDtoStore.Get(seiyuu.Id);
-                await _animeRepository.SaveAnimeFromSeiyuu(dto);
-                await _characterRepository.SaveCharactersFromSeiyuu(dto);
+                Task.WaitAll(_animeRepository.SaveAnimeFromSeiyuu(dto),
+                              _characterRepository.SaveCharactersFromSeiyuu(dto));
             }
+
+            _seiyuuDtoStore.Clear();
 
             await Task.Delay(25000);
             IsApiWorking = false;
@@ -87,5 +89,7 @@ namespace AnimeVoices.ViewModels.Content
         {
             SeiyuuCount = message.NewCount;
         }
+
+
     }
 }
