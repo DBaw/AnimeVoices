@@ -18,3 +18,6 @@ Low prio
 3. Background on lists items? 
 4. Bottom bar info on MainView
 5. Themeing - https://github.com/AvaloniaCommunity/Material.Avalonia/wiki/Advanced-Theming
+
+Efficiency Improvement
+1. From Voices Dto Get only one Anime by Character Id group and with the shortest anime title.

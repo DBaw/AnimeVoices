@@ -31,7 +31,7 @@
 					   TextAlignment="Center"/>
 			<!-- Selected Character Name -->
 			<TextBlock Grid.Row="2"
-					   Text="{Binding Result.Character}"
+					   Text="{Binding ResultCharacter}"
 					   Foreground="#EAEAEA"
 					   FontSize="22"
 					   FontWeight="DemiBold"
@@ -40,7 +40,7 @@
 					   TextAlignment="Center"/>
 			<!-- Seiyuu Picture -->
 			<Image Grid.Row="3"
-				   Source="{Binding Result.Image}"
+				   Source="{Binding ResultImage}"
 				   MaxHeight="100"
 				   MaxWidth="150"/>
 		</Grid>

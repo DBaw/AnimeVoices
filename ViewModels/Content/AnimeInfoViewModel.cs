@@ -1,7 +1,6 @@
 ﻿using AnimeVoices.Models;
 using AnimeVoices.Stores;
 using AnimeVoices.Utilities.Events;
-using AnimeVoices.Utilities.Helpers;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -55,15 +54,23 @@ namespace AnimeVoices.ViewModels.Content
         private readonly AnimeStore _animeStore;
         private readonly CharacterStore _characterStore;
         private readonly SeiyuuStore _seiyuuStore;
+        private readonly AnimeInfoPanelViewModel _animeInfoPanelViewModel;
+        private readonly CharacterInfoPanelViewModel _characterInfoPanelViewModel;
+        private readonly ResultInfoPanelViewModel _resultInfoPanelViewModel;
         #endregion
 
         #region Constructors
-        public AnimeInfoViewModel(IMessenger messenger, AnimeStore animeStore, CharacterStore characterStore, SeiyuuStore seiyuuStore) : base(messenger)
+        public AnimeInfoViewModel(IMessenger messenger, AnimeStore animeStore, CharacterStore characterStore, SeiyuuStore seiyuuStore, AnimeInfoPanelViewModel animeInfoPanelViewModel, CharacterInfoPanelViewModel characterInfoPanelViewModel, ResultInfoPanelViewModel resultInfoPanelViewModel) : base(messenger)
         {
             _messenger = messenger;
             _animeStore = animeStore;
             _characterStore = characterStore;
             _seiyuuStore = seiyuuStore;
+            _animeInfoPanelViewModel = animeInfoPanelViewModel;
+            _characterInfoPanelViewModel = characterInfoPanelViewModel;
+            _resultInfoPanelViewModel = resultInfoPanelViewModel;
+
+            _messenger.RegisterAll(this);
 
             LoggedUser = null;
             IsUserLoggedIn = LoggedUser != null;
@@ -123,7 +130,7 @@ namespace AnimeVoices.ViewModels.Content
             InfoPanelViewModel = null;
             if(!isPanelsOpened) 
             {
-                InfoPanelViewModel = new AnimeInfoPanelViewModel(SelectedAnime); 
+                InfoPanelViewModel = _animeInfoPanelViewModel; 
             }
         }
         private bool CanShowAnimeInfo() => SelectedAnime != null;
@@ -135,7 +142,7 @@ namespace AnimeVoices.ViewModels.Content
             InfoPanelViewModel = null;
             if (!isPanelsOpened)
             {
-                InfoPanelViewModel = new CharacterInfoPanelViewModel(SelectedCharacter, FoundSeiyuu);
+                InfoPanelViewModel = _characterInfoPanelViewModel;
             }
         }
         private bool CanShowCharacterInfo() => SelectedCharacter != null;
@@ -147,7 +154,7 @@ namespace AnimeVoices.ViewModels.Content
             InfoPanelViewModel = null;
             if (!isPanelsOpened)
             {
-                InfoPanelViewModel = new ResultInfoPanelViewModel(SelectedCharacter, SelectedResult);
+                InfoPanelViewModel = _resultInfoPanelViewModel;
             }
         }
         private bool CanShowResultInfo() => SelectedResult != null;
@@ -156,6 +163,8 @@ namespace AnimeVoices.ViewModels.Content
         #region Partial Methods
         partial void OnSelectedAnimeChanged(Anime value)
         {
+            _messenger.Send(new SelectedAnimeChanged(value));
+
             FilteredCharacterList.Clear();
             if (value == null)
             {
@@ -176,10 +185,12 @@ namespace AnimeVoices.ViewModels.Content
             ResultList.Clear();
             if (value == null)
             {
+                _messenger.Send(new SelectedCharacterChanged(null, null));
                 return;
             }
 
             FoundSeiyuu = _seiyuuStore.SeiyuuCollection.ToList().Find(s => value.Seiyuu == s.Id);
+            _messenger.Send(new SelectedCharacterChanged(value, FoundSeiyuu));
 
             if (FoundSeiyuu != null) 
             {
@@ -201,6 +212,11 @@ namespace AnimeVoices.ViewModels.Content
                     ResultList.Add(res);
                 }
             }
+        }
+
+        partial void OnSelectedResultChanged(Result value)
+        {
+            _messenger.Send(new SelectedResultChanged(value, SelectedCharacter));
         }
 
         #endregion

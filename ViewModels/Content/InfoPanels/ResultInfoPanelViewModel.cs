@@ -1,17 +1,27 @@
 ﻿using AnimeVoices.Models;
+using AnimeVoices.Utilities.Events;
+using AnimeVoices.Utilities.Helpers;
+using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace AnimeVoices.ViewModels.Content.InfoPanels
 {
-    public partial class ResultInfoPanelViewModel : ObservableObject
+    public partial class ResultInfoPanelViewModel : BaseViewModel, IRecipient<SelectedResultChanged>
     {
-        [ObservableProperty] Character _selectedCharacter;
-        [ObservableProperty] Result _result;
+        [ObservableProperty] Character? _selectedCharacter;
+        [ObservableProperty] string? _resultCharacter;
+        [ObservableProperty] Bitmap? _resultImage;
 
-        public ResultInfoPanelViewModel(Character selectedCharacter, Result result)
+        public ResultInfoPanelViewModel(IMessenger messenger) : base(messenger)
         {
-            SelectedCharacter = selectedCharacter;
-            Result = result;
+            _messenger.RegisterAll(this);
+        }
+        public void Receive(SelectedResultChanged message)
+        {
+            SelectedCharacter = message.character;
+            ResultCharacter = message.result?.Character;
+            ResultImage = ImageHelper.LoadImage(message.result?.ImageUrl).Result;
         }
     }
 }
