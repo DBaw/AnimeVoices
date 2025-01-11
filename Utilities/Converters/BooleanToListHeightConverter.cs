@@ -10,7 +10,7 @@ namespace AnimeVoices.Utilities.Converters
         {
             if (value is bool isTrue)
             {
-                return isTrue ? 300 : 0; // Replace with desired icons
+                return isTrue ? 510 : 0; // Replace with max list heigh
             }
             return 0;
         }
