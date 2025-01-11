@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -24,6 +25,7 @@ namespace AnimeVoices.ViewModels.Content
 
         // Info panels ViewModels
         [ObservableProperty] ObservableObject _infoPanelViewModel;
+        private readonly int _panelUiDelay = 200;
 
         // Currently selected items
         [ObservableProperty]
@@ -124,23 +126,33 @@ namespace AnimeVoices.ViewModels.Content
         private bool CanResultListDropDown() => ResultList.Count > 0;
 
         [RelayCommand(CanExecute = "CanShowAnimeInfo")]
-        public void ShowAnimeInfo()
+        public async void ShowAnimeInfo()
         {
-            bool isPanelsOpened = InfoPanelViewModel != null;
+            bool isPanelClosed = InfoPanelViewModel == null;
+            bool isThisPanelsOpened = InfoPanelViewModel == _animeInfoPanelViewModel;
             InfoPanelViewModel = null;
-            if(!isPanelsOpened) 
+            if (!isPanelClosed)
             {
-                InfoPanelViewModel = _animeInfoPanelViewModel; 
+                await Task.Delay(_panelUiDelay);
+            }
+            if (!isThisPanelsOpened)
+            {
+                InfoPanelViewModel = _animeInfoPanelViewModel;
             }
         }
         private bool CanShowAnimeInfo() => SelectedAnime != null;
 
         [RelayCommand(CanExecute = "CanShowCharacterInfo")]
-        public void ShowCharacterInfo()
+        public async void ShowCharacterInfo()
         {
-            bool isPanelsOpened = InfoPanelViewModel != null;
+            bool isPanelClosed = InfoPanelViewModel == null;
+            bool isThisPanelsOpened = InfoPanelViewModel == _characterInfoPanelViewModel;
             InfoPanelViewModel = null;
-            if (!isPanelsOpened)
+            if (!isPanelClosed)
+            {
+                await Task.Delay(_panelUiDelay);
+            }
+            if (!isThisPanelsOpened)
             {
                 InfoPanelViewModel = _characterInfoPanelViewModel;
             }
@@ -148,11 +160,16 @@ namespace AnimeVoices.ViewModels.Content
         private bool CanShowCharacterInfo() => SelectedCharacter != null;
 
         [RelayCommand(CanExecute = "CanShowResultInfo")]
-        public void ShowResultInfo()
+        public async void ShowResultInfo()
         {
-            bool isPanelsOpened = InfoPanelViewModel != null;
+            bool isPanelClosed = InfoPanelViewModel == null;
+            bool isThisPanelsOpened = InfoPanelViewModel == _resultInfoPanelViewModel;
             InfoPanelViewModel = null;
-            if (!isPanelsOpened)
+            if (!isPanelClosed)
+            {
+                await Task.Delay(_panelUiDelay);
+            }
+            if (!isThisPanelsOpened)
             {
                 InfoPanelViewModel = _resultInfoPanelViewModel;
             }

@@ -1,8 +1,6 @@
 ﻿using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.DataModels.Entities;
 using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
