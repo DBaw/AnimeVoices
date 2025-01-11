@@ -6,7 +6,6 @@ using AnimeVoices.ViewModels;
 using AnimeVoices.ViewModels.Content;
 using AnimeVoices.ViewModels.Content.InfoPanels;
 using AnimeVoices.Views;
-using AnimeVoices.Views.Content.InfoPanels;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
@@ -14,7 +13,6 @@ using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System;
 using System.IO;
 using System.Linq;
@@ -84,7 +82,12 @@ namespace AnimeVoices
             {
                 client.BaseAddress = baseAdress;
             });
+            services.AddHttpClient<IAnimeApi, JikanAnimeApi>(client =>
+            {
+                client.BaseAddress = baseAdress;
+            });
             services.AddScoped<ISeiyuuApi, JikanSeiyuuApi>();
+            services.AddScoped<IAnimeApi, JikanAnimeApi>();
 
             // Register Database Context
             services.AddDbContext<AppDbContext>(options =>

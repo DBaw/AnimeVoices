@@ -9,6 +9,7 @@ namespace AnimeVoices.DataAccess.Repositories
     {
         Task InitializeAsync();
         Task SaveAnimeFromSeiyuu(SeiyuuDto dto);
+        Task<Anime> GetAnimeByIdAsync(int id);
         List<Anime> GetAllAnime();
     }
 }

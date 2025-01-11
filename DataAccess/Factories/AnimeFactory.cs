@@ -1,7 +1,10 @@
 ﻿using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.DataModels.DTOs.Nested;
+using AnimeVoices.DB;
 using AnimeVoices.Models;
+using AnimeVoices.Stores;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AnimeVoices.DataAccess.Factories
 {

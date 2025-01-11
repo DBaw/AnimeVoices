@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.DataAccess.Api
 {
-    public class JikanAnimeApi
+    public class JikanAnimeApi : IAnimeApi
     {
         private readonly HttpClient _httpClient;
 
@@ -14,10 +14,10 @@ namespace AnimeVoices.DataAccess.Api
             _httpClient = httpClient;
         }
 
-        public async Task<AnimeDto> GetAnimeByIdAsync(int id)
+        public async Task<SingleAnimeDto> GetAnimeByIdAsync(int id)
         {
             var response = await _httpClient.GetStringAsync("anime/" + id.ToString() + "/full");
-            return JsonConvert.DeserializeObject<AnimeDto>(response);
+            return JsonConvert.DeserializeObject<SingleAnimeDto>(response);
         }
     }
 }

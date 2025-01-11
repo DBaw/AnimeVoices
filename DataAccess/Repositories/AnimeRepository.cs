@@ -1,4 +1,5 @@
-﻿using AnimeVoices.DataAccess.Factories;
+﻿using AnimeVoices.DataAccess.Api;
+using AnimeVoices.DataAccess.Factories;
 using AnimeVoices.DataAccess.Mappers;
 using AnimeVoices.DataModels.DTOs;
 using AnimeVoices.DataModels.Entities;
@@ -16,11 +17,13 @@ namespace AnimeVoices.DataAccess.Repositories
     {
         private readonly AnimeStore _animeStore;
         private readonly IAppDatabase _appDatabase;
+        private readonly IAnimeApi _animeApi;
 
-        public AnimeRepository(AnimeStore animeStore, IAppDatabase appDatabase)
+        public AnimeRepository(AnimeStore animeStore, IAppDatabase appDatabase, IAnimeApi animeApi)
         {
             _animeStore = animeStore;
             _appDatabase = appDatabase;
+            _animeApi = animeApi;
         }
 
         public async Task InitializeAsync()
@@ -72,6 +75,13 @@ namespace AnimeVoices.DataAccess.Repositories
         public List<Anime> GetAllAnime()
         {
             return _animeStore.AnimeCollection.ToList();
+        }
+
+        public async Task<Anime> GetAnimeByIdAsync(int id)
+        {
+            SingleAnimeDto singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
+            // TODO: Get anime data - save it in store and database
+            return new Anime();
         }
     }
 }
