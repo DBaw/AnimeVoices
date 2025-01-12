@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class AnimeInfoViewModel : BaseViewModel, IRecipient<AnimeCollectionChanged>, IRecipient<CharacterCollectionChanged>, IRecipient<SeiyuuCollectionChanged>
+    public partial class AnimeInfoViewModel : BaseViewModel, IRecipient<AnimeCollectionChanged>, IRecipient<CharacterCollectionChanged>, IRecipient<SeiyuuCollectionChanged>, IRecipient<SearchTextChanged>
     {
         #region Parameters
         // Full and filtered data
@@ -252,6 +252,50 @@ namespace AnimeVoices.ViewModels.Content
         public void Receive(SeiyuuCollectionChanged message)
         {
             
+        }
+
+        public void Receive(SearchTextChanged message)
+        {
+            if (AnimeListExpanded)
+            {
+                FilteredAnimeList.Clear();
+                if (string.IsNullOrEmpty(message.text))
+                {
+                    FilteredAnimeList = new(_animeStore.AnimeCollection);
+                }
+                else
+                {
+                    foreach(Anime a in _animeStore.AnimeCollection)
+                    {
+                        if (a.Title.ToLower().Contains(message.text.ToLower()))
+                        {
+                            FilteredAnimeList.Add(a);
+                        }
+                    }   
+                }
+            }
+            else if (CharacterListExpanded)
+            {
+                FilteredCharacterList.Clear();
+                if (string.IsNullOrEmpty(message.text))
+                {
+                    FilteredCharacterList = new(_characterStore.CharacterCollection);
+                }
+                else
+                {
+                    foreach (Character c in _characterStore.CharacterCollection)
+                    {
+                        if (c.Name.ToLower().Contains(message.text.ToLower()))
+                        {
+                            FilteredCharacterList.Add(c);
+                        }
+                    }
+                }
+            } 
+            else if (ResultListExpanded)
+            {
+
+            }
         }
         #endregion
     }

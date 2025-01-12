@@ -10,6 +10,8 @@ namespace AnimeVoices.ViewModels
 {
     public partial class TopBarViewModel : BaseViewModel
     {
+        [ObservableProperty] private string _searchText;
+
 
         public TopBarViewModel(IMessenger messenger) : base(messenger)
         {
@@ -32,6 +34,14 @@ namespace AnimeVoices.ViewModels
         private async Task GoToSettings()
         {
             _messenger.Send(new SwitchContentView(ContentTypes.SETTINGS));
+        }
+
+        partial void OnSearchTextChanged(string oldValue, string newValue)
+        {
+            if (oldValue != newValue) 
+            {
+                _messenger.Send(new SearchTextChanged(newValue));
+            }
         }
     }
 }
