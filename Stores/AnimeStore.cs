@@ -18,15 +18,12 @@ namespace AnimeVoices.Stores
             AnimeCollection = new();
         }
 
-        public void Add(Anime anime, bool updateUi = true)
+        public void Add(Anime anime)
         {
             if (!AnimeCollection.Any(a => a.Id == anime.Id))
             {
                 AnimeCollection.Add(anime);
-                if (updateUi)
-                {
-                    _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
-                }
+                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
             }
         }
 

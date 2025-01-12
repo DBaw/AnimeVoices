@@ -2,6 +2,7 @@
 using AnimeVoices.DataAccess.Factories;
 using AnimeVoices.DataAccess.Mappers;
 using AnimeVoices.DataModels.DTOs;
+using AnimeVoices.DataModels.DTOs.Nested;
 using AnimeVoices.DataModels.Entities;
 using AnimeVoices.DB;
 using AnimeVoices.Models;
@@ -20,13 +21,17 @@ namespace AnimeVoices.DataAccess.Repositories
         private readonly IAppDatabase _appDatabase;
         private readonly SeiyuuStore _seiyuuStore;
         private readonly SeiyuuDtoStore _seiyuuDtoStore;
+        private readonly AnimeStore _animeStore;
+        private readonly CharacterStore _characterStore;
 
-        public SeiyuuRepository(ISeiyuuApi seiyuuApi, IAppDatabase appDatabase, SeiyuuStore seiyuuStore, SeiyuuDtoStore seiyuuDtoStore)
+        public SeiyuuRepository(ISeiyuuApi seiyuuApi, IAppDatabase appDatabase, SeiyuuStore seiyuuStore, SeiyuuDtoStore seiyuuDtoStore, AnimeStore animeStore, CharacterStore characterStore)
         {
             _seiyuuApi = seiyuuApi;
             _appDatabase = appDatabase;
             _seiyuuStore = seiyuuStore;
             _seiyuuDtoStore = seiyuuDtoStore;
+            _animeStore = animeStore;
+            _characterStore = characterStore;
         }
 
         public async Task InitializeAsync()
@@ -52,16 +57,18 @@ namespace AnimeVoices.DataAccess.Repositories
 
             var responseFromApi = await _seiyuuApi.GetSeiyuuByIdAsync(id);
             seiyuuDto = responseFromApi.SeiyuuDto;
-            _seiyuuDtoStore.Add(seiyuuDto);
+
+            //_seiyuuDtoStore.Add(seiyuuDto);
 
             var seiyuu = SeiyuuFactory.Create(seiyuuDto);
 
             if (!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuu.Id))
             {
                 _seiyuuStore.Add(seiyuu);
-                await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
+                //await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
             }
 
+            await ParseSeiyuuData(seiyuuDto);
             return seiyuu;
         }
 
@@ -80,5 +87,91 @@ namespace AnimeVoices.DataAccess.Repositories
 
             return seiyuuModels;
         }
+
+        public async Task ParseSeiyuuData(SeiyuuDto dto)
+        {
+            // Map of CharacterId to their associated VoiceDto entries
+            Dictionary<int, List<VoiceDto>> characterVoices = new();
+
+            // Populate the map
+            foreach (VoiceDto vd in dto.Voices)
+            {
+                if (!characterVoices.TryGetValue(vd.Character.Id, out var voiceList))
+                {
+                    voiceList = new List<VoiceDto>();
+                    characterVoices[vd.Character.Id] = voiceList;
+                }
+                voiceList.Add(vd);
+            }
+
+            // Process each CharacterId
+            foreach (var (characterId, voices) in characterVoices)
+            {
+                // Find the VoiceDto with the shortest anime title
+                VoiceDto shortestTitleVoice = voices.OrderBy(v => v.Anime.Title.Length).First();
+
+                // Create or update Character
+                Character? existingCharacter = _characterStore.CharacterCollection.FirstOrDefault(c => c.Id == characterId);
+                Character updatedCharacter = new Character
+                {
+                    Id = characterId,
+                    Name = shortestTitleVoice.Character.Name,
+                    AnimeId = shortestTitleVoice.Anime.Id,
+                    Seiyuu = dto.Id,
+                    ImageUrl = shortestTitleVoice.Character.Images?.Jpg.ImageUrl
+                };
+
+                if (existingCharacter != null)
+                {
+                    if (existingCharacter.AnimeId != updatedCharacter.AnimeId)
+                    {
+                        _characterStore.Update(updatedCharacter);
+                        //await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(updatedCharacter));
+                    }
+                }
+                else
+                {
+                    _characterStore.Add(updatedCharacter);
+                    //await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(updatedCharacter));
+                }
+
+                // Check for anime ID in aliases
+                Anime? matchedAnime = _animeStore.AnimeCollection.FirstOrDefault(
+                    a => a.Id == shortestTitleVoice.Anime.Id || a.Aliases.Contains(shortestTitleVoice.Anime.Id)
+                );
+
+                if (matchedAnime == null)
+                {
+                    // Add new anime
+                    Anime newAnime = new Anime
+                    {
+                        Id = shortestTitleVoice.Anime.Id,
+                        Title = shortestTitleVoice.Anime.Title,
+                        Characters = new List<int> { characterId }
+                    };
+                    _animeStore.Add(newAnime);
+                    //await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(newAnime));
+                }
+                else
+                {
+                    // Update existing anime
+                    if (!matchedAnime.Characters.Contains(characterId))
+                    {
+                        matchedAnime.Characters.Add(characterId);
+                        _animeStore.Update(matchedAnime);
+                        //await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(matchedAnime));
+                    }
+
+                    // Update aliases to include the new anime ID if needed
+                    if (!matchedAnime.Aliases.Contains(shortestTitleVoice.Anime.Id))
+                    {
+                        matchedAnime.Aliases.Add(shortestTitleVoice.Anime.Id);
+                        _animeStore.Update(matchedAnime);
+                        //await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(matchedAnime));
+                    }
+                }
+            }
+        }
+
     }
 }

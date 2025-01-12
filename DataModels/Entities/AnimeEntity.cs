@@ -16,6 +16,7 @@ namespace AnimeVoices.DataModels.Entities
         public string Synopsis { get; set; }
         public int Episodes { get; set; }
         public string Characters { get; set; } // ID's separate by comma
+        public string Aliases { get; set; } // Aliases's separate by comma
 
         public AnimeEntity()
         {

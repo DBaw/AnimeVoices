@@ -42,9 +42,9 @@ namespace AnimeVoices.ViewModels.Content
             _seiyuuStore = seiyuuStore;
             _seiyuuDtoStore = seiyuuDtoStore;
 
-            _animeRepository.InitializeAsync();
-            _characterRepository.InitializeAsync();
-            _seiyuuRepository.InitializeAsync();
+            //_animeRepository.InitializeAsync();
+            //_characterRepository.InitializeAsync();
+            //_seiyuuRepository.InitializeAsync();
 
             AnimeCount = _animeStore.CountCollection();
             CharacterCount = _characterStore.CountCollection();
@@ -59,7 +59,7 @@ namespace AnimeVoices.ViewModels.Content
             IsApiWorking = true;
 
             List<Seiyuu> seiyuuList = await _seiyuuRepository.GetTopSeiyuuAsync(1);
-            await Task.Delay(100);
+            /*await Task.Delay(100);
 
             foreach (Seiyuu seiyuu in seiyuuList)
             {
@@ -71,6 +71,7 @@ namespace AnimeVoices.ViewModels.Content
             _seiyuuDtoStore.Clear();
 
             await Task.Delay(25000);
+            */
             IsApiWorking = false;
         }
         private bool CanGetMoreData() => !IsApiWorking;

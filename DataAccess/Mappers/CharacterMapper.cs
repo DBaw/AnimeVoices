@@ -12,7 +12,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                AnimeList = string.IsNullOrEmpty(entity.Anime) ? new() : entity.Anime.Split(',').ToList().Select(int.Parse).ToList(),
+                AnimeId = entity.AnimeId,
                 Seiyuu = entity.Seiyuu,
                 ImageUrl = entity.ImageUrl
             };
@@ -24,7 +24,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Name = model.Name,
-                Anime = string.Join(",", model.AnimeList),
+                AnimeId = model.AnimeId,
                 Seiyuu = model.Seiyuu,
                 ImageUrl = model.ImageUrl
             };

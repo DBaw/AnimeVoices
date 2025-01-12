@@ -35,6 +35,7 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task SaveCharactersFromSeiyuu(SeiyuuDto dto)
         {
+            /*
             List<Character> characterList = CharacterFactory.Create(dto);
 
             foreach (Character character in characterList)
@@ -66,6 +67,7 @@ namespace AnimeVoices.DataAccess.Repositories
                     await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
                 }
             }
+            */
         }
 
         public List<Character> GetAllCharacters()

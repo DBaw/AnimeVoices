@@ -8,7 +8,7 @@ namespace AnimeVoices.DataModels.Entities
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Anime { get; set; } // Id's separated by comma
+        public int AnimeId { get; set; }
         public int Seiyuu { get; set; }
         public string ImageUrl { get; set; }
 
