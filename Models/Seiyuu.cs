@@ -6,7 +6,6 @@ namespace AnimeVoices.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<int> Characters { get; set; }
         public string ImageUrl { get; set; }
 
         public Seiyuu()

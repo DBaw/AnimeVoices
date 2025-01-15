@@ -58,7 +58,7 @@ namespace AnimeVoices.ViewModels.Content
         {
             IsApiWorking = true;
 
-            List<Seiyuu> seiyuuList = await _seiyuuRepository.GetTopSeiyuuAsync(1);
+            await _animeRepository.GetTopAnimeAsync(1);
             /*await Task.Delay(100);
 
             foreach (Seiyuu seiyuu in seiyuuList)

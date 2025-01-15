@@ -86,8 +86,8 @@ namespace AnimeVoices
             {
                 client.BaseAddress = baseAdress;
             });
-            services.AddScoped<ISeiyuuApi, JikanSeiyuuApi>();
-            services.AddScoped<IAnimeApi, JikanAnimeApi>();
+            //services.AddScoped<ISeiyuuApi, JikanSeiyuuApi>();
+            //services.AddScoped<IAnimeApi, JikanAnimeApi>();
 
             // Register Database Context
             services.AddDbContext<AppDbContext>(options =>

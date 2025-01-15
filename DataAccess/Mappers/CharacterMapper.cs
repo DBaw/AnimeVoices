@@ -12,7 +12,6 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                AnimeId = entity.AnimeId,
                 Seiyuu = entity.Seiyuu,
                 ImageUrl = entity.ImageUrl
             };
@@ -24,7 +23,6 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Name = model.Name,
-                AnimeId = model.AnimeId,
                 Seiyuu = model.Seiyuu,
                 ImageUrl = model.ImageUrl
             };

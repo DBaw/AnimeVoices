@@ -215,18 +215,23 @@ namespace AnimeVoices.ViewModels.Content
 
                 foreach (Character character in sameCharacters)
                 {
-                    List<Anime> characterAnime =  _animeStore.AnimeCollection.ToList().FindAll(a => a.Characters.Contains(character.Id));
-                    string shortestTitle = null;
-
-                    foreach (Anime anime in characterAnime)
+                    if (value.Id != character.Id)
                     {
-                        if (shortestTitle == null || anime.Title.Length < shortestTitle.Length)
+                        List<Anime> characterAnime =  _animeStore.AnimeCollection.ToList().FindAll(a => a.Characters.Contains(character.Id));
+                        string shortestTitle = null;
+
+                        // Make sure that Anime Title on the list will be the same for Characters from same Animes no matter on what part user click
+                        foreach (Anime anime in characterAnime)
                         {
-                            shortestTitle = anime.Title;
+                            if (shortestTitle == null || anime.Title.Length < shortestTitle.Length)
+                            {
+                                shortestTitle = anime.Title;
+                            }
                         }
+
+                        Result res = new Result(shortestTitle, character.Name, character.ImageUrl);
+                        ResultList.Add(res);
                     }
-                    Result res = new Result(shortestTitle, character.Name, character.ImageUrl);
-                    ResultList.Add(res);
                 }
             }
         }

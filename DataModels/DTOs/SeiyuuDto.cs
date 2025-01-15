@@ -1,6 +1,5 @@
 ﻿using AnimeVoices.DataModels.DTOs.Nested;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace AnimeVoices.DataModels.DTOs
 {
@@ -12,14 +11,8 @@ namespace AnimeVoices.DataModels.DTOs
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("birthday")]
-        public string Birthday { get; set; }
-
         [JsonProperty("images")]
         public ImagesDto Images { get; set; }
-
-        [JsonProperty("voices")]
-        public List<VoiceDto> Voices { get; set; }
 
         public SeiyuuDto() { }
     }

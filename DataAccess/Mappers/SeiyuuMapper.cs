@@ -12,7 +12,6 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Name = entity.Name,
-                Characters = string.IsNullOrEmpty(entity.Characters) ? new() : entity.Characters.Split(",").ToList().Select(int.Parse).ToList(),
                 ImageUrl = entity.ImageUrl,
             };
         }
@@ -23,7 +22,6 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Name = model.Name,
-                Characters = string.Join(",", model.Characters),
                 ImageUrl = model.ImageUrl,
             };
         }

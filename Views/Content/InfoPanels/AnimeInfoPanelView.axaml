@@ -8,7 +8,8 @@
              x:Class="AnimeVoices.Views.Content.InfoPanels.AnimeInfoPanelView"
 			 Background="Transparent">
 	<Border Background="#AFB5E7"
-			CornerRadius="15,0,0,15">
+			CornerRadius="15,0,0,15"
+			Padding="0,0,40,0">
 		<Grid RowDefinitions="30,150,*,30"
 			  Margin="10">
 			<!-- Title -->
@@ -40,16 +41,19 @@
 					<TextBlock Grid.Row="3" Text="{Binding SelectedAnime.Episodes}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
 				</Grid>
 			</Grid>
-			<TextBlock Grid.Row="2"
-					   Text="{Binding SelectedAnime.Synopsis}"
-					   Foreground="#e6f4f1"
-					   TextAlignment="Justify"
-					   TextWrapping="Wrap"
-					   FontStyle="Italic"
-					   FontSize="12"
-					   MaxLines="23"
-					   Margin="5"
-					   LineSpacing="2"/>
+			<ScrollViewer Grid.Row="2"
+						  IsDeferredScrollingEnabled="True"
+						  VerticalScrollBarVisibility="Auto" 
+						  HorizontalScrollBarVisibility="Disabled">
+				<TextBlock Text="{Binding SelectedAnime.About}"
+						   VerticalAlignment="Stretch"
+						   Foreground="#e6f4f1"
+						   TextWrapping="Wrap"
+						   TextAlignment="Justify"
+						   FontStyle="Italic"
+						   FontSize="13"
+						   Margin="5"/>
+			</ScrollViewer>
 			<Button Grid.Row="3"
 					Content="Refresh"
 					Background="#717495"

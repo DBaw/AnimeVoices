@@ -2,40 +2,32 @@
 using AnimeVoices.DataModels.DTOs.Nested;
 using AnimeVoices.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AnimeVoices.DataAccess.Factories
 {
     public static class AnimeFactory
     {
-        public static List<Anime> Create(SeiyuuDto dto)
+        public static Anime Create(AnimeDto dto)
         {
-            List<Anime> animeList = new();
-            Dictionary<int, Anime> animeDictionary = new();
 
-            foreach (VoiceDto vd in dto.Voices)
+            return new Anime
             {
-                if (!animeDictionary.TryGetValue(vd.Anime.Id, out Anime existingAnime))
-                {
-                    existingAnime = new Anime()
-                    {
-                        Id = vd.Anime.Id,
-                        Title = vd.Anime.Title,
-                        Characters = new List<int>(),
-                        IsFavourite = false,
-                        IsOnWatchlist = false,
-                    };
-
-                    animeDictionary[vd.Anime.Id] = existingAnime;
-                    animeList.Add(existingAnime);
-                }
-
-                if (!existingAnime.Characters.Contains(vd.Character.Id))
-                {
-                    existingAnime.Characters.Add(vd.Character.Id);
-                }
-            }
-
-            return animeList;
+                Id = dto.Id,
+                Title = string.IsNullOrEmpty(dto.Title) ? "unknown" : dto.Title,
+                Episodes = dto?.Episodes == null ? "unknown" : dto.Episodes.ToString(),
+                Status = string.IsNullOrEmpty(dto.Status) ? "unknown" : dto.Status,
+                Aired = dto?.Aired?.Prop?.Period == null ? "unknown" : dto.Aired.Prop.Period,
+                Score = dto?.Score == null ? "unknown" : dto.Score.ToString(),
+                Aliases = new() { dto.Id },
+                Characters = new(),
+                Rating = string.IsNullOrEmpty(dto.Rating) ? "unknown" : dto.Rating,
+                Studio = dto.Studios == null ? "unknown" : string.Join(" and ", dto.Studios.Select(s => s.Name)),
+                About = string.IsNullOrEmpty(dto.About) ? "unknown" : dto.About,
+                Broadcast = dto.Broadcast?.FullTime == null ? "unknown" : dto.Broadcast.FullTime,
+                IsFavourite = false,
+                IsOnWatchlist = false,
+            };  
         }
     }
 }
