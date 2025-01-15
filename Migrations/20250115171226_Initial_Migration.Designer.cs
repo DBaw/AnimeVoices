@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AnimeVoices.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250106112621_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250115171226_Initial_Migration")]
+    partial class Initial_Migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,10 @@ namespace AnimeVoices.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Aired")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Aliases")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -64,15 +68,30 @@ namespace AnimeVoices.Migrations
                     b.ToTable("Anime");
                 });
 
+            modelBuilder.Entity("AnimeVoices.DataModels.Entities.AnimePaginationEntity", b =>
+                {
+                    b.Property<string>("Properties")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("HasNextPage")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Page")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Properties");
+
+                    b.ToTable("AnimePagination");
+                });
+
             modelBuilder.Entity("AnimeVoices.DataModels.Entities.CharacterEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Anime")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("AnimeId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()

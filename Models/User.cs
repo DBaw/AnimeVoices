@@ -1,6 +1,6 @@
-﻿using AnimeVoices.DataModels;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using AnimeVoices.DataModels.Entities;
 
 namespace AnimeVoices.Models
 {
@@ -13,21 +13,6 @@ namespace AnimeVoices.Models
         public List<int> FavouritesSeiyuus { get; set; }
         public List<int> Watchlist { get; set; }
 
-        public User(UserDto userDto)
-        {
-            Id = userDto.Id;
-            Name = userDto.Name;
-            Password = userDto.Password;
-            FavouriteAnimes = userDto.FavouriteAnimesJson == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.FavouriteAnimesJson);
-            FavouritesSeiyuus = userDto.FavouritesSeiyuusJson == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.FavouritesSeiyuusJson);
-            Watchlist = userDto.Watchlist == null ? new() : JsonConvert.DeserializeObject<List<int>>(userDto.Watchlist);
-        }
-
-        public User(int id, List<int> favAnime, List<int> watchlist)
-        {
-            Id = id;
-            FavouriteAnimes = favAnime;
-            Watchlist = watchlist;
-        }
+        public User() { }
     }
 }

@@ -5,7 +5,7 @@
 namespace AnimeVoices.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial_Migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,11 +24,25 @@ namespace AnimeVoices.Migrations
                     Status = table.Column<string>(type: "TEXT", nullable: false),
                     Synopsis = table.Column<string>(type: "TEXT", nullable: false),
                     Episodes = table.Column<int>(type: "INTEGER", nullable: false),
-                    Characters = table.Column<string>(type: "TEXT", nullable: false)
+                    Characters = table.Column<string>(type: "TEXT", nullable: false),
+                    Aliases = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Anime", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AnimePagination",
+                columns: table => new
+                {
+                    Properties = table.Column<string>(type: "TEXT", nullable: false),
+                    Page = table.Column<int>(type: "INTEGER", nullable: false),
+                    HasNextPage = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnimePagination", x => x.Properties);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,7 +52,7 @@ namespace AnimeVoices.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Anime = table.Column<string>(type: "TEXT", nullable: false),
+                    AnimeId = table.Column<int>(type: "INTEGER", nullable: false),
                     Seiyuu = table.Column<int>(type: "INTEGER", nullable: false),
                     ImageUrl = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -68,6 +82,9 @@ namespace AnimeVoices.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Anime");
+
+            migrationBuilder.DropTable(
+                name: "AnimePagination");
 
             migrationBuilder.DropTable(
                 name: "Character");

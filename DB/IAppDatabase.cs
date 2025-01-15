@@ -14,5 +14,8 @@ namespace AnimeVoices.DB
 
         Task<List<SeiyuuEntity>> GetAllSeiyuuAsync();
         Task SaveSeiyuuAsync(SeiyuuEntity seiyuu);
+
+        Task<AnimePaginationEntity> GetTopAnimePagination(string properties);
+        Task SaveAnimePaginationAsync(AnimePaginationEntity paginationEntity);
     }
 }

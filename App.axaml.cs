@@ -35,6 +35,14 @@ namespace AnimeVoices
             ConfigureServices(serviceCollection);
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
+
+            var appDb = ServiceProvider.GetRequiredService<AppDbContext>();
+            var userDb = ServiceProvider.GetRequiredService<UserDbContext>();
+
+            // Because app is just for local use - ensure local db creation
+            appDb.Database.EnsureCreated();
+            userDb.Database.EnsureCreated();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
@@ -66,7 +74,8 @@ namespace AnimeVoices
         private static void ConfigureServices(IServiceCollection services)
         {
             Uri baseAdress = new Uri("https://api.jikan.moe/v4/");
-            string dbFileName = "AnimeVoices.db";
+            string appDbFileName = "AnimeVoices.db";
+            string usersDbFileName = "Users.db";
 
             // Register Messenger
             services.AddSingleton<IMessenger, WeakReferenceMessenger>();
@@ -92,12 +101,18 @@ namespace AnimeVoices
             // Register Database Context
             services.AddDbContext<AppDbContext>(options =>
             {
-                string dbPath = Path.Combine(AppContext.BaseDirectory, dbFileName);
+                string dbPath = Path.Combine(AppContext.BaseDirectory, appDbFileName);
+                options.UseSqlite($"Data Source={dbPath}");
+            });
+            services.AddDbContext<UserDbContext>(options =>
+            {
+                string dbPath = Path.Combine(AppContext.BaseDirectory, usersDbFileName);
                 options.UseSqlite($"Data Source={dbPath}");
             });
 
-            // Register Database
+            // Register Databases
             services.AddSingleton<IAppDatabase, AppDatabase>();
+            services.AddSingleton<IUserDatabase, UserDatabase>();
 
             // Register Repositories
             services.AddSingleton<IAnimeRepository, AnimeRepository>();

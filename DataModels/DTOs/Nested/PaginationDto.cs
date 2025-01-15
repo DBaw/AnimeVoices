@@ -4,8 +4,8 @@ namespace AnimeVoices.DataModels.DTOs.Nested
 {
     public class PaginationDto
     {
-        [JsonProperty("last_visible_page")]
-        public int LastVisiblePage { get; set; }
+        [JsonProperty("current_page")]
+        public int CurrentPage { get; set; }
 
         [JsonProperty("has_next_page")]
         public bool HasNextPage { get; set; }

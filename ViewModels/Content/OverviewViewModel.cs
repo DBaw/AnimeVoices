@@ -1,14 +1,9 @@
 ﻿using AnimeVoices.DataAccess.Repositories;
-using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.Models;
 using AnimeVoices.Stores;
 using AnimeVoices.Utilities.Events;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
 {
@@ -17,7 +12,6 @@ namespace AnimeVoices.ViewModels.Content
         private readonly AnimeStore _animeStore;
         private readonly CharacterStore _characterStore;
         private readonly SeiyuuStore _seiyuuStore;
-        private readonly SeiyuuDtoStore _seiyuuDtoStore;
         private readonly IAnimeRepository _animeRepository;
         private readonly ICharacterRepository _characterRepository;
         private readonly ISeiyuuRepository _seiyuuRepository;
@@ -40,7 +34,6 @@ namespace AnimeVoices.ViewModels.Content
             _animeStore = animeStore;
             _characterStore = characterStore;
             _seiyuuStore = seiyuuStore;
-            _seiyuuDtoStore = seiyuuDtoStore;
 
             //_animeRepository.InitializeAsync();
             //_characterRepository.InitializeAsync();
@@ -58,7 +51,7 @@ namespace AnimeVoices.ViewModels.Content
         {
             IsApiWorking = true;
 
-            await _animeRepository.GetTopAnimeAsync(1);
+            await _animeRepository.GetTopAnimeAsync();
             /*await Task.Delay(100);
 
             foreach (Seiyuu seiyuu in seiyuuList)

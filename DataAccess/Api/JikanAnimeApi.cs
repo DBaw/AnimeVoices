@@ -1,6 +1,6 @@
 ﻿using AnimeVoices.DataModels.DTOs;
+using AnimeVoices.Models;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -21,9 +21,9 @@ namespace AnimeVoices.DataAccess.Api
             return JsonConvert.DeserializeObject<SingleAnimeDto>(response);
         }
 
-        public async Task<TopAnimeDto> GetTopAnimeAsync(int page)
+        public async Task<TopAnimeDto> GetTopAnimeAsync(AnimePagination pagination)
         {
-            var response = await _httpClient.GetStringAsync("top/anime?page=" + page.ToString());
+            var response = await _httpClient.GetStringAsync("top/anime?page=" + pagination.Page.ToString() + pagination.Properties);
             return JsonConvert.DeserializeObject<TopAnimeDto>(response);
         }
 

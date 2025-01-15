@@ -1,12 +1,12 @@
 ﻿using AnimeVoices.DataModels.DTOs;
-using System.Collections.Generic;
+using AnimeVoices.Models;
 using System.Threading.Tasks;
 
 namespace AnimeVoices.DataAccess.Api
 {
     public interface IAnimeApi
     {
-        public Task<TopAnimeDto> GetTopAnimeAsync(int page);
+        public Task<TopAnimeDto> GetTopAnimeAsync(AnimePagination pagination);
         public Task<AnimeCharactersResponseDto> GetAnimeCharactersAsync(int id);
         public Task<SingleAnimeDto> GetAnimeByIdAsync(int id);
     }

@@ -48,18 +48,34 @@ namespace AnimeVoices.DataAccess.Repositories
             return new Anime();
         }
 
-        public async Task GetTopAnimeAsync(int page)
+        public async Task GetTopAnimeAsync()
         {
+            string properties = "";
+
+            // Get Page for selected properies
+            AnimePaginationEntity paginationEntity = await _appDatabase.GetTopAnimePagination(properties);
+            AnimePagination pagination = AnimePaginationMapper.ToModel(paginationEntity);
+            pagination.Page = pagination.Page + 1;
+
             // Fetch top anime data from API
-            var topAnimeDto = await _animeApi.GetTopAnimeAsync(page);
+            var topAnimeDto = await _animeApi.GetTopAnimeAsync(pagination);
             var animeList = topAnimeDto.AnimeDto;
 
             foreach (var animeDto in animeList)
             {
-                // Fetch anime characters with a 1s delay between each call
-                await Task.Delay(1000);
-                await GetAnimeCharactersAsync(animeDto);
+                // Fetch anime characters with a 1s delay between each call for character not already in the store
+                if(!_animeStore.AnimeCollection.Any(a => a.Id == animeDto.Id))
+                {
+                    await Task.Delay(1000);
+                    await GetAnimeCharactersAsync(animeDto);
+                }
             }
+
+            // Save current pagination to database
+            var paginationDto = topAnimeDto.PaginationDto;
+            var paginationFromDto = AnimePaginationFactory.Create(paginationDto, properties);
+            var paginationEntityFromDto = AnimePaginationMapper.ToEntity(paginationFromDto);
+            await _appDatabase.SaveAnimePaginationAsync(paginationEntityFromDto);
         }
 
         public async Task GetAnimeCharactersAsync(AnimeDto dto)

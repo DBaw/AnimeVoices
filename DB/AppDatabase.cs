@@ -1,4 +1,6 @@
-﻿using AnimeVoices.DataModels.Entities;
+﻿using AnimeVoices.DataAccess.Mappers;
+using AnimeVoices.DataModels.Entities;
+using AnimeVoices.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -70,6 +72,37 @@ namespace AnimeVoices.DB
             else
             {
                 _dbContext.Seiyuu.Entry(existingSeiyuu).CurrentValues.SetValues(seiyuu);
+            }
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<AnimePaginationEntity> GetTopAnimePagination(string properties)
+        {
+            var existingPagination = await _dbContext.AnimePagination.FindAsync(properties);
+            if (existingPagination == null)
+            {
+                var parination = new AnimePagination()
+                {
+                    Page = 0,
+                    HasNextPage = true,
+                    Properties = properties
+                };
+                return AnimePaginationMapper.ToEntity(parination);
+            }
+            
+            return existingPagination;
+        }
+
+        public async Task SaveAnimePaginationAsync(AnimePaginationEntity paginationEntity)
+        {
+            var existingPagination = await _dbContext.AnimePagination.FindAsync(paginationEntity.Properties);
+            if (existingPagination == null)
+            {
+                await _dbContext.AnimePagination.AddAsync(paginationEntity);
+            }
+            else
+            {
+                _dbContext.AnimePagination.Entry(existingPagination).CurrentValues.SetValues(paginationEntity);
             }
             await _dbContext.SaveChangesAsync();
         }
