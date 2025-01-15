@@ -36,7 +36,7 @@ namespace AnimeVoices.Utilities.Helpers
             }
         }
 
-        public static async Task<Bitmap> LoadImage(string resource)
+        public static async Task<Bitmap> LoadImage(string? resource)
         {
             if (string.IsNullOrEmpty(resource))
             {

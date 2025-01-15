@@ -12,5 +12,8 @@ namespace AnimeVoices.DataModels.DTOs.Nested
 
         [JsonProperty("prop")]
         public PropDateDto Prop { get; set; }
+
+        [JsonProperty("string")]
+        public string Period { get; set; }
     }
 }

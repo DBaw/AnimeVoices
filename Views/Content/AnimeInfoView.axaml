@@ -76,7 +76,7 @@
 							<Setter Property="Template">
 								<ControlTemplate>
 									<Grid Background="{TemplateBinding Background}"
-										  ColumnDefinitions="*,100,100,50,50">
+										  ColumnDefinitions="*,100,50,50">
 										<!-- Anime Title -->
 										<TextBlock Grid.Column="0"
 												   Text="{Binding Title}"
@@ -86,17 +86,8 @@
 												   FontSize="18"
 												   FontWeight="{TemplateBinding FontWeight}" />
 
-										<!-- Anime Rating -->
-										<TextBlock Grid.Column="1"
-												   Text="{Binding Rating}"
-												   HorizontalAlignment="Center"
-												   VerticalAlignment="Center"
-												   Foreground="{TemplateBinding Foreground}"
-												   FontSize="18"
-												   FontWeight="{TemplateBinding FontWeight}" />
-
 										<!-- Anime Score -->
-										<TextBlock Grid.Column="2"
+										<TextBlock Grid.Column="1"
 												   Text="{Binding Score}"
 												   HorizontalAlignment="Center"
 												   VerticalAlignment="Center"
@@ -105,7 +96,7 @@
 												   FontWeight="{TemplateBinding FontWeight}" />
 										
 										<!-- Watchlist -->
-										<Button Grid.Column="3"
+										<Button Grid.Column="2"
 												IsVisible="{Binding DataContext.IsUserLoggedIn, RelativeSource={RelativeSource AncestorType=ListBox}}"
 												HorizontalAlignment="Center"
 												VerticalAlignment="Center"
@@ -120,7 +111,7 @@
 										</Button>
 										
 										<!-- Favourite -->
-										<Button Grid.Column="4"
+										<Button Grid.Column="3"
 												IsVisible="{Binding DataContext.IsUserLoggedIn, RelativeSource={RelativeSource AncestorType=ListBox}}"
 												HorizontalAlignment="Center"
 												VerticalAlignment="Center"

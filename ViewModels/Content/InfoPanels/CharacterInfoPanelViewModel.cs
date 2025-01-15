@@ -24,8 +24,8 @@ namespace AnimeVoices.ViewModels.Content.InfoPanels
         {
             Character = message.character;
             Seiyuu = message.seiyuu;
-            CharacterImage = ImageHelper.LoadImage(message.character?.ImageUrl.Trim()).Result;
-            SeiyuuImage = ImageHelper.LoadImage(message.seiyuu?.ImageUrl.Trim()).Result;
+            CharacterImage = ImageHelper.LoadImage(message.character?.ImageUrl?.Trim()).Result;
+            SeiyuuImage = ImageHelper.LoadImage(message.seiyuu?.ImageUrl?.Trim()).Result;
         }
     }
 }

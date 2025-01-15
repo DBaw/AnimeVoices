@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AnimeVoices.DataModels.DTOs.Nested
 {
@@ -14,8 +9,5 @@ namespace AnimeVoices.DataModels.DTOs.Nested
 
         [JsonProperty("to")]
         public SimpleDateDto To { get; set; }
-
-        [JsonProperty("string")]
-        public string Period { get; set; }
     }
 }

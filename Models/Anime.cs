@@ -14,7 +14,6 @@ namespace AnimeVoices.Models
         public string About { get; set; }
         public string Episodes { get; set; }
         public List<int> Characters { get; set; }
-        public List<int> Aliases { get; set; }
         public string Broadcast { get; set; }
         public bool IsFavourite { get; set; }
         public bool IsOnWatchlist { get; set; }

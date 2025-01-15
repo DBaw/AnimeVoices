@@ -12,15 +12,13 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Title = entity.Title,
-                /*
                 Rating = entity.Rating,
-                Score = entity.Score.ToString(),
+                Score = entity.Score == -1 ? "unknown" : entity.Score.ToString(),
                 Studio = entity.Studio,
                 Aired = entity.Aired,
                 Status = entity.Status,
-                Synopsis = entity.Synopsis,
-                Episodes = entity.Episodes.ToString(),
-                */
+                About = entity.Synopsis,
+                Episodes = entity.Episodes == -1 ? "unknown" : entity.Episodes.ToString(),
                 Characters = string.IsNullOrEmpty(entity.Characters) ? new() : entity.Characters.Split(',').ToList().Select(int.Parse).ToList(),
                 IsFavourite = user == null ? false : user.FavouriteAnimes.Contains(entity.Id),
                 IsOnWatchlist = user == null ? false : user.Watchlist.Contains(entity.Id),
@@ -33,13 +31,13 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Title = model.Title,
-                Rating = "",
-                Score = -1,
-                Studio = "",
-                Aired = "",
-                Status = "",
-                Synopsis = "",
-                Episodes = -1,
+                Rating = model.Rating,
+                Score = model.Score == "unknown" ? -1 : double.Parse(model.Score),
+                Studio = model.Studio,
+                Aired = model.Aired,
+                Status = model.Status,
+                Synopsis = model.About,
+                Episodes = model.Episodes == "unknown" ? -1 : int.Parse(model.Episodes),
                 Characters = string.Join(",", model.Characters)
             };
         }

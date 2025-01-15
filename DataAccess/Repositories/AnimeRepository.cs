@@ -112,19 +112,10 @@ namespace AnimeVoices.DataAccess.Repositories
                 anime.Characters.Add(c.Id);
             }
 
-            List<Anime> tempAnimeCollection = new List<Anime>(_animeStore.AnimeCollection);
-
-            foreach (Anime a in tempAnimeCollection)
+            if (!_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
             {
-                if (a.Title[0] == anime.Title[0] && a.Characters.Intersect(anime.Characters).Count() > 2)
-                {
-                    a.Aliases.Add(anime.Id);
-                    anime.Aliases.Add(a.Id);
-                    _animeStore.Update(a);
-                }
+                _animeStore.Add(anime);
             }
-
-            _animeStore.Add(anime);
         }
 
         public List<Anime> GetAllAnime()

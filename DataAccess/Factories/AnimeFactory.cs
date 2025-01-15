@@ -1,7 +1,5 @@
 ﻿using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.DataModels.DTOs.Nested;
 using AnimeVoices.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace AnimeVoices.DataAccess.Factories
@@ -17,9 +15,8 @@ namespace AnimeVoices.DataAccess.Factories
                 Title = string.IsNullOrEmpty(dto.Title) ? "unknown" : dto.Title,
                 Episodes = dto?.Episodes == null ? "unknown" : dto.Episodes.ToString(),
                 Status = string.IsNullOrEmpty(dto.Status) ? "unknown" : dto.Status,
-                Aired = dto?.Aired?.Prop?.Period == null ? "unknown" : dto.Aired.Prop.Period,
+                Aired = dto?.Aired?.Period == null ? "unknown" : dto.Aired.Period,
                 Score = dto?.Score == null ? "unknown" : dto.Score.ToString(),
-                Aliases = new() { dto.Id },
                 Characters = new(),
                 Rating = string.IsNullOrEmpty(dto.Rating) ? "unknown" : dto.Rating,
                 Studio = dto.Studios == null ? "unknown" : string.Join(" and ", dto.Studios.Select(s => s.Name)),
