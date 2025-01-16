@@ -20,14 +20,6 @@ namespace AnimeVoices.ViewModels.Content.InfoPanels
 
         public void Receive(SelectedAnimeChanged message)
         {
-            try
-            {
-                // TODO: Get Anime By Id - Add method to anime repository
-            }
-            catch 
-            {
-                // Set anime to null or to message.anime
-            }
             SelectedAnime = message.anime;
         }
     }

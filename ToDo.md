@@ -1,7 +1,4 @@
 High prio
-1. Save pagination
-2. Database setup - separate app and user database
-3. Disable button on download data 
 3. Fix lists/panels reaload on data download
 4. Favourites View/Model
 5. Watchlist View/Model 

@@ -7,6 +7,7 @@ using AnimeVoices.DataModels.Entities;
 using AnimeVoices.DB;
 using AnimeVoices.Models;
 using AnimeVoices.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +44,11 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<Anime> GetAnimeByIdAsync(int id)
         {
-            return new Anime();
+            var singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
+            var animeDto = singleAnimeDto.AnimeDto;
+
+            Anime anime = AnimeFactory.Create(animeDto);
+            return anime;
         }
 
         public async Task GetTopAnimeAsync()
@@ -56,16 +61,30 @@ namespace AnimeVoices.DataAccess.Repositories
             pagination.Page ++;
 
             // Fetch top anime data from API
-            var topAnimeDto = await _animeApi.GetTopAnimeAsync(pagination);
-            var animeList = topAnimeDto.AnimeDto;
+            TopAnimeDto topAnimeDto = new();
+            List<AnimeDto> animeList = new(); 
+            try
+            {
+                topAnimeDto = await _animeApi.GetTopAnimeAsync(pagination);
+                animeList = topAnimeDto.AnimeDto;
+            } catch (Exception ex)
+            {
+                return;
+            }
 
             foreach (var animeDto in animeList)
             {
                 // Fetch anime characters with a 1s delay between each call for character not already in the store
                 if(!_animeStore.AnimeCollection.Any(a => a.Id == animeDto.Id))
                 {
-                    await Task.Delay(1000);
-                    await GetAnimeCharactersAsync(animeDto);
+                    try
+                    {
+                        await Task.Delay(1000);
+                        await GetAnimeCharactersAsync(animeDto);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
                 }
             }
 
@@ -132,8 +151,11 @@ namespace AnimeVoices.DataAccess.Repositories
             if (!_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
             {
                 _animeStore.Add(anime);
-                await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+            } else
+            {
+                _animeStore.Update(anime);
             }
+            await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
         }
 
         public List<Anime> GetAllAnime()
