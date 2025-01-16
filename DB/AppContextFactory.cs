@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AnimeVoices.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.IO;
@@ -9,8 +10,7 @@ namespace AnimeVoices.DB
     {
         public AppDbContext CreateDbContext(string[] args)
         {
-            string appDbFileName = "AnimeVoices.db";
-            string dbPath = Path.Combine(AppContext.BaseDirectory, appDbFileName);
+            string dbPath = Path.Combine(AppContext.BaseDirectory, AppSettings.AppDbFileName);
 
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             optionsBuilder.UseSqlite($"Data Source={dbPath}");
