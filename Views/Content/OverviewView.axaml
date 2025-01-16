@@ -121,9 +121,10 @@
 		<Button Grid.Row="2"
 				Content="GET MORE"
 				Command="{Binding GetMoreDataCommand}"
+				IsEnabled="{Binding CanGetMoreData^}"
 				Background="#53AA93"
 				Foreground="#2D323D"
-				FontWeight="Medium"
+				FontWeight="Bold"
 				Height="50"
 				Width="300"
 				CornerRadius="25"/>

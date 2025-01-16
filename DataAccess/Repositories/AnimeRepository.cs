@@ -43,8 +43,6 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<Anime> GetAnimeByIdAsync(int id)
         {
-            SingleAnimeDto singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
-            // TODO: Get anime data - save it in store and database
             return new Anime();
         }
 
@@ -55,7 +53,7 @@ namespace AnimeVoices.DataAccess.Repositories
             // Get Page for selected properies
             AnimePaginationEntity paginationEntity = await _appDatabase.GetTopAnimePagination(properties);
             AnimePagination pagination = AnimePaginationMapper.ToModel(paginationEntity);
-            pagination.Page = pagination.Page + 1;
+            pagination.Page ++;
 
             // Fetch top anime data from API
             var topAnimeDto = await _animeApi.GetTopAnimeAsync(pagination);
@@ -102,21 +100,24 @@ namespace AnimeVoices.DataAccess.Repositories
                             break;
                         }
                     }
-                    if (seiyuuDto.Id != null)
+                    if (seiyuuDto?.Name != null)
                     {
                         character = CharacterFactory.Create(acDto.Character, seiyuuDto.Id);
                         charactersList.Add(character);
 
                         if(!_characterStore.CharacterCollection.Any(c => c.Id == acDto.Character.Id))
                         {
-                            _characterStore.CharacterCollection.Add(character);
+                            await Task.Delay(5);
+                            _characterStore.Add(character);
+                            await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
                         }
 
                         if(!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuuDto.Id))
                         {
+                            await Task.Delay(5);
                             seiyuu = SeiyuuFactory.Create(seiyuuDto);
                             _seiyuuStore.Add(seiyuu);
-
+                            await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
                         }
                     }
                 }
@@ -131,6 +132,7 @@ namespace AnimeVoices.DataAccess.Repositories
             if (!_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
             {
                 _animeStore.Add(anime);
+                await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
             }
         }
 

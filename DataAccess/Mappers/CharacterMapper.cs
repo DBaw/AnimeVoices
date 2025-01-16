@@ -1,7 +1,5 @@
 ﻿using AnimeVoices.DataModels.Entities;
 using AnimeVoices.Models;
-using System.Linq;
-
 namespace AnimeVoices.DataAccess.Mappers
 {
     public static class CharacterMapper

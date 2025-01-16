@@ -73,7 +73,7 @@ namespace AnimeVoices
 
         private static void ConfigureServices(IServiceCollection services)
         {
-            Uri baseAdress = new Uri("https://api.jikan.moe/v4/");
+            Uri baseAdress = new("https://api.jikan.moe/v4/");
             string appDbFileName = "AnimeVoices.db";
             string usersDbFileName = "Users.db";
 
@@ -84,7 +84,6 @@ namespace AnimeVoices
             services.AddSingleton<AnimeStore>();
             services.AddSingleton<CharacterStore>();
             services.AddSingleton<SeiyuuStore>();
-            services.AddSingleton<SeiyuuDtoStore>();
 
             // Register APIs
             services.AddHttpClient<ISeiyuuApi, JikanSeiyuuApi>(client =>

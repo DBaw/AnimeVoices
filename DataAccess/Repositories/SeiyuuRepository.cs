@@ -1,17 +1,9 @@
-﻿using AnimeVoices.DataAccess.Api;
-using AnimeVoices.DataAccess.Factories;
-using AnimeVoices.DataAccess.Mappers;
-using AnimeVoices.DataModels.DTOs;
-using AnimeVoices.DataModels.DTOs.Nested;
+﻿using AnimeVoices.DataAccess.Mappers;
 using AnimeVoices.DataModels.Entities;
 using AnimeVoices.DB;
 using AnimeVoices.Models;
 using AnimeVoices.Stores;
-using Avalonia.Automation.Provider;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AnimeVoices.DataAccess.Repositories
@@ -21,7 +13,7 @@ namespace AnimeVoices.DataAccess.Repositories
         private readonly IAppDatabase _appDatabase;
         private readonly SeiyuuStore _seiyuuStore;
 
-        public SeiyuuRepository(ISeiyuuApi seiyuuApi, IAppDatabase appDatabase, SeiyuuStore seiyuuStore, SeiyuuDtoStore seiyuuDtoStore, AnimeStore animeStore, CharacterStore characterStore)
+        public SeiyuuRepository(IAppDatabase appDatabase, SeiyuuStore seiyuuStore)
         {
             _appDatabase = appDatabase;
             _seiyuuStore = seiyuuStore;
@@ -33,7 +25,6 @@ namespace AnimeVoices.DataAccess.Repositories
 
             foreach (SeiyuuEntity e in entities)
             {
-                await Task.Delay(5);
                 Seiyuu seiyuu = SeiyuuMapper.ToModel(e);
                 _seiyuuStore.Add(seiyuu);
             }

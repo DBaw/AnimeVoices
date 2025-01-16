@@ -11,7 +11,7 @@ namespace AnimeVoices.DataModels.DTOs
         [JsonProperty("mal_id")]
         public int Id { get; set; }
 
-        [JsonProperty("title")]
+        [JsonProperty("title_english")]
         public string Title { get; set; }
 
         [JsonProperty("images")]

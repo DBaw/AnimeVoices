@@ -251,7 +251,7 @@ namespace AnimeVoices.ViewModels.Content
 
         public void Receive(CharacterCollectionChanged message)
         {
-            FilteredCharacterList = new(_characterStore.CharacterCollection);
+            FilteredCharacterList = new();
         }
 
         public void Receive(SeiyuuCollectionChanged message)

@@ -16,4 +16,3 @@ Low prio
 3. Background on lists items? 
 4. Bottom bar info on MainView
 5. Themeing - https://github.com/AvaloniaCommunity/Material.Avalonia/wiki/Advanced-Theming
-

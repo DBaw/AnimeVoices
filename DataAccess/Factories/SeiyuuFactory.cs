@@ -11,7 +11,7 @@ namespace AnimeVoices.DataAccess.Factories
             {
                 Id = dto.Id,
                 Name = dto.Name,
-                ImageUrl = dto.Images?.Jpg.ImageUrl
+                ImageUrl = string.IsNullOrEmpty(dto.Images?.Jpg?.ImageUrl) ? "" : dto.Images.Jpg.ImageUrl
             };
 
         }
