@@ -84,6 +84,7 @@ namespace AnimeVoices.DataAccess.Repositories
                     }
                     catch (Exception ex)
                     {
+                        return;
                     }
                 }
             }
@@ -98,64 +99,57 @@ namespace AnimeVoices.DataAccess.Repositories
         public async Task GetAnimeCharactersAsync(AnimeDto dto)
         {
             var animeCharactersDto = await _animeApi.GetAnimeCharactersAsync(dto.Id);
-
             var anime = AnimeFactory.Create(dto);
-            List<Character> charactersList = new();
-            List<Seiyuu> seiyuuList = new();
 
-            foreach(AnimeCharactersDto acDto in animeCharactersDto.AnimeCharacters)
+            if (!_animeStore.AnimeCollection.Any(a => a.Id == anime.Id) && anime.Title != "unknown")
             {
-                SeiyuuDto seiyuuDto = new();
-                Seiyuu seiyuu = new ();
-                Character character = new();
-
-                if(acDto.SeiyuuList != null && acDto.Favorites > 40)
+                foreach(AnimeCharactersDto acDto in animeCharactersDto.AnimeCharacters)
                 {
-                    foreach (VoiceActorDto actor in acDto.SeiyuuList)
-                    {
-                        if (actor.Language == "Japanese")
-                        {
-                            seiyuuDto = actor.SeiyuuDto;
-                            break;
-                        }
-                    }
-                    if (seiyuuDto?.Name != null)
-                    {
-                        character = CharacterFactory.Create(acDto.Character, seiyuuDto.Id);
-                        charactersList.Add(character);
+                    SeiyuuDto seiyuuDto = new();
+                    Seiyuu seiyuu = new ();
+                    Character character = new();
 
-                        if(!_characterStore.CharacterCollection.Any(c => c.Id == acDto.Character.Id))
+                    if(acDto.SeiyuuList != null && acDto.Favorites > 40)
+                    {
+                        // Find Japanese actor - Seiyuu
+                        foreach (VoiceActorDto actor in acDto.SeiyuuList)
                         {
-                            await Task.Delay(5);
-                            _characterStore.Add(character);
-                            await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
+                            if (actor.Language == "Japanese")
+                            {
+                                seiyuuDto = actor.SeiyuuDto;
+                                break;
+                            }
                         }
 
-                        if(!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuuDto.Id))
+                        // Add each character and character's seiyuu from anime to Store and Datebase
+                        // Add each character to anime character's list
+                        if (seiyuuDto?.Name != null)
                         {
-                            await Task.Delay(5);
-                            seiyuu = SeiyuuFactory.Create(seiyuuDto);
-                            _seiyuuStore.Add(seiyuu);
-                            await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
+                            character = CharacterFactory.Create(acDto.Character, seiyuuDto.Id);
+                            anime.Characters.Add(character.Id);
+
+                            if(!_characterStore.CharacterCollection.Any(c => c.Id == acDto.Character.Id))
+                            {
+                                await Task.Delay(5);
+                                _characterStore.Add(character);
+                                await _appDatabase.SaveCharacterAsync(CharacterMapper.ToEntity(character));
+                            }
+
+                            if(!_seiyuuStore.SeiyuuCollection.Any(s => s.Id == seiyuuDto.Id))
+                            {
+                                await Task.Delay(5);
+                                seiyuu = SeiyuuFactory.Create(seiyuuDto);
+                                _seiyuuStore.Add(seiyuu);
+                                await _appDatabase.SaveSeiyuuAsync(SeiyuuMapper.ToEntity(seiyuu));
+                            }
                         }
                     }
                 }
 
-            }
-
-            foreach (Character c in charactersList)
-            {
-                anime.Characters.Add(c.Id);
-            }
-
-            if (!_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
-            {
+                // Add anime to Store and Database
                 _animeStore.Add(anime);
-            } else
-            {
-                _animeStore.Update(anime);
+                await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
             }
-            await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
         }
 
         public List<Anime> GetAllAnime()
