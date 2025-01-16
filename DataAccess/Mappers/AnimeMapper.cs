@@ -12,6 +12,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = entity.Id,
                 Title = entity.Title,
+                EngTitle = entity.EngTitle,
                 Rating = entity.Rating,
                 Score = entity.Score == -1 ? "unknown" : entity.Score.ToString(),
                 Studio = entity.Studio,
@@ -31,6 +32,7 @@ namespace AnimeVoices.DataAccess.Mappers
             {
                 Id = model.Id,
                 Title = model.Title,
+                EngTitle = model.EngTitle,
                 Rating = model.Rating,
                 Score = model.Score == "unknown" ? -1 : double.Parse(model.Score),
                 Studio = model.Studio,

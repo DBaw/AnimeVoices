@@ -6,6 +6,7 @@ namespace AnimeVoices.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string EngTitle { get; set; }
         public string Rating { get; set; }
         public string Score { get; set; }
         public string Studio { get; set; }

@@ -2,6 +2,7 @@ using AnimeVoices.DataAccess.Api;
 using AnimeVoices.DataAccess.Repositories;
 using AnimeVoices.DB;
 using AnimeVoices.Stores;
+using AnimeVoices.Utilities;
 using AnimeVoices.ViewModels;
 using AnimeVoices.ViewModels.Content;
 using AnimeVoices.ViewModels.Content.InfoPanels;
@@ -74,8 +75,6 @@ namespace AnimeVoices
         private static void ConfigureServices(IServiceCollection services)
         {
             Uri baseAdress = new("https://api.jikan.moe/v4/");
-            string appDbFileName = "AnimeVoices.db";
-            string usersDbFileName = "Users.db";
 
             // Register Messenger
             services.AddSingleton<IMessenger, WeakReferenceMessenger>();
@@ -100,12 +99,12 @@ namespace AnimeVoices
             // Register Database Context
             services.AddDbContext<AppDbContext>(options =>
             {
-                string dbPath = Path.Combine(AppContext.BaseDirectory, appDbFileName);
+                string dbPath = Path.Combine(AppContext.BaseDirectory, AppSettings.AppDbFileName);
                 options.UseSqlite($"Data Source={dbPath}");
             });
             services.AddDbContext<UserDbContext>(options =>
             {
-                string dbPath = Path.Combine(AppContext.BaseDirectory, usersDbFileName);
+                string dbPath = Path.Combine(AppContext.BaseDirectory, AppSettings.UsersDbFileName);
                 options.UseSqlite($"Data Source={dbPath}");
             });
 

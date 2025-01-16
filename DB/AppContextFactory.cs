@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using System;
+using System.IO;
 
 namespace AnimeVoices.DB
 {
@@ -7,8 +9,11 @@ namespace AnimeVoices.DB
     {
         public AppDbContext CreateDbContext(string[] args)
         {
+            string appDbFileName = "AnimeVoices.db";
+            string dbPath = Path.Combine(AppContext.BaseDirectory, appDbFileName);
+
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseSqlite("Data Source=blog.db");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
 
             return new AppDbContext(optionsBuilder.Options);
         }

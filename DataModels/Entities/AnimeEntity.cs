@@ -8,6 +8,7 @@ namespace AnimeVoices.DataModels.Entities
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
+        public string EngTitle { get; set; }
         public string Rating { get; set; }
         public double Score { get; set; }
         public string Studio { get; set; }

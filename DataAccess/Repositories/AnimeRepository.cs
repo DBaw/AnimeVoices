@@ -48,6 +48,21 @@ namespace AnimeVoices.DataAccess.Repositories
             var animeDto = singleAnimeDto.AnimeDto;
 
             Anime anime = AnimeFactory.Create(animeDto);
+
+            if(anime.Title == "unknown")
+            {
+                return anime;
+            }
+
+            if (_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
+            {
+                _animeStore.Update(anime);
+            } else
+            {
+                _animeStore.Add(anime);
+            }
+            await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+
             return anime;
         }
 
@@ -72,20 +87,13 @@ namespace AnimeVoices.DataAccess.Repositories
                 return;
             }
 
-            foreach (var animeDto in animeList)
+            foreach (AnimeDto animeDto in animeList)
             {
                 // Fetch anime characters with a 1s delay between each call for character not already in the store
                 if(!_animeStore.AnimeCollection.Any(a => a.Id == animeDto.Id))
                 {
-                    try
-                    {
-                        await Task.Delay(1000);
-                        await GetAnimeCharactersAsync(animeDto);
-                    }
-                    catch (Exception ex)
-                    {
-                        return;
-                    }
+                    await Task.Delay(1000);
+                    await GetAnimeCharactersAsync(animeDto);
                 }
             }
 

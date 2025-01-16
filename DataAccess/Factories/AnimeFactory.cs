@@ -8,11 +8,11 @@ namespace AnimeVoices.DataAccess.Factories
     {
         public static Anime Create(AnimeDto dto)
         {
-
-            return new Anime
+            Anime anime =  new Anime
             {
                 Id = dto.Id,
-                Title = string.IsNullOrEmpty(dto.Title) ? "unknown" : dto.Title,
+                Title = string.IsNullOrEmpty(dto.DefaultTitle) ? "unknown" : dto.DefaultTitle,
+                EngTitle = string.IsNullOrEmpty(dto.EnglishTitle) ? "unknown" : dto.EnglishTitle,
                 Episodes = dto?.Episodes == null ? "unknown" : dto.Episodes.ToString(),
                 Status = string.IsNullOrEmpty(dto.Status) ? "unknown" : dto.Status,
                 Aired = dto?.Aired?.Period == null ? "unknown" : dto.Aired.Period,
@@ -24,7 +24,11 @@ namespace AnimeVoices.DataAccess.Factories
                 Broadcast = dto.Broadcast?.FullTime == null ? "unknown" : dto.Broadcast.FullTime,
                 IsFavourite = false,
                 IsOnWatchlist = false,
-            };  
+            };
+
+            anime.Title = anime.EngTitle == "unknown" ? anime.Title : anime.EngTitle;
+
+            return anime;
         }
     }
 }
