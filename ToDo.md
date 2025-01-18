@@ -1,9 +1,7 @@
 High prio
-3. Fix lists/panels reaload on data download
 4. Favourites View/Model
 5. Watchlist View/Model 
 6. User - Login and Create account buttons - a little bit bigger panel
-7. Remove refresh from Character panel
 8. Images on panels !!!!!!
 9. Minimalize app
 

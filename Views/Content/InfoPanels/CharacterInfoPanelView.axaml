@@ -9,7 +9,7 @@
 			 Background="Transparent">
 	<Border Background="#99A1E0"
 			CornerRadius="15,0,0,15">
-		<Grid RowDefinitions="30,*,30,*,30"
+		<Grid RowDefinitions="30,*,30,*"
 			  Margin="10">
 			<!-- Character Name -->
 			<TextBlock Grid.Row="0"
@@ -39,12 +39,6 @@
 				   Source="{Binding SeiyuuImage}"
 				   MaxHeight="100"
 				   MaxWidth="150"/>
-			<Button Grid.Row="4"
-					Content="Refresh"
-					Background="#6D73A0"
-					Foreground="#e6f4f1"
-					Margin="50,0"
-					CornerRadius="15"/>
 		</Grid>
 	</Border>
 </UserControl>
