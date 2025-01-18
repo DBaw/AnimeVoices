@@ -81,7 +81,7 @@ namespace AnimeVoices.ViewModels.Content
 
             AnimeList = _animeStore.AnimeCollection;
             FilteredCharacterList = new();
-            ResultList = new ObservableCollection<Result>();
+            ResultList = new();
         }
         #endregion
 
@@ -265,25 +265,22 @@ namespace AnimeVoices.ViewModels.Content
             }
             else if (CharacterListExpanded)
             {
-                FilteredCharacterList.Clear();
                 if (string.IsNullOrEmpty(message.text))
                 {
-                    FilteredCharacterList = new(_characterStore.CharacterCollection);
+                    FilteredCharacterList = _characterStore.CharacterCollection;
                 }
                 else
                 {
+                    _characterStore.ClearFiltered();
                     foreach (Character c in _characterStore.CharacterCollection)
                     {
                         if (c.Name.ToLower().Contains(message.text.ToLower()))
                         {
-                            FilteredCharacterList.Add(c);
+                            _characterStore.AddToFiltered(c);
                         }
                     }
+                    FilteredCharacterList = _characterStore.FilteredCharacterCollection;
                 }
-            } 
-            else if (ResultListExpanded)
-            {
-
             }
         }
         #endregion

@@ -1,6 +1,4 @@
 ﻿using AnimeVoices.Models;
-using AnimeVoices.Utilities.Events;
-using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -8,25 +6,25 @@ namespace AnimeVoices.Stores
 {
     public class CharacterStore
     {
-        private readonly IMessenger _messenger;
-
         public ObservableCollection<Character> CharacterCollection { get; }
+        public ObservableCollection<Character> FilteredCharacterCollection { get; }
 
-        public CharacterStore(IMessenger messenger)
+        public CharacterStore()
         {
             CharacterCollection = new();
-            _messenger = messenger;
-
-            CharacterCollection.CollectionChanged += (s, e) =>
-            {
-                _messenger.Send(new CharacterCollectionChanged(CharacterCollection.Count));
-            };
+            FilteredCharacterCollection = new();
         }
 
         public void Add(Character character)
         {
             if (!CharacterCollection.Any(c => c.Id == character.Id))
                 CharacterCollection.Add(character);
+        }
+
+        public void AddToFiltered(Character character)
+        {
+            if (!FilteredCharacterCollection.Any(c => c.Id == character.Id))
+                FilteredCharacterCollection.Add(character);
         }
 
         public void Remove(int Id)
@@ -49,6 +47,11 @@ namespace AnimeVoices.Stores
         public int CountCollection()
         {
             return CharacterCollection.Count;
+        }
+
+        public void ClearFiltered()
+        {
+            FilteredCharacterCollection.Clear();
         }
     }
 }
