@@ -44,8 +44,6 @@ namespace AnimeVoices.Stores
             {
                 SeiyuuCollection.Remove(existing);
                 SeiyuuCollection.Add(seiyuu);
-
-                _messenger.Send(new SeiyuuCollectionChanged(SeiyuuCollection.Count));
             }
         }
 
