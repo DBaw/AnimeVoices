@@ -252,12 +252,12 @@ namespace AnimeVoices.ViewModels.Content
                 }
                 else
                 {
-                    _animeStore.FilteredAnimeCollection.Clear();
+                    _animeStore.ClearFiltered();
                     foreach(Anime a in _animeStore.AnimeCollection)
                     {
                         if (a.Title.ToLower().Contains(message.text.ToLower()))
                         {
-                            _animeStore.FilteredAnimeCollection.Add(a);
+                            _animeStore.AddToFiltered(a);
                         }
                     }
                     AnimeList = _animeStore.FilteredAnimeCollection;

@@ -1,7 +1,4 @@
 ﻿using AnimeVoices.Models;
-using AnimeVoices.Utilities.Events;
-using CommunityToolkit.Mvvm.Messaging;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -9,14 +6,11 @@ namespace AnimeVoices.Stores
 {
     public class AnimeStore
     {
-        private readonly IMessenger _messenger;
-
         public ObservableCollection<Anime> AnimeCollection { get; }
         public ObservableCollection<Anime> FilteredAnimeCollection { get; }
 
-        public AnimeStore(IMessenger messenger)
+        public AnimeStore()
         {
-            _messenger = messenger;
             AnimeCollection = new();
             FilteredAnimeCollection = new();
         }
@@ -26,7 +20,14 @@ namespace AnimeVoices.Stores
             if (!AnimeCollection.Any(a => a.Id == anime.Id))
             {
                 AnimeCollection.Add(anime);
-                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
+            }
+        }
+
+        public void AddToFiltered(Anime anime)
+        {
+            if (!FilteredAnimeCollection.Any(a => a.Id == anime.Id))
+            {
+                FilteredAnimeCollection.Add(anime);
             }
         }
 
@@ -36,7 +37,6 @@ namespace AnimeVoices.Stores
             if (anime != null)
             {
                 AnimeCollection.Remove(anime);
-                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
             }
         }
 
@@ -47,13 +47,17 @@ namespace AnimeVoices.Stores
             {
                 AnimeCollection.Remove(existing);
                 AnimeCollection.Add(anime);
-                _messenger.Send(new AnimeCollectionChanged(AnimeCollection.Count));
             }
         }
 
         public int CountCollection()
         {
             return AnimeCollection.Count;
+        }
+
+        public void ClearFiltered()
+        {
+            FilteredAnimeCollection.Clear();
         }
     }
 }
