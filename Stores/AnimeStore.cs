@@ -1,6 +1,7 @@
 ﻿using AnimeVoices.Models;
 using AnimeVoices.Utilities.Events;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -11,11 +12,13 @@ namespace AnimeVoices.Stores
         private readonly IMessenger _messenger;
 
         public ObservableCollection<Anime> AnimeCollection { get; }
+        public ObservableCollection<Anime> FilteredAnimeCollection { get; }
 
         public AnimeStore(IMessenger messenger)
         {
             _messenger = messenger;
             AnimeCollection = new();
+            FilteredAnimeCollection = new();
         }
 
         public void Add(Anime anime)

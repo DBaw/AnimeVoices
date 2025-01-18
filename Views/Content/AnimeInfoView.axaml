@@ -63,7 +63,7 @@
 				</Grid>
 				<!-- Anime List -->
 				<ListBox MaxHeight="{Binding AnimeListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
-						 ItemsSource="{Binding FilteredAnimeList}"
+						 ItemsSource="{Binding AnimeList}"
 						 SelectedItem="{Binding SelectedAnime}">
 					<ListBox.Styles>
 						<Style Selector="ListBoxItem">

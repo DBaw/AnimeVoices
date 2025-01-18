@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class AnimeInfoViewModel : BaseViewModel, IRecipient<AnimeCollectionChanged>, IRecipient<CharacterCollectionChanged>, IRecipient<SeiyuuCollectionChanged>, IRecipient<SearchTextChanged>
+    public partial class AnimeInfoViewModel : BaseViewModel, IRecipient<SearchTextChanged>
     {
         #region Parameters
         // Full and filtered data
         [ObservableProperty] 
-        private ObservableCollection<Anime> _filteredAnimeList;
+        private ObservableCollection<Anime> _animeList;
         [ObservableProperty] 
         private ObservableCollection<Character> _filteredCharacterList;
         [ObservableProperty] 
@@ -52,7 +52,6 @@ namespace AnimeVoices.ViewModels.Content
         [ObservableProperty] private User _loggedUser;
 
         // Constructor parameters
-        private readonly IMessenger _messenger;
         private readonly AnimeStore _animeStore;
         private readonly CharacterStore _characterStore;
         private readonly SeiyuuStore _seiyuuStore;
@@ -64,7 +63,6 @@ namespace AnimeVoices.ViewModels.Content
         #region Constructors
         public AnimeInfoViewModel(IMessenger messenger, AnimeStore animeStore, CharacterStore characterStore, SeiyuuStore seiyuuStore, AnimeInfoPanelViewModel animeInfoPanelViewModel, CharacterInfoPanelViewModel characterInfoPanelViewModel, ResultInfoPanelViewModel resultInfoPanelViewModel) : base(messenger)
         {
-            _messenger = messenger;
             _animeStore = animeStore;
             _characterStore = characterStore;
             _seiyuuStore = seiyuuStore;
@@ -81,7 +79,7 @@ namespace AnimeVoices.ViewModels.Content
             CharacterListExpanded = false;
             ResultListExpanded = false;
 
-            FilteredAnimeList = new(_animeStore.AnimeCollection);
+            AnimeList = _animeStore.AnimeCollection;
             FilteredCharacterList = new();
             ResultList = new ObservableCollection<Result>();
         }
@@ -100,7 +98,7 @@ namespace AnimeVoices.ViewModels.Content
                 ResultListExpanded = true;
             }
         }
-        private bool CanAnimeListDropDown() => FilteredAnimeList.Count > 0;
+        private bool CanAnimeListDropDown() => AnimeList.Count > 0;
 
         [RelayCommand(CanExecute = "CanCharacterListDropDown")]
         public void HideExpandCharactersList(string list)
@@ -244,39 +242,25 @@ namespace AnimeVoices.ViewModels.Content
         #endregion
 
         #region Messages
-        public void Receive(AnimeCollectionChanged message)
-        {
-            FilteredAnimeList = new(_animeStore.AnimeCollection);
-        }
-
-        public void Receive(CharacterCollectionChanged message)
-        {
-            FilteredCharacterList = new();
-        }
-
-        public void Receive(SeiyuuCollectionChanged message)
-        {
-            
-        }
-
         public void Receive(SearchTextChanged message)
         {
             if (AnimeListExpanded)
             {
-                FilteredAnimeList.Clear();
                 if (string.IsNullOrEmpty(message.text))
                 {
-                    FilteredAnimeList = new(_animeStore.AnimeCollection);
+                    AnimeList = _animeStore.AnimeCollection;
                 }
                 else
                 {
+                    _animeStore.FilteredAnimeCollection.Clear();
                     foreach(Anime a in _animeStore.AnimeCollection)
                     {
                         if (a.Title.ToLower().Contains(message.text.ToLower()))
                         {
-                            FilteredAnimeList.Add(a);
+                            _animeStore.FilteredAnimeCollection.Add(a);
                         }
-                    }   
+                    }
+                    AnimeList = _animeStore.FilteredAnimeCollection;
                 }
             }
             else if (CharacterListExpanded)
