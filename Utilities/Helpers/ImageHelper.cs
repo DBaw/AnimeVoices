@@ -2,7 +2,6 @@
 using Avalonia.Platform;
 using System;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -15,23 +14,19 @@ namespace AnimeVoices.Utilities.Helpers
             return new Bitmap(AssetLoader.Open(new Uri(resource, UriKind.Absolute)));
         }
 
-        public static async Task<Bitmap?> LoadFromWeb(string url)
+        public static async Task<Bitmap?> LoadFromWeb(Uri url)
         {
-            using var httpClient = new HttpClient()
-            {
-                Timeout = TimeSpan.FromSeconds(10) // Explicit timeout
-            };
-
+            using var httpClient = new HttpClient();
             try
             {
                 var response = await httpClient.GetAsync(url);
                 response.EnsureSuccessStatusCode();
                 var data = await response.Content.ReadAsByteArrayAsync();
-                Bitmap bitmap = new Bitmap(new MemoryStream(data));
-                return bitmap;
+                return new Bitmap(new MemoryStream(data));
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
+                Console.WriteLine($"An error occurred while downloading image '{url}' : {ex.Message}");
                 return null;
             }
         }
@@ -42,9 +37,7 @@ namespace AnimeVoices.Utilities.Helpers
             {
                return LoadFromResource("avares://AnimeVoices/Assets/not-found-image.png");
             }
-
-            return LoadFromResource("avares://AnimeVoices/Assets/not-found-image.png");
-            //return await LoadFromWeb(resource);
+            return await LoadFromWeb(new Uri (resource));
         }
     }
 }

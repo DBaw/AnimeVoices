@@ -17,11 +17,15 @@ namespace AnimeVoices.ViewModels.Content.InfoPanels
         {
             _messenger.RegisterAll(this);
         }
-        public void Receive(SelectedResultChanged message)
+        public async void Receive(SelectedResultChanged message)
         {
+            if(ResultImage != null)
+            {
+                ResultImage.Dispose();
+            }
             SelectedCharacter = message.character;
             ResultCharacter = message.result?.Character;
-            ResultImage = ImageHelper.LoadImage(message.result?.ImageUrl).Result;
+            ResultImage = await ImageHelper.LoadImage(message.result?.ImageUrl);
         }
     }
 }

@@ -23,7 +23,7 @@
 			<!-- Character Picture -->
 			<Image Grid.Row="1"
 				   Source="{Binding CharacterImage}"
-				   MaxHeight="100"
+				   MaxHeight="200"
 				   MaxWidth="150"/>
 			<!-- Seiyuu Name -->
 			<TextBlock Grid.Row="2"
@@ -37,7 +37,7 @@
 			<!-- Seiyuu Picture -->
 			<Image Grid.Row="3"
 				   Source="{Binding SeiyuuImage}"
-				   MaxHeight="100"
+				   MaxHeight="200"
 				   MaxWidth="150"/>
 		</Grid>
 	</Border>

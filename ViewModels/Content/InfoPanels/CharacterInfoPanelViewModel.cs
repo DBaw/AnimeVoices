@@ -20,12 +20,20 @@ namespace AnimeVoices.ViewModels.Content.InfoPanels
             _messenger.RegisterAll(this);
         }
 
-        public void Receive(SelectedCharacterChanged message)
+        public async void Receive(SelectedCharacterChanged message)
         {
+            if(CharacterImage != null)
+            {
+                CharacterImage.Dispose();
+            }
+            if (SeiyuuImage != null)
+            {
+                SeiyuuImage.Dispose();
+            }
             Character = message.character;
             Seiyuu = message.seiyuu;
-            CharacterImage = ImageHelper.LoadImage(message.character?.ImageUrl?.Trim()).Result;
-            SeiyuuImage = ImageHelper.LoadImage(message.seiyuu?.ImageUrl?.Trim()).Result;
+            CharacterImage = await ImageHelper.LoadImage(message.character?.ImageUrl?.Trim());
+            SeiyuuImage = await ImageHelper.LoadImage(message.seiyuu?.ImageUrl?.Trim());
         }
     }
 }

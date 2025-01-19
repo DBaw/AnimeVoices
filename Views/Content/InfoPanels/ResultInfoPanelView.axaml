@@ -41,8 +41,8 @@
 			<!-- Seiyuu Picture -->
 			<Image Grid.Row="3"
 				   Source="{Binding ResultImage}"
-				   MaxHeight="100"
-				   MaxWidth="150"/>
+				   MaxHeight="300"
+				   MaxWidth="200"/>
 		</Grid>
 	</Border>
 </UserControl>
