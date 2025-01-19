@@ -13,8 +13,8 @@ AnimeVoices is a desktop application designed to help anime fans discover connec
 
 ## Technology Stack
 
-- **Avalonia UI**: A powerful, cross-platform UI framework for .NET applications, enabling a beautiful and responsive desktop interface
-- **.NET 8.0**: Modern, high-performance runtime environment used to build and run the application
+- **[Avalonia UI](https://avaloniaui.net)**: A powerful, cross-platform UI framework for .NET applications, enabling a beautiful and responsive desktop interface
+- **[.NET 8.0](https://learn.microsoft.com/en-gb/dotnet/core/introduction)**: Modern, high-performance runtime environment used to build and run the application
 
 
 ## Dependencies
