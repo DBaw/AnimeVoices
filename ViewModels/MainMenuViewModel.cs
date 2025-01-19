@@ -26,12 +26,6 @@ namespace AnimeVoices.ViewModels
                 case 1:
                     type = ContentTypes.ANIMELIST;
                     break;
-                case 2:
-                    type = ContentTypes.FAVOURITES;
-                    break;
-                case 3:
-                    type = ContentTypes.WATCHLIST;
-                    break;
             }
             _messenger.Send(new SwitchContentView(type));
         }
