@@ -1,7 +1,5 @@
 High prio
-6. User - Login and Create account buttons - a little bit bigger panel
 9. Minimalize app
-10. Change setting view (button) to Info view - app instruction
 
 Low prio
 1. Get Data View - save properties string to get proper int page

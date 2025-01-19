@@ -1,5 +1,7 @@
 ﻿using AnimeVoices.Utilities;
 using AnimeVoices.Utilities.Events;
+using AnimeVoices.Views;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -10,38 +12,39 @@ namespace AnimeVoices.ViewModels
 {
     public partial class TopBarViewModel : BaseViewModel
     {
-        [ObservableProperty] private string _searchText;
+        [ObservableProperty] private string? _searchText;
+
+        private MainWindow _mainWindow;
 
 
-        public TopBarViewModel(IMessenger messenger) : base(messenger)
+
+
+        public TopBarViewModel(IMessenger messenger, MainWindow mainWindow) : base(messenger)
         {
-
+            _mainWindow = mainWindow;
         }
 
         [RelayCommand]
-        private async Task ExitApp()
+        private void ExitApp()
         {
             Environment.Exit(0);
         }
 
         [RelayCommand]
-        private async Task HideApp()
+        private async Task MinimizeApp()
         {
-
+            _mainWindow.WindowState = WindowState.Minimized;
         }
 
         [RelayCommand]
-        private async Task GoToAbout()
+        private void GoToAbout()
         {
             _messenger.Send(new SwitchContentView(ContentTypes.ABOUT));
         }
 
-        partial void OnSearchTextChanged(string oldValue, string newValue)
+        partial void OnSearchTextChanged(string value)
         {
-            if (oldValue != newValue) 
-            {
-                _messenger.Send(new SearchTextChanged(newValue));
-            }
+            _messenger.Send(new SearchTextChanged(value));
         }
     }
 }

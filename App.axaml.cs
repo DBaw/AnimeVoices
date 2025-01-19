@@ -49,11 +49,11 @@ namespace AnimeVoices
                 // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
                 // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
                 DisableAvaloniaDataAnnotationValidation();
+                var mw = ServiceProvider.GetRequiredService<MainWindow>();
                 var vm = ServiceProvider.GetRequiredService<MainWindowViewModel>();
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = vm,
-                };
+
+                desktop.MainWindow = mw;
+                desktop.MainWindow.DataContext = vm;
             }
 
             base.OnFrameworkInitializationCompleted();
@@ -117,9 +117,12 @@ namespace AnimeVoices
             services.AddSingleton<ICharacterRepository, CharacterRepository>();
             services.AddSingleton<ISeiyuuRepository, SeiyuuRepository>();
 
+            // Register MainWindow
+            services.AddSingleton<MainWindow>();
+
             // Register ViewModels
-                //Main Window ViewModels
-                services.AddSingleton<TopBarViewModel>();
+            //Main Window ViewModels
+            services.AddSingleton<TopBarViewModel>();
                 services.AddSingleton<MainMenuViewModel>();
                 services.AddSingleton<UserPanelViewModel>();
                 //Content

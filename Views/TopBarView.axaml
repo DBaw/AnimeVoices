@@ -67,7 +67,7 @@
 			</Grid>
 			<!-- Hide Button -->
 			<Grid Grid.Column="3">
-				<Button Command="{Binding HideAppCommand}"
+				<Button Command="{Binding MinimizeAppCommand}"
 						Foreground="White"
 						Background="Transparent"
 						HorizontalAlignment="Stretch"
