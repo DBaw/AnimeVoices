@@ -2,6 +2,6 @@
 {
     public enum ContentTypes
     {
-        OVERVIEW,ANIMELIST,SETTINGS,ABOUT
+        OVERVIEW,ANIMELIST,SETTINGS,ABOUT, PREVIOUS
     }
 }

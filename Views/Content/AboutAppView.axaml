@@ -2,10 +2,75 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:material="using:Material.Icons.Avalonia"
              mc:Ignorable="d" 
 			 Background="Transparent"
 			 d:DesignWidth="710" 
 			 d:DesignHeight="460"
              x:Class="AnimeVoices.Views.Content.AboutAppView">
-	App Info!
+	<Grid RowDefinitions="80,Auto,100,*">
+		<Grid ColumnDefinitions="60, *">
+			<Button Grid.Column="0"
+					Command="{Binding GoBackCommand}"
+					Foreground="White"
+					Background="Transparent"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					MaxWidth="40"
+					MaxHeight="40"
+					CornerRadius="10"
+					Margin="10,0,0,0">
+				<material:MaterialIcon Kind="ArrowLeftCircle"></material:MaterialIcon>
+			</Button>
+			<Grid Grid.ColumnSpan="2">
+			<TextBlock Text="ABOUT"
+					   FontSize="32"
+					   FontWeight="Bold"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+			</Grid>
+		</Grid>
+		<TextBlock Grid.Row="1"
+				   FontSize="16"
+				   TextWrapping="Wrap"
+				   TextAlignment="Center"
+				   VerticalAlignment="Top"
+				   Margin="10,0,10,0"
+				   LetterSpacing="2">
+			<Bold>Seiyuu Journey</Bold> is an app that helps you explore characters from various anime played by the same voice actors (Seiyuu). Whether you're a fan of a specific Seiyuu or a Character they've brought to life, this app is perfect for you! It helps you uncover connections between anime and explore the fascinating journeys of your favorite voice actors
+			<LineBreak/>
+			<LineBreak/>
+			The app leverages data from the <Bold>JIKAN API</Bold>, ensuring accurate and up-to-date information about anime, characters, and voice actors
+			<LineBreak/>
+			<LineBreak/>
+			<Bold>GET MORE</Bold> button on <Bold>Overwiew</Bold> page will get you data from top anime. Download more anime data to get better results and search for your favourite characters voices on <Bold>Anime Info</Bold> page
+		</TextBlock>
+		<TextBlock Grid.Row="2"
+				   Text="UPCOMING FEATURES:"
+				   FontSize="24"
+				   FontWeight="Bold"
+				   HorizontalAlignment="Left"
+				   VerticalAlignment="Bottom"
+				   Margin="20,0,0,10"/>
+		<TextBlock Grid.Row="3"
+				   FontSize="16"
+				   TextWrapping="Wrap"
+				   TextAlignment="Left"
+				   VerticalAlignment="Top"
+				   Margin="20,0,20,0"
+				   LetterSpacing="2">
+			<Bold>Get Data Page</Bold> – Users will have greater control over data management, enabling you to download information for specific anime titles and refresh data for previously downloaded content
+			<LineBreak/>
+			<LineBreak/>
+			<Bold>Users </Bold> – Create your own profile, log in to access personalized features, and save your favorite Seiyuu for quicker navigation
+			<LineBreak/>
+			<LineBreak/>
+			<Bold>Themes </Bold> – New color themes option will be available, allowing you to customize the app’s appearance to match your preferences
+			<LineBreak/>
+			<LineBreak/>
+			<Bold>And More</Bold> – More minor changes which will improve user experience
+		</TextBlock>
+	</Grid>
 </UserControl>

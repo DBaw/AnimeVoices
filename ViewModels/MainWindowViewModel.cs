@@ -51,21 +51,26 @@ namespace AnimeVoices.ViewModels
         public void Receive(SwitchContentView message)
         {
             ContentTypes contentType = message.contentType;
-            PreviousContentViewModel = CurrentContentViewModel;
 
             switch(contentType)
             {
                 case (ContentTypes.OVERVIEW):
                     CurrentContentViewModel = _overviewViewModel;
+                    PreviousContentViewModel = CurrentContentViewModel;
                     break;
                 case (ContentTypes.ANIMELIST):
                     CurrentContentViewModel = _animeInfoViewModel;
+                    PreviousContentViewModel = CurrentContentViewModel;
                     break;
                 case (ContentTypes.SETTINGS):
                     CurrentContentViewModel = _settingsViewModel;
+                    PreviousContentViewModel = CurrentContentViewModel;
                     break;
                 case (ContentTypes.ABOUT):
                     CurrentContentViewModel = _aboutAppViewModel;
+                    break;
+                case (ContentTypes.PREVIOUS):
+                    CurrentContentViewModel = PreviousContentViewModel;
                     break;
             }
         }
