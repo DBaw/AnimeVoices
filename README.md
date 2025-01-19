@@ -1,4 +1,4 @@
-# AnimeVoices
+# Anime Voices
 
 AnimeVoices is a desktop application designed to help anime fans discover connections between their favorite characters and the talented voice actors (Seiyuu) who bring them to life. With AnimeVoices, you can explore anime characters voiced by the same Seiyuu, save your favorites, and access the data even while offline.
 
@@ -13,7 +13,7 @@ AnimeVoices is a desktop application designed to help anime fans discover connec
 
 ## Technology Stack
 
-- **AvaloniaUI**: A powerful, cross-platform UI framework for .NET applications, enabling a beautiful and responsive desktop interface
+- **Avalonia UI**: A powerful, cross-platform UI framework for .NET applications, enabling a beautiful and responsive desktop interface
 - **.NET 8.0**: Modern, high-performance runtime environment used to build and run the application
 
 
