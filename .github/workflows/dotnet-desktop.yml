@@ -1,0 +1,35 @@
+name: Build and Publish App
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0' # Specify your .NET SDK version
+
+    - name: Restore Dependencies
+      run: dotnet restore
+
+    - name: Build Project
+      run: dotnet build --configuration Release
+
+    - name: Publish Executable
+      run: dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
+
+    - name: Archive Build Output
+      uses: actions/upload-artifact@v3
+      with:
+        name: AnimeVoices
+        path: ./publish
