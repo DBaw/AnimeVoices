@@ -18,8 +18,6 @@
 		<ListBox.Items>
 			<ListBoxItem Content="Overview"/>
 			<ListBoxItem Content="Anime Info" />
-			<ListBoxItem Content="Favourites" />
-			<ListBoxItem Content="Watchlist" />
 		</ListBox.Items>
 		<ListBox.Styles>
 			<Style Selector="ListBoxItem">

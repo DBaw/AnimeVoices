@@ -2,7 +2,6 @@ High prio
 4. Favourites View/Model
 5. Watchlist View/Model 
 6. User - Login and Create account buttons - a little bit bigger panel
-8. Images on panels !!!!!!
 9. Minimalize app
 10. Change setting view (button) to Info view - app instruction
 
@@ -13,6 +12,6 @@ Low prio
 3. Add Aliases to Anime to better display Result Title (search shortest through Aliases, not found characterAnime)
 4. Sort lists
 3. Background on lists items? 
-4. Bottom bar info on MainView
+4. Bottom bar info on MainView - loading on adding data
 5. Themeing - https://github.com/AvaloniaCommunity/Material.Avalonia/wiki/Advanced-Theming
 6. Move app window (on hold click event?) 

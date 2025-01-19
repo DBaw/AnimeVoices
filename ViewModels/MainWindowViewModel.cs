@@ -25,19 +25,15 @@ namespace AnimeVoices.ViewModels
         private readonly TopBarViewModel _topBarViewModel;
         private readonly UserPanelViewModel _userPanelViewModel;
         private readonly AnimeInfoViewModel _animeInfoViewModel;
-        private readonly FavouritesViewModel _favouritesViewModel;
-        private readonly WatchlistViewModel _watchlistViewModel;
         private readonly SettingsViewModel _settingsViewModel;
 
-        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, FavouritesViewModel favouritesViewModel, WatchlistViewModel watchlistViewModel, SettingsViewModel settingsViewModel) : base(messenger)
+        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, SettingsViewModel settingsViewModel) : base(messenger)
         {
             _mainMenuViewModel = mainMenuViewModel;
             _topBarViewModel = topBarViewModel;
             _userPanelViewModel = userPanelViewModel;
             _overviewViewModel = overviewViewModel;
             _animeInfoViewModel = animeInfoViewModel;
-            _favouritesViewModel = favouritesViewModel;
-            _watchlistViewModel = watchlistViewModel;
             _settingsViewModel = settingsViewModel;
 
             MainMenuViewModel = _mainMenuViewModel;
@@ -63,12 +59,6 @@ namespace AnimeVoices.ViewModels
                     break;
                 case (ContentTypes.ANIMELIST):
                     CurrentContentViewModel = _animeInfoViewModel;
-                    break;
-                case (ContentTypes.FAVOURITES):
-                    CurrentContentViewModel = _favouritesViewModel;
-                    break;
-                case (ContentTypes.WATCHLIST):
-                    CurrentContentViewModel = _watchlistViewModel;
                     break;
                 case (ContentTypes.SETTINGS):
                     CurrentContentViewModel = _settingsViewModel;
