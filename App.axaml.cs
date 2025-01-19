@@ -125,6 +125,7 @@ namespace AnimeVoices
                 //Content
                 services.AddSingleton<OverviewViewModel>();
                 services.AddSingleton<AnimeInfoViewModel>();
+                services.AddSingleton<AboutAppViewModel>();
                 services.AddSingleton<SettingsViewModel>();
                     //Info Panels
                     services.AddSingleton<AnimeInfoPanelViewModel>();

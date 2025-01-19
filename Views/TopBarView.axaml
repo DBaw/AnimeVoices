@@ -52,7 +52,7 @@
 			</Grid>
 			<!-- Settings Button -->
 			<Grid Grid.Column="2">
-				<Button Command="{Binding GoToSettingsCommand}"
+				<Button Command="{Binding GoToAboutCommand}"
 						Foreground="White"
 						Background="Transparent"
 						HorizontalAlignment="Stretch"
@@ -62,7 +62,7 @@
 						MaxWidth="40"
 						Margin="10"
 						CornerRadius="10">
-						<material:MaterialIcon Kind="Cog"></material:MaterialIcon>
+						<material:MaterialIcon Kind="Information"></material:MaterialIcon>
 				</Button>
 			</Grid>
 			<!-- Hide Button -->

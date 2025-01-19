@@ -31,9 +31,9 @@ namespace AnimeVoices.ViewModels
         }
 
         [RelayCommand]
-        private async Task GoToSettings()
+        private async Task GoToAbout()
         {
-            _messenger.Send(new SwitchContentView(ContentTypes.SETTINGS));
+            _messenger.Send(new SwitchContentView(ContentTypes.ABOUT));
         }
 
         partial void OnSearchTextChanged(string oldValue, string newValue)

@@ -26,8 +26,9 @@ namespace AnimeVoices.ViewModels
         private readonly UserPanelViewModel _userPanelViewModel;
         private readonly AnimeInfoViewModel _animeInfoViewModel;
         private readonly SettingsViewModel _settingsViewModel;
+        private readonly AboutAppViewModel _aboutAppViewModel;
 
-        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, SettingsViewModel settingsViewModel) : base(messenger)
+        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, SettingsViewModel settingsViewModel, AboutAppViewModel aboutAppViewModel) : base(messenger)
         {
             _mainMenuViewModel = mainMenuViewModel;
             _topBarViewModel = topBarViewModel;
@@ -35,13 +36,13 @@ namespace AnimeVoices.ViewModels
             _overviewViewModel = overviewViewModel;
             _animeInfoViewModel = animeInfoViewModel;
             _settingsViewModel = settingsViewModel;
+            _aboutAppViewModel = aboutAppViewModel;
 
             MainMenuViewModel = _mainMenuViewModel;
-
-            CurrentContentViewModel = _overviewViewModel;
             TopBarViewModel = _topBarViewModel;
             UserPanelViewModel = _userPanelViewModel;
 
+            CurrentContentViewModel = _overviewViewModel;
             PreviousContentViewModel = CurrentContentViewModel;
 
             _messenger.RegisterAll(this);
@@ -49,7 +50,7 @@ namespace AnimeVoices.ViewModels
 
         public void Receive(SwitchContentView message)
         {
-            ContentTypes contentType = message.ContentType;
+            ContentTypes contentType = message.contentType;
             PreviousContentViewModel = CurrentContentViewModel;
 
             switch(contentType)
@@ -62,6 +63,9 @@ namespace AnimeVoices.ViewModels
                     break;
                 case (ContentTypes.SETTINGS):
                     CurrentContentViewModel = _settingsViewModel;
+                    break;
+                case (ContentTypes.ABOUT):
+                    CurrentContentViewModel = _aboutAppViewModel;
                     break;
             }
         }
