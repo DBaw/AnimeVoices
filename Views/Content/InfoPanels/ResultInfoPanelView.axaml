@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+			 d:DesignWidth="340" 
+			 d:DesignHeight="460"
+             x:Class="AnimeVoices.Views.Content.InfoPanels.ResultInfoPanelView"
+			 Background="Transparent">
+	<Border Background="#787FB0"
+			CornerRadius="15,0,0,15">
+		<Grid RowDefinitions="30,30,30,*,30"
+			  Margin="10">
+			<!-- Selected Character Name -->
+			<TextBlock Grid.Row="0"
+					   Text="{Binding SelectedCharacter.Name}"
+					   Foreground="#EAEAEA"
+					   FontSize="22"
+					   FontWeight="DemiBold"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Center"
+					   TextAlignment="Center"/>
+			<!-- Selected Character Name -->
+			<TextBlock Grid.Row="1"
+					   Text="="
+					   Foreground="#EAEAEA"
+					   FontSize="22"
+					   FontWeight="DemiBold"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Center"
+					   TextAlignment="Center"/>
+			<!-- Selected Character Name -->
+			<TextBlock Grid.Row="2"
+					   Text="{Binding ResultCharacter}"
+					   Foreground="#EAEAEA"
+					   FontSize="22"
+					   FontWeight="DemiBold"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Center"
+					   TextAlignment="Center"/>
+			<!-- Seiyuu Picture -->
+			<Image Grid.Row="3"
+				   Source="{Binding ResultImage}"
+				   MaxHeight="300"
+				   MaxWidth="200"/>
+		</Grid>
+	</Border>
+</UserControl>

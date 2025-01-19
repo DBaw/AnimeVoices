@@ -1,0 +1,368 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:material="using:Material.Icons.Avalonia"
+             xmlns:converters="clr-namespace:AnimeVoices.Utilities.Converters"
+             mc:Ignorable="d"
+			 d:DesignWidth="710"
+			 d:DesignHeight="460"
+			 Background="Transparent"
+             x:Class="AnimeVoices.Views.Content.AnimeInfoView">
+	<UserControl.Resources>
+		<converters:BooleanToWatchlistIconConverter x:Key="BooleanToWatchlistIconConverter"/>
+		<converters:BooleanToFavouriteIconConverter x:Key="BooleanToFavouriteIconConverter"/>
+		<converters:BooleanToDropIconConverter x:Key="BooleanToDropIconConverter"/>
+		<converters:BooleanNotConverter x:Key="BooleanNotConverter"/>
+		<converters:BooleanToListHeightConverter x:Key="BooleanToListHeightConverter"/>
+		<converters:ObjectToBackgroundColorConverter x:Key="ObjectToBackgroundColorConverter"/>
+		<converters:ObjectToForegroundColorConverter x:Key="ObjectToForegroundColorConverter"/>
+	</UserControl.Resources>
+	<Grid HorizontalAlignment="Stretch"
+		  VerticalAlignment="Stretch"
+		  ColumnDefinitions="*,300,40">
+		<!-- Lists -->
+		<Grid Grid.Column="0"
+			  Grid.ColumnSpan="2">
+			<StackPanel Orientation="Vertical">
+				<!-- Anime Header -->
+				<Grid ColumnDefinitions="250,50,*"
+					  Margin="0,5">
+					<TextBlock Text="Anime List"
+							   FontSize="20"
+							   FontWeight="Medium"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
+					<Button Grid.Column="1"
+							Command="{Binding HideExpandAnimeListCommand}"
+							CommandParameter="anime"
+							Height="30"
+							Width="30"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center">
+						<material:MaterialIcon Kind="{Binding AnimeListExpanded, Converter={StaticResource BooleanToDropIconConverter}}"
+											   Foreground="White"
+											   Height="25"
+											   Width="25"/>
+					</Button>
+					<!-- Selected Anime -->
+					<Border Grid.Column="2"
+							Background="{Binding SelectedAnime, Converter={StaticResource ObjectToBackgroundColorConverter}}"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Center"
+							IsVisible="{Binding AnimeListExpanded, Converter={StaticResource BooleanNotConverter}}">
+						<TextBlock Text="{Binding SelectedAnime.Title}"
+								   Background="Transparent"
+								   Foreground="{Binding SelectedAnime, Converter={StaticResource ObjectToForegroundColorConverter}}"
+								   FontSize="20"
+								   FontWeight="Regular"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>	
+					</Border>
+				</Grid>
+				<!-- Anime List -->
+				<ListBox MaxHeight="{Binding AnimeListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
+						 ItemsSource="{Binding AnimeList}"
+						 SelectedItem="{Binding SelectedAnime}">
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="HorizontalAlignment" Value="Stretch" />
+							<Setter Property="Height" Value="25" />
+							<Setter Property="FontSize" Value="18" />
+							<Setter Property="FontWeight" Value="Regular" />
+							<Setter Property="Foreground" Value="White" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Grid Background="{TemplateBinding Background}"
+										  ColumnDefinitions="*,100,50,50">
+										<!-- Anime Title -->
+										<TextBlock Grid.Column="0"
+												   Text="{Binding Title}"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="{TemplateBinding Foreground}"
+												   FontSize="18"
+												   FontWeight="{TemplateBinding FontWeight}" />
+
+										<!-- Anime Score -->
+										<TextBlock Grid.Column="1"
+												   Text="{Binding Score}"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="{TemplateBinding Foreground}"
+												   FontSize="18"
+												   FontWeight="{TemplateBinding FontWeight}" />
+										
+										<!-- Watchlist -->
+										<Button Grid.Column="2"
+												IsVisible="{Binding DataContext.IsUserLoggedIn, RelativeSource={RelativeSource AncestorType=ListBox}}"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Background="Transparent"
+												BorderBrush="Transparent"
+												BorderThickness="0"
+												Padding="0">
+											<material:MaterialIcon Kind="{Binding IsOnWatchlist, Converter={StaticResource BooleanToWatchlistIconConverter}}"
+																   Foreground="{TemplateBinding Foreground}"
+																   Height="20"
+																   Width="20"/>
+										</Button>
+										
+										<!-- Favourite -->
+										<Button Grid.Column="3"
+												IsVisible="{Binding DataContext.IsUserLoggedIn, RelativeSource={RelativeSource AncestorType=ListBox}}"
+												HorizontalAlignment="Center"
+												VerticalAlignment="Center"
+												Background="Transparent"
+												BorderBrush="Transparent"
+												BorderThickness="0"
+												Padding="0">
+											<material:MaterialIcon Kind="{Binding IsFavourite, Converter={StaticResource BooleanToFavouriteIconConverter}}"
+																   Foreground="{TemplateBinding Foreground}"
+																   Height="20"
+																   Width="20"/>
+										</Button>
+
+									</Grid>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+						<Style Selector="ListBoxItem:pointerover">
+							<Setter Property="Background" Value="#282D37"/>
+						</Style>
+						<Style Selector="ListBoxItem:selected">
+							<Setter Property="Background" Value="#F8BBC6"/>
+							<Setter Property="Foreground" Value="#2D323D"/>
+							<Setter Property="FontWeight" Value="SemiBold" />
+						</Style>
+					</ListBox.Styles>
+				</ListBox>
+				<!-- Character Header -->
+				<Grid ColumnDefinitions="250,50,*"
+					  Margin="0,5">
+					<TextBlock Text="Characters List"
+							   FontSize="20"
+							   FontWeight="Medium"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
+					<Button Grid.Column="1"
+							Command="{Binding HideExpandCharactersListCommand}"
+							CommandParameter="character"
+							Height="30"
+							Width="30"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center">
+						<material:MaterialIcon Kind="{Binding CharacterListExpanded, Converter={StaticResource BooleanToDropIconConverter}}"
+											   Foreground="White"
+											   Height="25"
+											   Width="25"/>
+					</Button>
+					<Border Grid.Column="2"
+							Background="{Binding SelectedCharacter, Converter={StaticResource ObjectToBackgroundColorConverter}}"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Center"
+							IsVisible="{Binding CharacterListExpanded, Converter={StaticResource BooleanNotConverter}}">
+						<TextBlock Text="{Binding SelectedCharacter.Name}"
+								   Background="Transparent"
+								   Foreground="{Binding SelectedCharacter, Converter={StaticResource ObjectToForegroundColorConverter}}"
+								   FontSize="20"
+								   FontWeight="Regular"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
+				</Grid>
+				<!-- Character List -->
+				<ListBox MaxHeight="{Binding CharacterListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
+						 ItemsSource="{Binding FilteredCharacterList}"
+						 SelectedItem="{Binding SelectedCharacter}">
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="HorizontalAlignment" Value="Stretch" />
+							<Setter Property="Height" Value="25" />
+							<Setter Property="FontSize" Value="18" />
+							<Setter Property="FontWeight" Value="Regular" />
+							<Setter Property="Foreground" Value="White" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Border Background="{TemplateBinding Background}"
+											HorizontalAlignment="Stretch"
+											VerticalAlignment="Stretch">
+										<!-- Character Name -->
+										<TextBlock Text="{Binding Name}"
+												   Background="Transparent"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center"
+												   Foreground="{TemplateBinding Foreground}"
+												   FontSize="18"
+												   FontWeight="{TemplateBinding FontWeight}" />
+									</Border>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+						<Style Selector="ListBoxItem:pointerover">
+							<Setter Property="Background" Value="#282D37"/>
+						</Style>
+						<Style Selector="ListBoxItem:selected">
+							<Setter Property="Background" Value="#F8BBC6"/>
+							<Setter Property="Foreground" Value="#2D323D"/>
+							<Setter Property="FontWeight" Value="SemiBold" />
+						</Style>
+					</ListBox.Styles>
+				</ListBox>
+				<!-- Seiyuu Characters Header -->
+				<Grid ColumnDefinitions="250,50,*"
+					  Margin="0,5">
+					<TextBlock Text="Seiyuu Characters List"
+							   FontSize="20"
+							   FontWeight="Medium"
+							   Foreground="White"
+							   HorizontalAlignment="Center"
+							   VerticalAlignment="Center"/>
+					<Button Grid.Column="1"
+							Command="{Binding HideExpandResultListCommand}"
+							Height="30"
+							Width="30"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Center">
+						<material:MaterialIcon Kind="{Binding ResultListExpanded, Converter={StaticResource BooleanToDropIconConverter}}"
+											   Foreground="White"
+											   Height="25"
+											   Width="25"/>
+					</Button>
+					<Border Grid.Column="2"
+							Background="{Binding SelectedResult, Converter={StaticResource ObjectToBackgroundColorConverter}}"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Center"
+							IsVisible="{Binding ResultListExpanded, Converter={StaticResource BooleanNotConverter}}">
+						<TextBlock Text="{Binding SelectedResult.Character}"
+								   Background="Transparent"
+								   Foreground="{Binding SelectedCharacter, Converter={StaticResource ObjectToForegroundColorConverter}}"
+								   FontSize="20"
+								   FontWeight="Regular"
+								   HorizontalAlignment="Center"
+								   VerticalAlignment="Center"/>
+					</Border>
+				</Grid>
+				<!-- Seiyuu Characters List -->
+				<ListBox MaxHeight="{Binding ResultListExpanded, Converter={StaticResource BooleanToListHeightConverter}}"
+						 ItemsSource="{Binding ResultList}"
+						 SelectedItem="{Binding SelectedResult}">
+					<ListBox.Styles>
+						<Style Selector="ListBoxItem">
+							<Setter Property="Background" Value="Transparent" />
+							<Setter Property="HorizontalAlignment" Value="Stretch" />
+							<Setter Property="Height" Value="25" />
+							<Setter Property="FontSize" Value="18" />
+							<Setter Property="FontWeight" Value="Regular" />
+							<Setter Property="Foreground" Value="White" />
+							<Setter Property="Template">
+								<ControlTemplate>
+									<Grid ColumnDefinitions="*,*"
+										  Background="{TemplateBinding Background}"
+										  HorizontalAlignment="Stretch"
+										  VerticalAlignment="Stretch">
+										<!-- Character Name -->
+										<TextBlock Grid.Column="0"
+												   Text="{Binding Character}"
+												   Background="Transparent"
+												   Foreground="{TemplateBinding Foreground}"
+												   FontWeight="{TemplateBinding FontWeight}" 
+												   FontSize="18"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center" />
+										<TextBlock Grid.Column="1"
+												   Text="{Binding Anime}"
+												   Background="Transparent"
+												   Foreground="{TemplateBinding Foreground}"
+												   FontWeight="{TemplateBinding FontWeight}"
+												   FontSize="18"
+												   HorizontalAlignment="Center"
+												   VerticalAlignment="Center" />
+									</Grid>
+								</ControlTemplate>
+							</Setter>
+						</Style>
+						<Style Selector="ListBoxItem:pointerover">
+							<Setter Property="Background" Value="#282D37"/>
+						</Style>
+						<Style Selector="ListBoxItem:selected">
+							<Setter Property="Background" Value="#F8BBC6"/>
+							<Setter Property="Foreground" Value="#2D323D"/>
+							<Setter Property="FontWeight" Value="SemiBold" />
+						</Style>
+					</ListBox.Styles>
+				</ListBox>
+			</StackPanel>
+		</Grid>
+		<!-- Info Panels -->
+		<Grid Grid.Column="1"
+			  Grid.ColumnSpan="2">
+			<Border>
+				<TransitioningContentControl Content="{Binding InfoPanelViewModel}"/>
+			</Border>
+		</Grid>
+		<!-- Info Buttons -->
+		<Grid Grid.Column="2"
+			  RowDefinitions="*,*,*">
+			<!-- Anime Info Button -->
+			<Button Grid.Row="0"
+					Command="{Binding ShowAnimeInfoCommand}"
+					Background="#AFB5E7"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					CornerRadius="15,0,0,15">
+				<TextBlock Text="ANIME"
+						   Foreground="#2D323D"
+						   FontSize="12"
+						   Width="10"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   TextTrimming="None"
+						   HorizontalAlignment="Stretch"
+						   VerticalAlignment="Center"/>
+			</Button>
+			<!-- Character Info Button -->
+			<Button Grid.Row="1"
+					Command="{Binding ShowCharacterInfoCommand}"
+					Background="#99A1E0"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					CornerRadius="15,0,0,15">
+				<TextBlock Text="CHARACTER"
+						   Foreground="#2D323D"
+						   FontSize="12"
+						   Width="10"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   HorizontalAlignment="Stretch"
+						   VerticalAlignment="Center"/>
+			</Button>
+			<!-- Result Info Button -->
+			<Button Grid.Row="2"
+					Command="{Binding ShowResultInfoCommand}"
+					Background="#787FB0"
+					VerticalAlignment="Stretch"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					CornerRadius="15,0,0,15">
+				<TextBlock Text="RESULT"
+						   Foreground="#2D323D"
+						   FontSize="12"
+						   Width="10"
+						   TextWrapping="Wrap"
+						   TextAlignment="Center"
+						   HorizontalAlignment="Stretch"
+						   VerticalAlignment="Center"/>
+			</Button>
+		</Grid>
+	</Grid>
+</UserControl>

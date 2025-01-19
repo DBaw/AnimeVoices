@@ -7,11 +7,58 @@
 			 d:DesignHeight="460"
              x:Class="AnimeVoices.Views.MainMenuView"
 			 Background="Transparent">
-	<Border Background="Transparent">
-		<TextBlock Text="MainMenu"
-				   HorizontalAlignment="Center"
-				   VerticalAlignment="Center"
-				   Foreground="White"
-				   FontSize="24"/>
-	</Border>
+	<ListBox HorizontalAlignment="Stretch"
+			 VerticalAlignment="Stretch"
+			 BorderBrush="Transparent"
+			 Background="Transparent"
+			 Margin="0,10"
+			 Padding="0"
+			 SelectionMode="Single"
+			 SelectedIndex="{Binding SelectedItemIndex}">
+		<ListBox.Items>
+			<ListBoxItem Content="Overview"/>
+			<ListBoxItem Content="Anime Info" />
+		</ListBox.Items>
+		<ListBox.Styles>
+			<Style Selector="ListBoxItem">
+				<Setter Property="Background" Value="Transparent"/>
+				<Setter Property="HorizontalAlignment" Value="Stretch"/>
+				<Setter Property="Height" Value="50"/>
+				<Setter Property="FontSize" Value="18"/>
+				<Setter Property="FontWeight" Value="Medium"/>
+				<Setter Property="Foreground" Value="White"/>
+				<Setter Property="Template">
+					<ControlTemplate>
+						<Grid Background="{TemplateBinding Background}"
+							  Margin="-5,0,0,0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="10"/>
+								<ColumnDefinition Width="*"/>
+							</Grid.ColumnDefinitions>
+
+							<!-- Selection Indicator -->
+							<Border Grid.Column="0"
+									Background="#F8BBC6"
+									CornerRadius="5"
+									HorizontalAlignment="Stretch"
+									VerticalAlignment="Stretch"
+									IsVisible="{TemplateBinding IsSelected}" />
+
+							<!-- Item Content -->
+							<ContentPresenter Grid.Column="1"
+											  Content="{TemplateBinding Content}"
+											  VerticalAlignment="Stretch"
+											  HorizontalAlignment="Stretch"
+											  VerticalContentAlignment="Center"
+											  HorizontalContentAlignment="Center"
+											  Padding="-10,0,0,0"/>
+						</Grid>
+					</ControlTemplate>
+				</Setter>
+			</Style>
+			<Style Selector="ListBoxItem:pointerover">
+				<Setter Property="Background" Value="#282D37"/>
+			</Style>
+		</ListBox.Styles>
+	</ListBox>
 </UserControl>

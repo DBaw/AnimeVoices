@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+			 d:DesignWidth="340" 
+			 d:DesignHeight="460"
+             x:Class="AnimeVoices.Views.Content.InfoPanels.AnimeInfoPanelView"
+			 Background="Transparent">
+	<Border Background="#AFB5E7"
+			CornerRadius="15,0,0,15"
+			Padding="0,0,40,0">
+		<Grid RowDefinitions="Auto,150,*,30"
+			  Margin="10">
+			<!-- Title -->
+			<TextBlock Grid.Row="0"
+					   Text="{Binding SelectedAnime.Title}"
+					   TextWrapping="Wrap"
+					   Foreground="#EAEAEA"
+					   FontSize="22"
+					   FontWeight="DemiBold"
+					   HorizontalAlignment="Stretch"
+					   VerticalAlignment="Center"
+					   TextAlignment="Center"/>
+			<!-- Info -->
+			<Grid Grid.Row="1"
+				  ColumnDefinitions="70,*">
+				<Grid Grid.Column="0"
+					  RowDefinitions="*,*,*,*,*">
+					<TextBlock Grid.Row="0" Text="Studio:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+					<TextBlock Grid.Row="1" Text="Rating:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+					<TextBlock Grid.Row="2" Text="Aired:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+					<TextBlock Grid.Row="3" Text="Episodes:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+					<TextBlock Grid.Row="4" Text="Synopsis:" Foreground="#2A2A2A" FontSize="16" FontWeight="Medium" TextAlignment="Right" VerticalAlignment="Center"/>
+				</Grid>
+				<Grid Grid.Column="1"
+					  RowDefinitions="*,*,*,*,*"
+					  Margin="8,0,0,0">
+					<TextBlock Grid.Row="0" Text="{Binding SelectedAnime.Studio}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+					<TextBlock Grid.Row="1" Text="{Binding SelectedAnime.Rating}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+					<TextBlock Grid.Row="2" Text="{Binding SelectedAnime.Aired}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+					<TextBlock Grid.Row="3" Text="{Binding SelectedAnime.Episodes}" Foreground="#e6f4f1" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,1.5,0,0"/>
+				</Grid>
+			</Grid>
+			<ScrollViewer Grid.Row="2"
+						  IsDeferredScrollingEnabled="True"
+						  VerticalScrollBarVisibility="Auto" 
+						  HorizontalScrollBarVisibility="Disabled">
+				<TextBlock Text="{Binding SelectedAnime.About}"
+						   VerticalAlignment="Stretch"
+						   Foreground="#e6f4f1"
+						   TextWrapping="Wrap"
+						   TextAlignment="Justify"
+						   FontStyle="Italic"
+						   FontSize="13"
+						   Margin="5"/>
+			</ScrollViewer>
+			<Button Grid.Row="3"
+					Content="Refresh"
+					Command="{Binding GetAnimeInfoCommand}"
+					IsEnabled="{Binding CanRefresh^}"
+					Background="#717495"
+					Foreground="#e6f4f1"
+					Margin="50,0"
+					CornerRadius="15"/>
+		</Grid>
+	</Border>
+</UserControl>
