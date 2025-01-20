@@ -31,7 +31,7 @@ This application is built on modern .NET technology and uses the following libra
 
 ## Data Source
 
-AnimeVoices fetches its data from the [Jikan API](https://jikan.moe), a RESTful API for retrieving information from MyAnimeList. This allows the app to deliver up-to-date information about anime, characters, and voice actors
+AnimeVoices fetches its data from the [Jikan API](https://jikan.moe), a RESTful API for retrieving information from [MyAnimeList](https://myanimelist.net). This allows the app to deliver up-to-date information about anime, characters, and voice actors
 
 
 
