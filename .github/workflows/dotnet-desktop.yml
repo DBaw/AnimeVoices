@@ -1,4 +1,4 @@
-name: Build and Publish App
+name: Build and Release
 
 on:
   workflow_dispatch: # Manual trigger
@@ -38,3 +38,15 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: AnimeVoices
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_name: "AnimeVoices"
+        body: |
+          **AnimeVoices** is now released!
+        draft: false
+        prerelease: false
