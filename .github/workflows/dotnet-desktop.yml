@@ -56,6 +56,6 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ${{ github.workspace }}/AnimeVoices-Windows.zip  # Path to the downloaded file
-        asset_name: AnimeVoices-Windows.zip
+        asset_path: ${{ github.workspace }}/AnimeVoices.zip  # Path to the downloaded file
+        asset_name: AnimeVoices.zip
         asset_content_type: application/zip
