@@ -33,3 +33,41 @@ jobs:
       with:
         name: AnimeVoices
         path: ./publish
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: AnimeVoices
+        path: ./publish
+
+    - name: Create GitHub Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v1.0.0 # Update this dynamically if needed
+        release_name: "AnimeVoices v1.0.0"
+        body: |
+          **AnimeVoices** is now released!
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./publish
+        asset_name: AnimeVoices-Windows.zip
+        asset_content_type: application/zip
