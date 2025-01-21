@@ -14,15 +14,12 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0'
-
-    - name: Restore Dependencies
-      run: dotnet restore
-
+        
     - name: Build Executable
       run: |
         dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
         # Zipping the publish directory
-        Compress-Archive -Path ./publish/* -DestinationPath ./AnimeVoices.zip
+        Compress-Archive -Path $env:GITHUB_WORKSPACE/publish/* -DestinationPath $env:GITHUB_WORKSPACE/AnimeVoices.zip
       shell: pwsh
 
     - name: Upload Artifact
