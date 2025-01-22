@@ -87,6 +87,7 @@ jobs:
           git push origin ${{ env.new_tag }}
 
       - name: Create GitHub Release
+        id: create_new_release  # Assign an ID to reference the output
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -99,7 +100,7 @@ jobs:
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.create_new_release.outputs.upload_url }}
           asset_path: AnimeVoices.zip
           asset_name: AnimeVoices.zip
           asset_content_type: application/zip
