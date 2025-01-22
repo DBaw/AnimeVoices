@@ -2,58 +2,100 @@ name: Build and Release
 
 on:
   workflow_dispatch: # Manual trigger
+  push: # Trigger on push to any branch
+    branches: 
+      - '*'
+  pull_request: # Trigger on PR to main
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0'
-        
-    - name: Build Executable
-      run: |
-        dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
-        # Zipping the publish directory
-        Compress-Archive -Path $env:GITHUB_WORKSPACE/publish/* -DestinationPath $env:GITHUB_WORKSPACE/AnimeVoices.zip
-      shell: pwsh
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0
 
-    - name: Upload Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: AnimeVoices
-        path: ./publish
+      - name: Build Executable
+        run: dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
+
+      - name: Create ZIP Archive
+        run: |
+          Compress-Archive -Path ./publish/* -DestinationPath AnimeVoices.zip
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: anime-voices-build
+          path: AnimeVoices.zip
+          retention-days: 7
 
   release:
-    needs: build
     runs-on: windows-latest
+    needs: build
     steps:
-    - name: Download Artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: AnimeVoices
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: anime-voices-build
 
-    - name: Create GitHub Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: v1.0.0
-        release_name: "AnimeVoices"
-        body: |
-          **AnimeVoices** is now released!
-        draft: false
-        prerelease: false
+      - name: Setup Git User for Tagging
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: Upload Release Assets
-      uses: actions/upload-release-asset@v1
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./AnimeVoices.zip
-        asset_name: AnimeVoices.zip
-        asset_content_type: application/zip
+      - name: Determine Version and Tag
+        id: versioning
+        run: |
+          # Fetch tags to work with
+          git fetch --tags
+
+          # Get the latest tag
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "Latest tag: $latest_tag"
+
+          # Extract components of the version
+          major=$(echo $latest_tag | cut -d'.' -f1)
+          minor=$(echo $latest_tag | cut -d'.' -f2)
+          build=$(echo $latest_tag | cut -d'.' -f3)
+
+          # PR to main resets build and increments minor version
+          if [[ ${{ github.event_name }} == "pull_request" ]]; then
+            minor=$((minor + 1))
+            build=0
+          else
+            build=$((build + 1))
+          fi
+
+          # Formulate new tag
+          new_tag="$major.$minor.$build"
+          echo "New tag: $new_tag"
+
+          # Pass variables to later steps
+          echo "new_tag=$new_tag" >> $GITHUB_ENV
+
+      - name: Create Git Tag
+        run: |
+          git tag ${{ env.new_tag }}
+          git push origin ${{ env.new_tag }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ env.new_tag }}
+          release_name: Release ${{ env.new_tag }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: AnimeVoices.zip
+          asset_name: AnimeVoices.zip
+          asset_content_type: application/zip
