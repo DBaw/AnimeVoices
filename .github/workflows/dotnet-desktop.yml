@@ -40,7 +40,7 @@ jobs:
         with:
           fetch-depth: 0 # Ensures all history and tags are available for versioning
         
-      - name: Download Build Artifact
+      - name: Download Artifact
         uses: actions/download-artifact@v4
         with:
           name: anime-voices-build
@@ -52,31 +52,32 @@ jobs:
 
       - name: Determine Version and Tag
         id: versioning
+        shell: bash
         run: |
           # Fetch tags to work with
           git fetch --tags
-
-          # Get the latest tag
-          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+      
+          # Try to get the latest tag, fallback to default version
+          latest_tag=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null || echo "0.0.0")
           echo "Latest tag: $latest_tag"
-
-          # Extract components of the version
+      
+          # Extract version components
           major=$(echo $latest_tag | cut -d'.' -f1)
           minor=$(echo $latest_tag | cut -d'.' -f2)
           build=$(echo $latest_tag | cut -d'.' -f3)
-
-          # PR to main resets build and increments minor version
-          if [[ ${{ github.event_name }} == "pull_request" ]]; then
+      
+          # PR or direct push decides versioning behavior
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             minor=$((minor + 1))
             build=0
           else
             build=$((build + 1))
           fi
-
+      
           # Formulate new tag
           new_tag="$major.$minor.$build"
           echo "New tag: $new_tag"
-
+      
           # Pass variables to later steps
           echo "new_tag=$new_tag" >> $GITHUB_ENV
 
