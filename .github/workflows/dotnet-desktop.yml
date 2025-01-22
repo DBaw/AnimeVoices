@@ -24,23 +24,24 @@ jobs:
       - name: Build Executable
         run: dotnet publish -c Release -r win-x64 --self-contained true -o ./publish
 
-      - name: Create ZIP Archive
-        run: |
-          Compress-Archive -Path ./publish/* -DestinationPath AnimeVoices.zip
-
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: anime-voices-build
-          path: AnimeVoices.zip
+          path: ./publish/*
           retention-days: 7
 
   release:
     runs-on: windows-latest
     needs: build
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Ensures all history and tags are available for versioning
+        
       - name: Download Build Artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: anime-voices-build
 
