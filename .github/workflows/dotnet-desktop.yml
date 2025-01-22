@@ -44,9 +44,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: anime-voices-build
+          path: ./builds
+  
+      - name: Zip the Build Output
+        run: Compress-Archive -Path './builds/*' -DestinationPath './builds/AnimeVoices.zip'
 
       - name: List files in directory for debug
-        run: dir D:\a\AnimeVoices\AnimeVoices\
+        run: dir ./builds
 
       - name: Setup Git User for Tagging
         run: |
@@ -104,6 +108,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: anime-voices-build.zip
+          asset_path: ./builds/AnimeVoices.zip
           asset_name: AnimeVoices.zip
           asset_content_type: application/zip
