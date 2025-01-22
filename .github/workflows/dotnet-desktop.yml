@@ -33,12 +33,13 @@ jobs:
 
   release:
     runs-on: windows-latest
+    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'main' }}
     needs: build
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Ensures all history and tags are available for versioning
+          fetch-depth: 0
         
       - name: Download Artifact
         uses: actions/download-artifact@v4
@@ -48,9 +49,6 @@ jobs:
   
       - name: Zip the Build Output
         run: Compress-Archive -Path './builds/*' -DestinationPath './builds/AnimeVoices.zip'
-
-      - name: List files in directory for debug
-        run: dir ./builds
 
       - name: Setup Git User for Tagging
         run: |
