@@ -45,6 +45,9 @@ jobs:
         with:
           name: anime-voices-build
 
+      - name: List files in directory for debug
+        run: dir D:\a\AnimeVoices\AnimeVoices\
+
       - name: Setup Git User for Tagging
         run: |
           git config user.name "github-actions[bot]"
