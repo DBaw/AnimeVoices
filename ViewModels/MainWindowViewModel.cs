@@ -1,7 +1,10 @@
 ﻿using AnimeVoices.Utilities;
 using AnimeVoices.Utilities.Events;
 using AnimeVoices.ViewModels.Content;
+using Avalonia.Controls;
+using Avalonia.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace AnimeVoices.ViewModels

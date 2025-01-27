@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 
 namespace AnimeVoices.Views
 {
@@ -7,6 +8,14 @@ namespace AnimeVoices.Views
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BorderPointerPressed(object? sender, PointerPressedEventArgs e)
+        {
+            if (e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
+            {
+                BeginMoveDrag(e);
+            }
         }
     }
 }

@@ -20,7 +20,8 @@
 
 	<Border Background="#0E1419"
 			CornerRadius="10"
-			Padding="10">
+			Padding="10"
+			PointerPressed="BorderPointerPressed">
 		<Grid ColumnDefinitions="250,*">
 			<Grid Grid.Column="0">
 				<Grid RowDefinitions="*,120">
