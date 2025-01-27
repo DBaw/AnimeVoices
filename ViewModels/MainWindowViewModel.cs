@@ -27,8 +27,9 @@ namespace AnimeVoices.ViewModels
         private readonly AnimeInfoViewModel _animeInfoViewModel;
         private readonly SettingsViewModel _settingsViewModel;
         private readonly AboutAppViewModel _aboutAppViewModel;
+        private readonly GetMoreDataViewModel _getMoreDataViewModel;
 
-        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, SettingsViewModel settingsViewModel, AboutAppViewModel aboutAppViewModel) : base(messenger)
+        public MainWindowViewModel(IMessenger messenger, MainMenuViewModel mainMenuViewModel,TopBarViewModel topBarViewModel, UserPanelViewModel userPanelViewModel, OverviewViewModel overviewViewModel, AnimeInfoViewModel animeInfoViewModel, SettingsViewModel settingsViewModel, AboutAppViewModel aboutAppViewModel, GetMoreDataViewModel getMoreDataViewModel) : base(messenger)
         {
             _mainMenuViewModel = mainMenuViewModel;
             _topBarViewModel = topBarViewModel;
@@ -37,6 +38,7 @@ namespace AnimeVoices.ViewModels
             _animeInfoViewModel = animeInfoViewModel;
             _settingsViewModel = settingsViewModel;
             _aboutAppViewModel = aboutAppViewModel;
+            _getMoreDataViewModel = getMoreDataViewModel;
 
             MainMenuViewModel = _mainMenuViewModel;
             TopBarViewModel = _topBarViewModel;
@@ -64,6 +66,10 @@ namespace AnimeVoices.ViewModels
                     break;
                 case (ContentTypes.SETTINGS):
                     CurrentContentViewModel = _settingsViewModel;
+                    PreviousContentViewModel = CurrentContentViewModel;
+                    break;
+                case (ContentTypes.GETMOREDATA):
+                    CurrentContentViewModel = _getMoreDataViewModel;
                     PreviousContentViewModel = CurrentContentViewModel;
                     break;
                 case (ContentTypes.ABOUT):
