@@ -44,10 +44,20 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<Anime> GetAnimeByIdAsync(int id)
         {
-            var singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
-            var animeDto = singleAnimeDto.AnimeDto;
+            SingleAnimeDto singleAnimeDto = new();
+            AnimeDto animeDto = new();
+            Anime anime = new();
+            try
+            {
+                singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
+                animeDto = singleAnimeDto.AnimeDto;
+                anime = AnimeFactory.Create(animeDto);
+            }
+            catch (Exception ex)
+            {
+                anime.Title = "unknown";
+            }
 
-            Anime anime = AnimeFactory.Create(animeDto);
 
             if(anime.Title == "unknown")
             {
@@ -57,9 +67,10 @@ namespace AnimeVoices.DataAccess.Repositories
             if (_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
             {
                 _animeStore.Update(anime);
-            } else
+            } 
+            else
             {
-                _animeStore.Add(anime);
+                await GetAnimeCharactersAsync(animeDto);
             }
             await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
 

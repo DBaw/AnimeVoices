@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content
 {
-    public partial class OverviewViewModel : BaseViewModel, IRecipient<AnimeCollectionChanged>, IRecipient<CharacterCollectionChanged>, IRecipient<SeiyuuCollectionChanged>
+    public partial class OverviewViewModel : BaseViewModel, IRecipient<AnimeCollectionChanged>, IRecipient<CharacterCollectionChanged>, IRecipient<SeiyuuCollectionChanged>, IRecipient<CanGetMoreDataEvent>
     {
         private readonly IAnimeRepository _animeRepository;
         private readonly ICharacterRepository _characterRepository;
@@ -38,10 +38,10 @@ namespace AnimeVoices.ViewModels.Content
         [RelayCommand]
         public async Task GetMoreData()
         {
-            CanGetMoreData = false;
+            _messenger.Send(new CanGetMoreDataEvent(false));
             await _animeRepository.GetTopAnimeAsync();
             await Task.Delay(1000);
-            CanGetMoreData = true;
+            _messenger.Send(new CanGetMoreDataEvent(true));
         }
 
         public void Receive(AnimeCollectionChanged message)
@@ -59,6 +59,9 @@ namespace AnimeVoices.ViewModels.Content
             SeiyuuCount = message.NewCount;
         }
 
-
+        public void Receive(CanGetMoreDataEvent message)
+        {
+            CanGetMoreData = message.canGetData;
+        }
     }
 }
