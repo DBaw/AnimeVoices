@@ -17,6 +17,7 @@
 			 SelectedIndex="{Binding SelectedItemIndex}">
 		<ListBox.Items>
 			<ListBoxItem Content="Overview"/>
+			<ListBoxItem Content="Get More Data"/>
 			<ListBoxItem Content="Anime Info" />
 		</ListBox.Items>
 		<ListBox.Styles>

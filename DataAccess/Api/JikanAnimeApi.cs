@@ -23,7 +23,7 @@ namespace AnimeVoices.DataAccess.Api
 
         public async Task<TopAnimeDto> GetTopAnimeAsync(AnimePagination pagination)
         {
-            var response = await _httpClient.GetStringAsync("top/anime?page=" + pagination.Page.ToString() + pagination.Properties);
+            var response = await _httpClient.GetStringAsync("top/anime?page=" + pagination.Page.ToString() + "&type=tv" + pagination.Properties);
             return JsonConvert.DeserializeObject<TopAnimeDto>(response);
         }
 

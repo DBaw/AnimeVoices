@@ -106,6 +106,16 @@ namespace AnimeVoices.DB
             }
             await _dbContext.SaveChangesAsync();
         }
+
+        public List<AnimePaginationEntity> GetPaginations()
+        {
+            List<AnimePaginationEntity> paginations = new();
+            foreach (var item in _dbContext.AnimePagination)
+            {
+                paginations.Add(item);
+            }
+            return paginations;
+        }
     }
 
 }

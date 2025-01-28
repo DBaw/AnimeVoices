@@ -5,6 +5,7 @@ using AnimeVoices.ViewModels.Content.InfoPanels;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -267,12 +268,20 @@ namespace AnimeVoices.ViewModels.Content
             {
                 if (string.IsNullOrEmpty(message.text))
                 {
-                    FilteredCharacterList = _characterStore.CharacterCollection;
+                    _characterStore.ClearFiltered();
+                    foreach (var character in _characterStore.CharacterCollection)
+                    {
+                        if (SelectedAnime.Characters.Contains(character.Id))
+                        {
+                            FilteredCharacterList.Add(character);
+                        }
+                    }
                 }
                 else
                 {
+                    List<Character> temp = new List<Character>(FilteredCharacterList);
                     _characterStore.ClearFiltered();
-                    foreach (Character c in _characterStore.CharacterCollection)
+                    foreach (Character c in temp)
                     {
                         if (c.Name.ToLower().Contains(message.text.ToLower()))
                         {

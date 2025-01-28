@@ -44,10 +44,20 @@ namespace AnimeVoices.DataAccess.Repositories
 
         public async Task<Anime> GetAnimeByIdAsync(int id)
         {
-            var singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
-            var animeDto = singleAnimeDto.AnimeDto;
+            SingleAnimeDto singleAnimeDto = new();
+            AnimeDto animeDto = new();
+            Anime anime = new();
+            try
+            {
+                singleAnimeDto = await _animeApi.GetAnimeByIdAsync(id);
+                animeDto = singleAnimeDto.AnimeDto;
+                anime = AnimeFactory.Create(animeDto);
+            }
+            catch (Exception ex)
+            {
+                anime.Title = "unknown";
+            }
 
-            Anime anime = AnimeFactory.Create(animeDto);
 
             if(anime.Title == "unknown")
             {
@@ -57,19 +67,18 @@ namespace AnimeVoices.DataAccess.Repositories
             if (_animeStore.AnimeCollection.Any(a => a.Id == anime.Id))
             {
                 _animeStore.Update(anime);
-            } else
+            } 
+            else
             {
-                _animeStore.Add(anime);
+                await GetAnimeCharactersAsync(animeDto);
             }
             await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
 
             return anime;
         }
 
-        public async Task GetTopAnimeAsync()
+        public async Task GetTopAnimeAsync(string properties)
         {
-            string properties = "";
-
             // Get Page for selected properies
             AnimePaginationEntity paginationEntity = await _appDatabase.GetTopAnimePagination(properties);
             AnimePagination pagination = AnimePaginationMapper.ToModel(paginationEntity);
@@ -157,6 +166,34 @@ namespace AnimeVoices.DataAccess.Repositories
                 // Add anime to Store and Database
                 _animeStore.Add(anime);
                 await _appDatabase.SaveAnimeAsync(AnimeMapper.ToEntity(anime));
+            }
+        }
+
+        public async Task RefreshTopAnimeAsync(string properties, int page)
+        {
+            AnimePagination animePagination = new AnimePagination() { Page = page };
+
+            // Fetch top anime data from API
+            TopAnimeDto topAnimeDto = new();
+            List<AnimeDto> animeList = new();
+            try
+            {
+                topAnimeDto = await _animeApi.GetTopAnimeAsync(animePagination);
+                animeList = topAnimeDto.AnimeDto;
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+
+            foreach (AnimeDto animeDto in animeList)
+            {
+                // Fetch anime characters with a 1s delay between each call for character not already in the store
+                if (!_animeStore.AnimeCollection.Any(a => a.Id == animeDto.Id))
+                {
+                    await Task.Delay(1000);
+                    await GetAnimeCharactersAsync(animeDto);
+                }
             }
         }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AnimeVoices.ViewModels.Content.InfoPanels
 {
-    public partial class AnimeInfoPanelViewModel : BaseViewModel, IRecipient<SelectedAnimeChanged>
+    public partial class AnimeInfoPanelViewModel : BaseViewModel, IRecipient<SelectedAnimeChanged>, IRecipient<CanGetMoreDataEvent>
     {
         private readonly IAnimeRepository _animeRepository;
 
@@ -17,8 +17,8 @@ namespace AnimeVoices.ViewModels.Content.InfoPanels
 
         public AnimeInfoPanelViewModel(IMessenger messenger, IAnimeRepository animeRepository) : base(messenger)
         {
-            _animeRepository = animeRepository;
             _messenger.RegisterAll(this);
+            _animeRepository = animeRepository;
 
             CanRefresh = true;
         }
@@ -26,16 +26,21 @@ namespace AnimeVoices.ViewModels.Content.InfoPanels
         [RelayCommand]
         public async Task GetAnimeInfo()
         {
-            CanRefresh = false;
+            _messenger.Send(new CanGetMoreDataEvent(false));
             Anime anime = await _animeRepository.GetAnimeByIdAsync(SelectedAnime.Id);
             SelectedAnime = anime;
-            await Task.Delay(1500);
-            CanRefresh = true;
+            await Task.Delay(1000);
+            _messenger.Send(new CanGetMoreDataEvent(true));
         } 
 
         public void Receive(SelectedAnimeChanged message)
         {
             SelectedAnime = message.anime;
+        }
+
+        public void Receive(CanGetMoreDataEvent message)
+        {
+            CanRefresh = message.canGetData;
         }
     }
 }
