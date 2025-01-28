@@ -7,11 +7,18 @@
 			 d:DesignHeight="310"
              x:Class="AnimeVoices.Views.Content.MoreData.GetTopDataView"
 			 Background="Transparent">
-	<Grid RowDefinitions="3*,*,*"
+	<UserControl.Styles>
+		<Style Selector="RadioButton">
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="BorderBrush" Value="Wheat"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid RowDefinitions="4*,3*,2*"
 		  Margin="0,16,0,0">
 		<Grid ColumnDefinitions="*,*">
 			<StackPanel Grid.Column="0"
-						Margin="20"
 						Spacing="8"
 						HorizontalAlignment="Center"
 						Orientation="Vertical">
@@ -20,34 +27,28 @@
 						   FontWeight="Bold"
 						   Margin="0,0,0,16"/>
 				<RadioButton Content="all"
-							 GroupName="FilterGroup"
-							 IsChecked="true"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-							 Command="{Binding ChangeFilterCommand}"/>
+							 CommandParameter="0"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"
+							 IsChecked="true" />
 				<RadioButton Content="airing"
-							 GroupName="FilterGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-							 Command="{Binding ChangeFilterCommand}"/>
+							 CommandParameter="1"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
 				<RadioButton Content="upcoming"
-							 GroupName="FilterGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-						     Command="{Binding ChangeFilterCommand}"/>
+							 CommandParameter="2"
+						     Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
 				<RadioButton Content="popularity"
-							 GroupName="FilterGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-							 Command="{Binding ChangeFilterCommand}"/>
+							 CommandParameter="3"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
 				<RadioButton Content="favourite"
-							 GroupName="FilterGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-							 Command="{Binding ChangeFilterCommand}"/>
+							 CommandParameter="4"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
 			</StackPanel>
 			<StackPanel Grid.Column="1"
-						Margin="20"
 						Spacing="8"
 						HorizontalAlignment="Center"
 						Orientation="Vertical">
@@ -56,40 +57,46 @@
 						   FontWeight="Bold"
 						   Margin="0,0,0,16"/>
 				<RadioButton Content="all"
-							 GroupName="RatingGroup"
+							 CommandParameter="0"
+							 GroupName="Ratings"
 							 IsChecked="true"
-							 FontSize="18"
-							 FontWeight="SemiBold"
 							 Command="{Binding ChangeRatingCommand}"/>
 				<RadioButton Content="PG"
-							 GroupName="RatingGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-							 Command="{Binding ChangeRatingCommand}"/>
+							 CommandParameter="1"
+							 Command="{Binding ChangeRatingCommand}"
+							 GroupName="Ratings"/>
 				<RadioButton Content="PG-13"
-							 GroupName="RatingGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-						     Command="{Binding ChangeRatingCommand}"/>
+							 CommandParameter="2"
+						     Command="{Binding ChangeRatingCommand}"
+							 GroupName="Ratings"/>
 				<RadioButton Content="R - 17+"
-							 GroupName="RatingGroup"
-							 FontSize="18"
-							 FontWeight="SemiBold"
-							 Command="{Binding ChangeRatingCommand}"/>
+							 CommandParameter="3"
+							 Command="{Binding ChangeRatingCommand}"
+							 GroupName="Ratings"/>
 			</StackPanel>
 		</Grid>
-		<Button Grid.Row="1"
-				Content="REFRESH"
-				Command="{Binding RefreshDataCommand}"
-				Background="#AFB5E7"
-				Foreground="#2D323D"
-				FontWeight="Bold"
-				Height="50"
-				Width="300"
-				CornerRadius="25"/>
+		<Grid Grid.Row="1">
+			<StackPanel Orientation="Vertical"
+						VerticalAlignment="Center"
+						Spacing="8">
+				<Button Content="REFRESH"
+						Command="{Binding RefreshDataCommand}"
+						Background="#AFB5E7"
+						Foreground="#2D323D"
+						FontWeight="Bold"
+						Height="50"
+						Width="300"
+						CornerRadius="25"/>
+				<TextBlock Text="{Binding PagesCounter}"
+						   HorizontalAlignment="Center"
+						   FontSize="16"
+						   Foreground="WhiteSmoke"/>
+			</StackPanel>
+		</Grid>
 		<Button Grid.Row="2"
 				Content="GET MORE"
 				Command="{Binding GetDataCommand}"
+				IsEnabled="{Binding CanGetData}"
 				Background="#53AA93"
 				Foreground="#2D323D"
 				FontWeight="Bold"

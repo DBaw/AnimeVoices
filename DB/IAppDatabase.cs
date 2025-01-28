@@ -17,5 +17,7 @@ namespace AnimeVoices.DB
 
         Task<AnimePaginationEntity> GetTopAnimePagination(string properties);
         Task SaveAnimePaginationAsync(AnimePaginationEntity paginationEntity);
+
+        List<AnimePaginationEntity> GetPaginations();
     }
 }

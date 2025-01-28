@@ -124,8 +124,8 @@ namespace AnimeVoices
             // Register ViewModels
             //Main Window ViewModels
             services.AddSingleton<TopBarViewModel>();
-                services.AddSingleton<MainMenuViewModel>();
-                services.AddSingleton<UserPanelViewModel>();
+            services.AddSingleton<MainMenuViewModel>();
+            services.AddSingleton<UserPanelViewModel>();
                 //Content
                 services.AddSingleton<OverviewViewModel>();
                 services.AddSingleton<AnimeInfoViewModel>();

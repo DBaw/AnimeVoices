@@ -38,26 +38,8 @@ namespace AnimeVoices.ViewModels.Content.MoreData
             _messenger.Send(new CanGetMoreDataEvent(false));
             await _animeRepository.GetAnimeByIdAsync(_animeId);
             await Task.Delay(1000);
-            Anime? anime = _animeStore.AnimeCollection.FirstOrDefault(a => a.Id == _animeId);
 
-            string message = string.Empty;
-            if(anime != null)
-            {
-                message = anime.Title;
-                if (alreadyExists)
-                {
-                    message += " updated";
-                }
-                else
-                {
-                    message += " added";
-                }
-            } 
-            else
-            {
-                message = "Anime doesn't exist";
-            }
-            AnimeCheckText = message;
+            DisplayAnimeCheck(alreadyExists);
 
             _messenger.Send(new CanGetMoreDataEvent(true));
         }
@@ -81,6 +63,30 @@ namespace AnimeVoices.ViewModels.Content.MoreData
         {
             CanGetData = message.canGetData;
             GetDataCommand.NotifyCanExecuteChanged();
+        }
+
+        private void DisplayAnimeCheck(bool alreadyExists)
+        {
+            Anime? anime = _animeStore.AnimeCollection.FirstOrDefault(a => a.Id == _animeId);
+
+            string message = string.Empty;
+            if (anime != null)
+            {
+                message = anime.Title;
+                if (alreadyExists)
+                {
+                    message += " updated";
+                }
+                else
+                {
+                    message += " added";
+                }
+            }
+            else
+            {
+                message = "Anime doesn't exist";
+            }
+            AnimeCheckText = message;
         }
     }
 }

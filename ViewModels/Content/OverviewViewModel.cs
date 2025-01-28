@@ -39,7 +39,7 @@ namespace AnimeVoices.ViewModels.Content
         public async Task GetMoreData()
         {
             _messenger.Send(new CanGetMoreDataEvent(false));
-            await _animeRepository.GetTopAnimeAsync();
+            await _animeRepository.GetTopAnimeAsync("");
             await Task.Delay(1000);
             _messenger.Send(new CanGetMoreDataEvent(true));
         }

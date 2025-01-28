@@ -7,8 +7,9 @@ namespace AnimeVoices.DataAccess.Repositories
     public interface IAnimeRepository
     {
         Task InitializeAsync();
-        Task GetTopAnimeAsync();
+        Task GetTopAnimeAsync(string properties);
         Task GetAnimeCharactersAsync(AnimeDto dto);
         Task<Anime> GetAnimeByIdAsync(int id);
+        Task RefreshTopAnimeAsync(string properties, int page);
     }
 }
