@@ -1,0 +1,107 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" 
+			 d:DesignWidth="710" 
+			 d:DesignHeight="310"
+             x:Class="AnimeVoices.Views.Content.MoreData.GetTopDataView"
+			 Background="Transparent">
+	<UserControl.Styles>
+		<Style Selector="RadioButton">
+			<Setter Property="FontSize" Value="18"/>
+			<Setter Property="FontWeight" Value="SemiBold"/>
+			<Setter Property="BorderBrush" Value="Wheat"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Grid RowDefinitions="4*,3*,2*"
+		  Margin="0,16,0,0">
+		<Grid ColumnDefinitions="*,*">
+			<StackPanel Grid.Column="0"
+						Spacing="8"
+						HorizontalAlignment="Center"
+						Orientation="Vertical">
+				<TextBlock Text="Filter"					   
+						   FontSize="26"
+						   FontWeight="Bold"
+						   Margin="0,0,0,16"/>
+				<RadioButton Content="all"
+							 CommandParameter="0"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"
+							 IsChecked="true" />
+				<RadioButton Content="airing"
+							 CommandParameter="1"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
+				<RadioButton Content="upcoming"
+							 CommandParameter="2"
+						     Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
+				<RadioButton Content="popularity"
+							 CommandParameter="3"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
+				<RadioButton Content="favourite"
+							 CommandParameter="4"
+							 Command="{Binding ChangeFilterCommand}"
+							 GroupName="Filtes"/>
+			</StackPanel>
+			<StackPanel Grid.Column="1"
+						Spacing="8"
+						HorizontalAlignment="Center"
+						Orientation="Vertical">
+				<TextBlock Text="Rating"
+						   FontSize="26"
+						   FontWeight="Bold"
+						   Margin="0,0,0,16"/>
+				<RadioButton Content="all"
+							 CommandParameter="0"
+							 GroupName="Ratings"
+							 IsChecked="true"
+							 Command="{Binding ChangeRatingCommand}"/>
+				<RadioButton Content="PG"
+							 CommandParameter="1"
+							 Command="{Binding ChangeRatingCommand}"
+							 GroupName="Ratings"/>
+				<RadioButton Content="PG-13"
+							 CommandParameter="2"
+						     Command="{Binding ChangeRatingCommand}"
+							 GroupName="Ratings"/>
+				<RadioButton Content="R - 17+"
+							 CommandParameter="3"
+							 Command="{Binding ChangeRatingCommand}"
+							 GroupName="Ratings"/>
+			</StackPanel>
+		</Grid>
+		<Grid Grid.Row="1">
+			<StackPanel Orientation="Vertical"
+						VerticalAlignment="Center"
+						Spacing="8">
+				<Button Content="REFRESH"
+						Command="{Binding RefreshDataCommand}"
+						Background="#AFB5E7"
+						Foreground="#2D323D"
+						FontWeight="Bold"
+						Height="50"
+						Width="300"
+						CornerRadius="25"/>
+				<TextBlock Text="{Binding PagesCounter}"
+						   HorizontalAlignment="Center"
+						   FontSize="16"
+						   Foreground="WhiteSmoke"/>
+			</StackPanel>
+		</Grid>
+		<Button Grid.Row="2"
+				Content="GET MORE"
+				Command="{Binding GetDataCommand}"
+				IsEnabled="{Binding CanGetData}"
+				Background="#53AA93"
+				Foreground="#2D323D"
+				FontWeight="Bold"
+				Height="50"
+				Width="300"
+				CornerRadius="25"/>
+	</Grid>
+</UserControl>

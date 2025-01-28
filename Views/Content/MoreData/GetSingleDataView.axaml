@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+			 d:DesignWidth="710" 
+			 d:DesignHeight="150"
+             x:Class="AnimeVoices.Views.Content.MoreData.GetSingleDataView">
+	<Grid RowDefinitions="2*,*">
+		<Grid Grid.Column="0"
+			  ColumnDefinitions="*,*,*">
+			<TextBlock Grid.Column="0"
+					   Text="Anime: "
+					   FontSize="26"
+					   FontWeight="Bold"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+			<TextBox Grid.Column="1"
+					 Text="{Binding AnimeIdText}"
+					 Width="200"
+					 Margin="0,0,0,15"
+					 Watermark="ID"
+					 Background="Transparent"
+					 Foreground="White"
+					 BorderBrush="White"
+					 CaretBrush="White"
+					 FontSize="18"
+					 MaxLength="6"
+					 AcceptsReturn="False"
+					 AcceptsTab="False"
+					 HorizontalAlignment="Stretch"
+					 VerticalAlignment="Center"
+					 VerticalContentAlignment="Center"
+					 HorizontalContentAlignment="Center"/>
+
+			<Button Grid.Column="2"
+					Content="GET"
+					Command="{Binding GetDataCommand}"
+					Background="#53AA93"
+					Foreground="#2D323D"
+					FontWeight="Bold"
+					Height="35"
+					Width="200"
+					CornerRadius="25"/>
+		</Grid>
+		<TextBlock Grid.Row="1"
+				   Text="{Binding AnimeCheckText}"
+				   FontSize="18"
+				   FontWeight="SemiBold"
+				   HorizontalAlignment="Center"
+				   VerticalAlignment="Center"/>
+	</Grid>
+</UserControl>

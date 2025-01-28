@@ -6,6 +6,7 @@ using AnimeVoices.Utilities;
 using AnimeVoices.ViewModels;
 using AnimeVoices.ViewModels.Content;
 using AnimeVoices.ViewModels.Content.InfoPanels;
+using AnimeVoices.ViewModels.Content.MoreData;
 using AnimeVoices.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -123,17 +124,21 @@ namespace AnimeVoices
             // Register ViewModels
             //Main Window ViewModels
             services.AddSingleton<TopBarViewModel>();
-                services.AddSingleton<MainMenuViewModel>();
-                services.AddSingleton<UserPanelViewModel>();
+            services.AddSingleton<MainMenuViewModel>();
+            services.AddSingleton<UserPanelViewModel>();
                 //Content
                 services.AddSingleton<OverviewViewModel>();
                 services.AddSingleton<AnimeInfoViewModel>();
                 services.AddSingleton<AboutAppViewModel>();
                 services.AddSingleton<SettingsViewModel>();
+                services.AddSingleton<GetMoreDataViewModel>();
                     //Info Panels
                     services.AddSingleton<AnimeInfoPanelViewModel>();
                     services.AddSingleton<CharacterInfoPanelViewModel>();
                     services.AddSingleton<ResultInfoPanelViewModel>();
+                    //MoreData
+                    services.AddSingleton<GetSingleDataViewModel>();
+                    services.AddSingleton<GetTopDataViewModel>();
             //Main Window ViewModel
             services.AddSingleton<MainWindowViewModel>();
 

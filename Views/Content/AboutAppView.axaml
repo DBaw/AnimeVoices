@@ -45,7 +45,10 @@
 			The app leverages data from the <Bold>JIKAN API</Bold>, ensuring accurate and up-to-date information about anime, characters, and voice actors
 			<LineBreak/>
 			<LineBreak/>
-			<Bold>GET MORE</Bold> button on <Bold>Overwiew</Bold> page will get you data from top anime. Download more anime data to get better results and search for your favourite characters voices on <Bold>Anime Info</Bold> page
+			<Bold>GET MORE</Bold> button on <Bold>Overwiew</Bold> page will get you top anime data from all categories. Download more anime data to get better results and search for your favourite characters voices on <Bold>Anime Info</Bold> page
+			<LineBreak/>
+			<LineBreak/>
+			To get specific anime (ID from MyAnimeList) or get anime from specific category go to <Bold>Get More Data</Bold> tab
 		</TextBlock>
 		<TextBlock Grid.Row="2"
 				   Text="UPCOMING FEATURES:"
@@ -61,10 +64,10 @@
 				   VerticalAlignment="Top"
 				   Margin="20,0,20,0"
 				   LetterSpacing="2">
-			<Bold>Get Data Page</Bold> – Users will have greater control over data management, enabling you to download information for specific anime titles and refresh data for previously downloaded content
-			<LineBreak/>
-			<LineBreak/>
 			<Bold>Users </Bold> – Create your own profile, log in to access personalized features, and save your favorite Seiyuu for quicker navigation
+			<LineBreak/>
+			<LineBreak/>
+			<Bold>Filters</Bold> – Users will have greater control over data management with many filters to apply on lists
 			<LineBreak/>
 			<LineBreak/>
 			<Bold>Themes </Bold> – New color themes option will be available, allowing you to customize the app’s appearance to match your preferences

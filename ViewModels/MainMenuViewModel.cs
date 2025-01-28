@@ -24,6 +24,9 @@ namespace AnimeVoices.ViewModels
                     type = ContentTypes.OVERVIEW;
                     break;
                 case 1:
+                    type = ContentTypes.GETMOREDATA;
+                    break;
+                case 2:
                     type = ContentTypes.ANIMELIST;
                     break;
             }
