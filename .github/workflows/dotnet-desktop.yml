@@ -2,9 +2,9 @@ name: Build and Release
 
 on:
   workflow_dispatch: # Manual trigger
-  push: # Trigger on push to any branch
+  push: # Trigger on push to main
     branches: 
-      - '*'
+      - main
   pull_request: # Trigger on PR to main
     branches:
       - main
@@ -33,7 +33,7 @@ jobs:
 
   release:
     runs-on: windows-latest
-    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'main' }}
+    if: ${{ github.event_name == 'push'}
     needs: build
     steps:
       - name: Checkout Code
@@ -70,9 +70,13 @@ jobs:
           major=$(echo $latest_tag | cut -d'.' -f1)
           minor=$(echo $latest_tag | cut -d'.' -f2)
           build=$(echo $latest_tag | cut -d'.' -f3)
+
+          if [[ major == 0 ]]; then
+            major=$((major + 1))
+          fi
       
           # PR or direct push decides versioning behavior
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          if [[ "${{ github.event_name }}" == "push" ]]; then
             minor=$((minor + 1))
             build=0
           else
